@@ -6,20 +6,20 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/login"
-        android:name="example.com.project306.Login"
+        android:id="@+id/loginFragment"
+        android:name="example.com.project306.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_login_to_signUp"
-            app:destination="@id/signUp" />
+            android:id="@+id/action_login_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_login_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/signUp"
-        android:name="example.com.project306.SignUp"
+        android:id="@+id/signUpFragment"
+        android:name="example.com.project306.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -32,8 +32,8 @@
         android:label="main_fragment"
         tools:layout="@layout/main_fragment">
         <action
-            android:id="@+id/action_mainFragment_to_login"
-            app:destination="@id/login" />
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />

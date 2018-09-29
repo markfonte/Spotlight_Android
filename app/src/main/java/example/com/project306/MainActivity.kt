@@ -1,8 +1,12 @@
 package example.com.project306
 
+import android.content.res.Resources
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.util.Log
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.fragment.NavHostFragment
@@ -10,7 +14,6 @@ import androidx.navigation.ui.NavigationUI
 import example.com.project306.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -20,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost.navController
 
         initializeBottomNav(navController)
+
+        NavigationUI.setupActionBarWithNavController(this, navController)
+
     }
 
     private fun initializeBottomNav(navController: NavController) {
