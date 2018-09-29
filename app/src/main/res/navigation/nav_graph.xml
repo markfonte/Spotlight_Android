@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="example.com.project306.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_signUp"
+            app:destination="@id/signUp" />
+        <action
+            android:id="@+id/action_login_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="example.com.project306.SignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUp_to_chooseValuesFragment"
+            app:destination="@id/chooseValuesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="example.com.project306.ui.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_chooseValuesFragment"
+            app:destination="@id/chooseValuesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseValuesFragment"
+        android:name="example.com.project306.ChooseValuesFragment"
+        android:label="fragment_choose_values"
+        tools:layout="@layout/fragment_choose_values" >
+        <action
+            android:id="@+id/action_chooseValuesFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="example.com.project306.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" />
+    <fragment
+        android:id="@+id/rankingFragment"
+        android:name="example.com.project306.RankingFragment"
+        android:label="fragment_ranking"
+        tools:layout="@layout/fragment_ranking" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="example.com.project306.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
