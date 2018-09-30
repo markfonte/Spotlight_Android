@@ -9,4 +9,8 @@ class MainViewModel : ViewModel() {
     fun getDisplayName() : MutableLiveData<String> {
         return mDisplayName
     }
+
+    fun setDisplayName( displayName: String) {
+        mDisplayName.value = displayName
+    }
 }
