@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        viewModel.getDisplayName().observe(viewLifecycleOwner, )
+       // viewModel.getDisplayName().observe(viewLifecycleOwner, )
     }
 
 }
