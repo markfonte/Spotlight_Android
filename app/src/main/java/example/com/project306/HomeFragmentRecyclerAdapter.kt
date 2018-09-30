@@ -19,7 +19,9 @@ class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<Sor
     override fun getItemCount(): Int = sororityTimeSlots.size
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.sororityName.text =
+        viewHolder.sororityName.text = sororityTimeSlots[position].SororityName
+        val temp : String = sororityTimeSlots[position].StartTime + " : " + sororityTimeSlots[position].EndTime
+        viewHolder.timeSlot.text = temp
     }
 
 }
