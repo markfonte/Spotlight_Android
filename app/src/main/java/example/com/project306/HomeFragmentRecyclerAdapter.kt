@@ -1,14 +1,14 @@
 package example.com.project306
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<SororityTimeSlot>) : RecyclerView.Adapter<HomeFragmentRecyclerAdapter.ViewHolder>() {
+class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<SororityTimeSlot>) : androidx.recyclerview.widget.RecyclerView.Adapter<HomeFragmentRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
         val sororityName: TextView = v.findViewById(R.id.home_fragment_recycler_sorority_name)
         val timeSlot: TextView = v.findViewById(R.id.home_fragment_recycler_time_slot)
     }
