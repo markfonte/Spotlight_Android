@@ -1,10 +1,11 @@
-package example.com.project306
+package example.com.project306.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import example.com.project306.R
+import example.com.project306.util.SororityTimeSlot
 
 class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<SororityTimeSlot>) : androidx.recyclerview.widget.RecyclerView.Adapter<HomeFragmentRecyclerAdapter.ViewHolder>() {
 
@@ -12,7 +13,7 @@ class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<Sor
         val sororityName: TextView = v.findViewById(R.id.home_fragment_recycler_sorority_name)
         val timeSlot: TextView = v.findViewById(R.id.home_fragment_recycler_time_slot)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFragmentRecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_fragment_recycler_row, parent, false))
     }
 

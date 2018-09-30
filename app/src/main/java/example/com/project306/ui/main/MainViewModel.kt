@@ -4,13 +4,5 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    private val mDisplayName: MutableLiveData<String> = MutableLiveData()
-
-    fun getDisplayName() : MutableLiveData<String> {
-        return mDisplayName
-    }
-
-    fun setDisplayName( displayName: String) {
-        mDisplayName.value = displayName
-    }
+    val mDisplayName: MutableLiveData<String> = MutableLiveData()
 }

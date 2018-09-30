@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="example.com.project306.LoginFragment"
+        android:name="example.com.project306.ui.main.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="example.com.project306.SignUpFragment"
+        android:name="example.com.project306.ui.main.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseValuesFragment"
-        android:name="example.com.project306.ChooseValuesFragment"
+        android:name="example.com.project306.ui.main.ChooseValuesFragment"
         android:label="fragment_choose_values"
         tools:layout="@layout/fragment_choose_values">
         <action
@@ -52,17 +52,17 @@
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
-        android:name="example.com.project306.ViewFragment"
+        android:name="example.com.project306.ui.main.ReadRankingFragment"
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" />
     <fragment
         android:id="@+id/rankingFragment"
-        android:name="example.com.project306.RankingFragment"
+        android:name="example.com.project306.ui.main.EditRankingFragment"
         android:label="fragment_ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="example.com.project306.SettingsFragment"
+        android:name="example.com.project306.ui.main.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

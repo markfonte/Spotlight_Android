@@ -1,4 +1,4 @@
-package example.com.project306
+package example.com.project306.util
 
 data class SororityTimeSlot(
         val SororityName : String?,

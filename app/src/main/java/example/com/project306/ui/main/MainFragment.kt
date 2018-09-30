@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import example.com.project306.R
 import example.com.project306.databinding.MainFragmentBinding
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -15,30 +16,25 @@ class MainFragment : androidx.fragment.app.Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-
+    private lateinit var mainFragmentViewModel: MainViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = MainFragmentBinding.inflate(inflater, container, false)
-        subscribeUi(binding)
+
+        mainFragmentViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false).apply {
+            viewModel = mainFragmentViewModel
+            setLifecycleOwner(this@MainFragment)
+        }
+
         return binding.root
-    }
-
-    private fun subscribeUi(binding: MainFragmentBinding?) {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-        viewModel.getDisplayName().observe(viewLifecycleOwner, Observer { displayName ->
-            if (displayName != null) {
-                binding?.displayName = displayName
-            }
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         main_button.setOnClickListener {
-            with(viewModel) {
-                setDisplayName("Mark Fonte")
+            with(mainFragmentViewModel) {
+                mDisplayName.value = "Mark Fonte"
             }
         }
     }
