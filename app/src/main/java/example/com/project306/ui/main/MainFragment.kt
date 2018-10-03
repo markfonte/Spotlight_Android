@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import example.com.project306.R
 import example.com.project306.databinding.MainFragmentBinding
+import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
@@ -19,8 +20,8 @@ class MainFragment : androidx.fragment.app.Fragment() {
     private lateinit var mainFragmentViewModel: MainViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        mainFragmentViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
+        mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
 
         val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false).apply {
             viewModel = mainFragmentViewModel
