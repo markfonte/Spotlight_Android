@@ -18,15 +18,14 @@ class FirebaseService {
         return mCurrentUser
     }
 
-    fun attemptLogin(email: String, password: String): LiveData<FirebaseUser> {
-        val result: MutableLiveData<FirebaseUser> = MutableLiveData()
+    fun attemptLogin(email: String, password: String): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) {
                 mCurrentUser = mAuth?.currentUser
-                result.value = mCurrentUser
+                result.value = ""
             } else {
-                Log.i(LOG_TAG, "Firebase authentication error: " + it.exception.toString())
-                result.value = null
+                result.value = it.exception.toString()
             }
         }
         return result
