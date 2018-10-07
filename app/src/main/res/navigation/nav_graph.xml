@@ -33,7 +33,12 @@
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />

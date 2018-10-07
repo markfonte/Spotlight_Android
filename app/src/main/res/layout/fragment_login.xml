@@ -22,7 +22,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_enter_email_wrapper"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_enter_password_wrapper"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

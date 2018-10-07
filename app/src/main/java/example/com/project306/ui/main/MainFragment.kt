@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import example.com.project306.R
@@ -26,9 +27,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
             viewModel = mainFragmentViewModel
             setLifecycleOwner(this@MainFragment)
         }
-        if(mainFragmentViewModel.firebaseService.getCurrentUser() == null) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_mainFragment_to_loginFragment, null)
-        }
         return binding.root
     }
 
@@ -38,6 +36,9 @@ class MainFragment : androidx.fragment.app.Fragment() {
             with(mainFragmentViewModel) {
                 mDisplayName.value = "Mark Fonte"
             }
+        }
+        if(mainFragmentViewModel.firebaseService.getCurrentUser() == null) {
+            view.let { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginFragment, null) }
         }
     }
 
