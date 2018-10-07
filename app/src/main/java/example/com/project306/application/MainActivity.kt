@@ -2,6 +2,7 @@ package example.com.project306.application
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onBackPressed()
+    }
+
+    fun toggleBottomNavVisibility(makeVisible: Boolean) {
+        bottom_nav.visibility = if (makeVisible) View.VISIBLE else View.GONE
     }
 
 }

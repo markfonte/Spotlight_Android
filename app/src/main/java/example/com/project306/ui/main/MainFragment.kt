@@ -10,9 +10,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import example.com.project306.R
+import example.com.project306.application.MainActivity
 import example.com.project306.databinding.MainFragmentBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
@@ -38,6 +40,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
             }
         }
         if(mainFragmentViewModel.firebaseService.getCurrentUser() == null) {
+            (activity as MainActivity).toggleBottomNavVisibility(false)
             view.let { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginFragment, null) }
         }
     }
