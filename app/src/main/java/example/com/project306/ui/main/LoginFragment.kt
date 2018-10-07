@@ -53,6 +53,9 @@ class LoginFragment : Fragment() {
                 login_enter_email.requestFocus()
             }
         }
+        create_account_button.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_login_to_signUpFragment, null)
+        }
     }
 
     private fun validInput(email: String?, password: String?): Boolean {
