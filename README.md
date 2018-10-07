@@ -1,7 +1,6 @@
-# Project Title
+# SororityExpress
 
 SororityExpress lets sorority rushees streamline their rush process!
-** note - this repository contains only the Android version SororityExpress **
 
 ### Features Include:
 * A personalized list of their rush schedule, according to Panhel
