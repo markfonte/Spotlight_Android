@@ -1,7 +1,7 @@
 package example.com.project306.data
 
 class MainRepository {
-    private lateinit var firebaseService: FirebaseService
+    private var firebaseService: FirebaseService = FirebaseService.getInstance()
 
     companion object {
 

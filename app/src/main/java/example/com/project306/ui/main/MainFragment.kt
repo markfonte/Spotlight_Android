@@ -22,7 +22,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
                               savedInstanceState: Bundle?): View? {
         val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
         mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
-
         val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false).apply {
             viewModel = mainFragmentViewModel
             setLifecycleOwner(this@MainFragment)
