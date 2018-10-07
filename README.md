@@ -29,3 +29,4 @@ While the source code is open to the public, this project is currently not open 
 
 * Kwan Lee, Taylor Landsey, Josh Lee & Josh Brobine of project 306
 * Dr. Eric Fretz
+* [android-sunflower](https://github.com/googlesamples/android-sunflower) for the basics of Android Jetpack

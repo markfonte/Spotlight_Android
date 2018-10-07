@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="example.com.project306.ui.main.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_to_signUpFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="example.com.project306.ui.main.SignUpFragment"
-        android:label="fragment_sign_up"
+        android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUp_to_chooseValuesFragment"
@@ -29,11 +29,11 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="example.com.project306.ui.main.MainFragment"
-        android:label="main_fragment"
+        android:label="Home"
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            app:destination="@+id/loginFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
@@ -49,7 +49,7 @@
     <fragment
         android:id="@+id/chooseValuesFragment"
         android:name="example.com.project306.ui.main.ChooseValuesFragment"
-        android:label="fragment_choose_values"
+        android:label="Set Up"
         tools:layout="@layout/fragment_choose_values">
         <action
             android:id="@+id/action_chooseValuesFragment_to_mainFragment"
@@ -58,12 +58,12 @@
     <fragment
         android:id="@+id/viewFragment"
         android:name="example.com.project306.ui.main.ReadRankingFragment"
-        android:label="fragment_view"
+        android:label="View"
         tools:layout="@layout/fragment_view" />
     <fragment
         android:id="@+id/rankingFragment"
         android:name="example.com.project306.ui.main.EditRankingFragment"
-        android:label="fragment_ranking"
+        android:label="Rank"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/settingsFragment"

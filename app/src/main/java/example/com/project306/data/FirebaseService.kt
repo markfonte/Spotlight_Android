@@ -1,5 +1,6 @@
 package example.com.project306.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,20 @@ class FirebaseService {
 
     fun getCurrentUser(): FirebaseUser? {
         return mCurrentUser
+    }
+
+    fun attemptLogin(email: String, password: String): LiveData<FirebaseUser> {
+        val result: MutableLiveData<FirebaseUser> = MutableLiveData()
+        mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                mCurrentUser = mAuth?.currentUser
+                result.value = mCurrentUser
+            } else {
+                Log.i(LOG_TAG, "Firebase authentication error: " + it.exception.toString())
+                result.value = null
+            }
+        }
+        return result
     }
 
     fun createUserWithEmailAndPassword(email: String, password: String): LiveData<String> {
@@ -36,6 +51,7 @@ class FirebaseService {
     }
 
     companion object {
+        private val LOG_TAG: String = FirebaseService::class.java.name
 
         // For Singleton instantiation
         @Volatile

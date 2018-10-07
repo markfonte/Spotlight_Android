@@ -12,4 +12,5 @@
     <string name="login_enter_password_hint">Password</string>
     <string name="login_main_title_default_text">Welcome! Please sign in.</string>
     <string name="attempt_login_button_text">Go</string>
+    <string name="login_error_default_message">Your sign-in credentials were incorrect. Please try again.</string>
 </resources>
