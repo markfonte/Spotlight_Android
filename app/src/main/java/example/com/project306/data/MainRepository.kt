@@ -1,10 +1,17 @@
 package example.com.project306.data
 
+import androidx.lifecycle.LiveData
+import com.google.firebase.auth.FirebaseUser
+
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
 
-    fun getFirebaseService() : FirebaseService {
-        return firebaseService
+    fun attemptLogin(email: String, password: String) : LiveData<String> {
+        return firebaseService.attemptLogin(email, password)
+    }
+
+    fun getCurrentUser() : LiveData<FirebaseUser> {
+        return firebaseService.getCurrentUser()
     }
 
     companion object {

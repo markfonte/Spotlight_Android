@@ -14,8 +14,10 @@ class FirebaseService {
         mCurrentUser = mAuth?.currentUser
     }
 
-    fun getCurrentUser(): FirebaseUser? {
-        return mCurrentUser
+    fun getCurrentUser(): LiveData<FirebaseUser> {
+        val result : MutableLiveData<FirebaseUser> = MutableLiveData()
+        result.value = mCurrentUser
+        return result
     }
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
