@@ -2,6 +2,7 @@ package example.com.project306.util
 
 import android.content.Context
 import example.com.project306.data.MainRepository
+import example.com.project306.ui.main.LoginViewModelFactory
 import example.com.project306.ui.main.MainViewModelFactory
 
 object InjectorUtils {
@@ -15,5 +16,8 @@ object InjectorUtils {
         return MainViewModelFactory(repository)
     }
 
-
+    fun provideLoginViewModelFactory() : LoginViewModelFactory {
+        val repository : MainRepository = getMainRepository()
+        return LoginViewModelFactory(repository)
+    }
 }

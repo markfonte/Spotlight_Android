@@ -3,6 +3,10 @@ package example.com.project306.data
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
 
+    fun getFirebaseService() : FirebaseService {
+        return firebaseService
+    }
+
     companion object {
 
         // For Singleton instantiation

@@ -6,27 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import example.com.project306.R
 import example.com.project306.databinding.MainFragmentBinding
 import example.com.project306.util.InjectorUtils
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var mainFragmentViewModel: MainViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
         mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false).apply {
             viewModel = mainFragmentViewModel
             setLifecycleOwner(this@MainFragment)
         }
-
+        if(mainFragmentViewModel.firebaseService.getCurrentUser() == null) {
+            NavHostFragment.findNavController(this).navigate(R.id.action_mainFragment_to_loginFragment, null)
+        }
         return binding.root
     }
 
@@ -37,11 +39,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
                 mDisplayName.value = "Mark Fonte"
             }
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
     }
 
 }

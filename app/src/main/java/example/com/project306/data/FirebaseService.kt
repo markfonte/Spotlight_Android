@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-public class FirebaseService {
+class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     private var mCurrentUser: FirebaseUser? = null
 
@@ -13,14 +13,17 @@ public class FirebaseService {
         mCurrentUser = mAuth?.currentUser
     }
 
+    fun getCurrentUser(): FirebaseUser? {
+        return mCurrentUser
+    }
+
     fun createUserWithEmailAndPassword(email: String, password: String): LiveData<String> {
-        val result : MutableLiveData<String> = MutableLiveData()
-        mAuth?.createUserWithEmailAndPassword(email,password)?.addOnCompleteListener {
-            if(it.isSuccessful) {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
+            if (it.isSuccessful) {
                 mCurrentUser = mAuth?.currentUser
                 result.value = ""
-            }
-            else {
+            } else {
                 result.value = it.exception.toString()
             }
 
