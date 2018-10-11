@@ -1,15 +1,13 @@
 package example.com.project306.application
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import example.com.project306.R
-import example.com.project306.ui.main.MainFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment? ?: return
+        val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment?
+                ?: return
 
         val navController = navHost.navController
 
@@ -34,8 +33,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val currentDestination= NavHostFragment.findNavController(main_nav_host_fragment).currentDestination
-        when(currentDestination?.id) {
+        val currentDestination = NavHostFragment.findNavController(main_nav_host_fragment).currentDestination
+        when (currentDestination?.id) {
             R.id.loginFragment -> {
                 finish()
                 return

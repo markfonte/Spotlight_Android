@@ -35,7 +35,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
                 mDisplayName.value = "Mark Fonte"
             }
         }
-        if(mainFragmentViewModel.currentUser.value == null) {
+        if (mainFragmentViewModel.currentUser.value == null) {
             (activity as MainActivity).toggleBottomNavVisibility(false)
             view.let { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginFragment, null) }
         }

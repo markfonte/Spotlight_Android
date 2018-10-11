@@ -6,18 +6,19 @@ import com.google.firebase.auth.FirebaseUser
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
 
-    fun attemptLogin(email: String, password: String) : LiveData<String> {
+    fun attemptLogin(email: String, password: String): LiveData<String> {
         return firebaseService.attemptLogin(email, password)
     }
 
-    fun getCurrentUser() : LiveData<FirebaseUser> {
+    fun getCurrentUser(): LiveData<FirebaseUser> {
         return firebaseService.getCurrentUser()
     }
 
     companion object {
 
         // For Singleton instantiation
-        @Volatile private var instance: MainRepository? = null
+        @Volatile
+        private var instance: MainRepository? = null
 
         fun getInstance() =
                 instance ?: synchronized(this) {
