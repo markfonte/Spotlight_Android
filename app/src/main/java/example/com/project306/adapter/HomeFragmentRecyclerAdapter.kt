@@ -14,7 +14,7 @@ class HomeFragmentRecyclerAdapter(private val sororityTimeSlots: MutableList<Sor
         val timeSlot: TextView = v.findViewById(R.id.home_fragment_recycler_time_slot)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_fragment_recycler_row, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.main_fragment_recycler_row, parent, false))
     }
 
     override fun getItemCount(): Int = sororityTimeSlots.size

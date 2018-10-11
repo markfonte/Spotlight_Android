@@ -17,11 +17,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/login_main_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            android:text="@string/login_main_title_default_text"
+            android:text="@string/login_main_title_prompt"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintBottom_toTopOf="@+id/login_enter_email_wrapper"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,11 +29,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/mid_horizontal_guide"
+            android:id="@+id/one_third_horizontal_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".50" />
+            app:layout_constraintGuide_percent=".3333" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_enter_email_wrapper"
@@ -42,7 +42,7 @@
             android:layout_margin="@dimen/margin_standard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mid_horizontal_guide">
+            app:layout_constraintTop_toBottomOf="@id/one_third_horizontal_guide">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_enter_email"
@@ -95,12 +95,12 @@
             android:id="@+id/forgot_password_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_standard"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/forgot_password_button_text"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_enter_password_wrapper" />
 
@@ -108,12 +108,12 @@
             android:id="@+id/create_account_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_standard"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/create_account_button"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/forgot_password_button" />
 

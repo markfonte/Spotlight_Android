@@ -7,14 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import example.com.project306.R
 import example.com.project306.application.MainActivity
 import example.com.project306.databinding.MainFragmentBinding
 import example.com.project306.util.InjectorUtils
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
