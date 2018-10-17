@@ -12,115 +12,170 @@
             type="example.com.project306.ui.main.SignUpViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/sign_up_main_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:text="@string/sign_up_main_title_prompt"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@id/sign_up_enter_display_name_wrapper"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/one_third_horizontal_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".3333" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_enter_display_name_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/one_third_horizontal_guide">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_up_enter_display_name"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/sign_up_main_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_up_enter_display_name_hint"
-                android:inputType="textCapWords" />
+                android:layout_margin="@dimen/margin_standard"
+                android:gravity="center"
+                android:text="@string/app_display_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintBottom_toTopOf="@+id/sign_up_main_prompt"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_enter_email_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_up_enter_display_name_wrapper">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_up_enter_email"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/sign_up_main_prompt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_up_enter_email_hint"
-                android:inputType="textEmailAddress" />
+                android:layout_margin="@dimen/margin_standard"
+                android:text="@string/sign_up_main_prompt"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toTopOf="@id/sign_up_enter_display_name_wrapper"
+                app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_enter_password_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_up_enter_email_wrapper"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/design_default_color_primary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_up_enter_password"
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/thirty_percent_horizontal_guide"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_up_enter_password_hint"
-                android:inputType="textPassword" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".3" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_enter_confirm_password_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_up_enter_password_wrapper"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/design_default_color_primary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_up_enter_confirm_password"
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/fifteen_percent_vertical_guide"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_up_enter_confirm_password_hint"
-                android:inputType="textPassword" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".15" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/eighty_five_percent_vertical_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".85" />
 
-        <Button
-            android:id="@+id/attempt_create_account_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:text="@string/attempt_create_account_button_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_up_enter_confirm_password_wrapper" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_enter_display_name_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/thirty_percent_horizontal_guide">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_enter_display_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_enter_display_name_hint"
+                    android:inputType="textCapWords" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_enter_email_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_enter_display_name_wrapper">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_enter_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_enter_email_hint"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_enter_password_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_enter_email_wrapper"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/design_default_color_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_enter_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_enter_password_hint"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_enter_confirm_password_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_enter_password_wrapper"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/design_default_color_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_enter_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_enter_confirm_password_hint"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/attempt_create_account_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:text="@string/attempt_create_account_button_text"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_enter_confirm_password_wrapper" />
+
+            <TextView
+                android:id="@+id/sign_up_to_login_prompt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:gravity="center"
+                android:text="@string/sign_up_to_login_prompt_text"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/attempt_create_account_button" />
+
+            <Button
+                android:id="@+id/sign_up_to_login_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:text="@string/sign_up_to_login_button_text"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_to_login_prompt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
