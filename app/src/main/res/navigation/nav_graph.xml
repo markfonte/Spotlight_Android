@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_mainFragment_to_chooseValuesFragment"
             app:destination="@id/chooseValuesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginStartFragment"
+            app:destination="@id/loginStartFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseValuesFragment"
@@ -70,4 +73,16 @@
         android:name="example.com.project306.ui.main.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/loginStartFragment"
+        android:name="example.com.project306.ui.main.LoginStartFragment"
+        android:label="fragment_login_start"
+        tools:layout="@layout/fragment_login_start" >
+        <action
+            android:id="@+id/action_loginStartFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginStartFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
