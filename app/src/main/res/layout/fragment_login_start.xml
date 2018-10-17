@@ -42,9 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:fontFamily="@font/savoye_let_plain"
             android:gravity="center"
             android:text="@string/app_display_title"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textSize="@dimen/main_title_font_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fifty_percent_horizontal_guide" />

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_standard">8dp</dimen>
     <dimen name="padding_standard">8dp</dimen>
+    <dimen name="main_title_font_size">48sp</dimen>
 </resources>
