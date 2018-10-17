@@ -18,15 +18,27 @@
 
         <TextView
             android:id="@+id/login_main_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            android:text="@string/login_main_title_prompt"
+            android:text="@string/app_display_title"
+            android:gravity="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@+id/login_enter_email_wrapper"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/login_main_prompt"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintStart_toStartOf="@+id/twenty_percent_vertical_guide"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/login_main_prompt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_standard"
+            android:text="@string/login_main_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
+            app:layout_constraintBottom_toTopOf="@+id/login_enter_email_wrapper"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintStart_toStartOf="@+id/twenty_percent_vertical_guide" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/one_third_horizontal_guide"
@@ -35,13 +47,27 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent=".3333" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/twenty_percent_vertical_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/eighty_percent_vertical_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".8" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_enter_email_wrapper"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintStart_toStartOf="@+id/twenty_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/one_third_horizontal_guide">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -55,11 +81,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_enter_password_wrapper"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintStart_toStartOf="@+id/twenty_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/login_enter_email_wrapper"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/design_default_color_primary">
@@ -72,15 +98,6 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/attempt_login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:text="@string/attempt_login_button_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_enter_password_wrapper" />
 
         <ProgressBar
             android:id="@+id/attempt_login_progress_bar"
@@ -101,8 +118,8 @@
             android:focusable="true"
             android:text="@string/forgot_password_button_text"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_enter_password_wrapper" />
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintTop_toBottomOf="@+id/login_enter_password_wrapper" />
 
         <TextView
             android:id="@+id/create_account_button"
@@ -114,8 +131,18 @@
             android:focusable="true"
             android:text="@string/create_account_button"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/forgot_password_button" />
+
+        <Button
+            android:id="@+id/attempt_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_standard"
+            android:text="@string/attempt_login_button_text"
+            app:layout_constraintEnd_toStartOf="@+id/eighty_percent_vertical_guide"
+            app:layout_constraintStart_toStartOf="@+id/twenty_percent_vertical_guide"
+            app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

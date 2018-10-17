@@ -1,17 +1,15 @@
 <resources>
     <string name="app_name">Project306</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_title_home">Home</string>
     <string name="menu_title_ranking">Ranking</string>
     <string name="menu_title_view">View</string>
     <string name="home_fragment_recycler_time_slot_text_default">Time Slot</string>
     <string name="home_fragment_recycler_sorority_name_text_default">Sorority Name</string>
-    <string name="login_enter_email_hint">Email Address</string>
+    <string name="login_enter_email_hint">Email</string>
     <string name="login_enter_password_hint">Password</string>
-    <string name="login_main_title_prompt">Welcome! Please sign in.</string>
-    <string name="attempt_login_button_text">Go</string>
+    <string name="login_main_prompt">Welcome! Please log in.</string>
+    <string name="attempt_login_button_text">Log In!</string>
     <string name="login_error_default_message">Your sign-in credentials were incorrect. Please try again.</string>
     <string name="create_account_button">No Account? Create one</string>
     <string name="forgot_password_button_text">Forgot Password?</string>
@@ -21,4 +19,7 @@
     <string name="sign_up_enter_confirm_password_hint">Confirm Password</string>
     <string name="attempt_create_account_button_text">Submit</string>
     <string name="sign_up_main_title_prompt">Welcome! Please sign up using your school email address</string>
+    <string name="app_display_title">Spotlight</string>
+    <string name="login_start_sign_up_button_text">Sign Up</string>
+    <string name="login_start_login_button_text">Log In</string>
 </resources>

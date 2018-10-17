@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginStartBinding
 import example.com.project306.util.InjectorUtils
+import kotlinx.android.synthetic.main.fragment_login_start.*
 
 class LoginStartFragment : Fragment() {
 
@@ -23,6 +25,16 @@ class LoginStartFragment : Fragment() {
             setLifecycleOwner(this@LoginStartFragment)
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        login_start_login_button.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_loginStartFragment_to_loginFragment, null)
+        }
+        login_start_sign_up_button.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_loginStartFragment_to_signUpFragment, null)
+        }
     }
 
     companion object {
