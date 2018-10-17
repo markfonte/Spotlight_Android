@@ -1,6 +1,6 @@
-# SororityExpress
+# Spotlight
 
-SororityExpress lets sorority rushees streamline their rush process!
+Spotlight lets sorority rushees streamline their rush process!
 
 ### Features Include:
 * A personalized list of their rush schedule, according to Panhel
