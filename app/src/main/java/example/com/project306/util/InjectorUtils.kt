@@ -1,10 +1,7 @@
 package example.com.project306.util
 
 import example.com.project306.data.MainRepository
-import example.com.project306.ui.main.LoginStartViewModelFactory
-import example.com.project306.ui.main.LoginViewModelFactory
-import example.com.project306.ui.main.MainViewModelFactory
-import example.com.project306.ui.main.SignUpViewModelFactory
+import example.com.project306.ui.main.*
 
 object InjectorUtils {
 
@@ -30,5 +27,10 @@ object InjectorUtils {
     fun provideLoginStartViewModelFactory(): LoginStartViewModelFactory {
         val repository: MainRepository = getMainRepository()
         return LoginStartViewModelFactory(repository)
+    }
+
+    fun provideMainActivityViewModelFactory(): MainActivityViewModelFactory {
+        val repository: MainRepository = getMainRepository()
+        return MainActivityViewModelFactory(repository)
     }
 }

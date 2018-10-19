@@ -1,20 +1,27 @@
-package example.com.project306.application
+package example.com.project306.ui.main
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import example.com.project306.R
+import example.com.project306.databinding.MainActivityBinding
+import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-
+        val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
+        mainActivityViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
+        val binding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity)
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment?
                 ?: return
 
@@ -24,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
+        binding.viewModel = mainActivityViewModel
     }
 
     private fun initializeBottomNav(navController: NavController) {
@@ -42,9 +50,4 @@ class MainActivity : AppCompatActivity() {
         }
         super.onBackPressed()
     }
-
-    fun toggleBottomNavVisibility(makeVisible: Boolean) {
-        bottom_nav.visibility = if (makeVisible) View.VISIBLE else View.GONE
-    }
-
 }

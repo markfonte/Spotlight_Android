@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import example.com.project306.R
-import example.com.project306.application.MainActivity
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -38,7 +37,6 @@ class LoginFragment : Fragment() {
                 loginFragmentViewModel.attemptLogin(login_enter_email.text.toString(), login_enter_password.text.toString()).observe(this, Observer { authResultError ->
                     run {
                         if (authResultError == "") {
-                            (activity as MainActivity).toggleBottomNavVisibility(true)
                             Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null)
                         } else {
                             Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
