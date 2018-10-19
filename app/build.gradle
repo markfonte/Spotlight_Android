@@ -11,7 +11,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,13 +30,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:design:' + rootProject.supportLibraryVersion
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
+    implementation "com.google.firebase:firebase-auth:$rootProject.firebaseAuthVersion"
+    implementation "com.google.android.gms:play-services-auth:$rootProject.playServicesAuthVersion"
     implementation "android.arch.navigation:navigation-fragment:$rootProject.navigationVersion"
     implementation "android.arch.navigation:navigation-ui:$rootProject.navigationVersion"
     implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
@@ -50,6 +48,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     implementation "com.google.android.material:material:$rootProject.supportLibraryVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

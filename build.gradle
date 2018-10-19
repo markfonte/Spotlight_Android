@@ -44,4 +44,7 @@ ext {
     supportLibraryVersion = '1.0.0'
     uiAutomatorVersion = '2.2.0-alpha4'
     workVersion = '1.0.0-alpha10'
+    firebaseCoreVersion = '16.0.4'
+    firebaseAuthVersion = '16.0.5'
+    playServicesAuthVersion = '16.0.1'
 }
