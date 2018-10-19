@@ -74,8 +74,12 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="example.com.project306.ui.main.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:label="Profile"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_loginStartFragment"
+            app:destination="@id/loginStartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginStartFragment"
         android:name="example.com.project306.ui.main.LoginStartFragment"

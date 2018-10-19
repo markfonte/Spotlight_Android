@@ -16,6 +16,10 @@ class MainRepository {
         return firebaseService.getCurrentUser()
     }
 
+    fun accountsLogout() : MutableLiveData<String> {
+        return firebaseService.firebaseLogout()
+    }
+
     companion object {
 
         // For Singleton instantiation

@@ -25,4 +25,5 @@
     <string name="sign_up_to_login_prompt_text">Already have an account?</string>
     <string name="sign_up_to_login_button_text">Log In!</string>
     <string name="settings_logout_button_text">Log Out</string>
+    <string name="menu_title_settings">Profile</string>
 </resources>

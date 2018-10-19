@@ -50,6 +50,12 @@ class FirebaseService {
         return mCurrentUser?.displayName
     }
 
+    fun firebaseLogout() : MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.signOut()
+        result.value = "success"
+        return result
+    }
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 

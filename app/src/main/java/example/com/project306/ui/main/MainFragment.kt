@@ -39,6 +39,11 @@ class MainFragment : androidx.fragment.app.Fragment() {
             }
             view.let { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginStartFragment, null) }
         }
+        else {
+            with(mainFragmentViewModel) {
+                setBottomNavVisibility(true)
+            }
+        }
     }
 
 }

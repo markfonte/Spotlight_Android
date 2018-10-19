@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_format_list_numbered_black_24dp"
         android:title="@string/menu_title_ranking"/>
     <item
-        android:id="@id/viewFragment"
-        android:icon="@drawable/ic_remove_red_eye_black_24dp"
-        android:title="@string/menu_title_view"/>
+        android:id="@id/settingsFragment"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/menu_title_settings"/>
 </menu>

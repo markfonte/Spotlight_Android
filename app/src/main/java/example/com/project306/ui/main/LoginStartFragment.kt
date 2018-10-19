@@ -39,6 +39,6 @@ class LoginStartFragment : Fragment() {
     }
 
     companion object {
-        private val LOG_TAG: String = LoginStartFragment::class.java.simpleName
+        private val LOG_TAG: String = LoginStartFragment::class.java.name
     }
 }
