@@ -1,12 +1,16 @@
 package example.com.project306.ui.main
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,12 +20,7 @@ import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_login.*
-import android.app.Activity
-import android.content.Context
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.content.Context.INPUT_METHOD_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.navigation.NavOptions
 
 
 
@@ -67,7 +66,8 @@ class LoginFragment : Fragment() {
                         with(loginFragmentViewModel) {
                             setBottomNavVisibility(true)
                         }
-                        Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null)
+                        val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
+                        Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null, navOptions)
                     } else {
                         Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
                         toggleLoginProgressBar(false)

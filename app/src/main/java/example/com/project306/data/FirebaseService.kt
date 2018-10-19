@@ -56,6 +56,7 @@ class FirebaseService {
         result.value = "success"
         return result
     }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 

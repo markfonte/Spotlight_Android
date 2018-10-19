@@ -45,5 +45,4 @@ class MainFragment : androidx.fragment.app.Fragment() {
             }
         }
     }
-
 }
