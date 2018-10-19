@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +16,15 @@ import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_login.*
+import android.app.Activity
+import android.content.Context
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 class LoginFragment : Fragment() {
 
@@ -32,34 +43,57 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         attempt_login_button.setOnClickListener {
-            if (validInput(login_enter_email.text.toString(), login_enter_password.text.toString())) {
-                toggleLoginProgressBar(true)
-                loginFragmentViewModel.attemptLogin(login_enter_email.text.toString(), login_enter_password.text.toString()).observe(this, Observer { authResultError ->
-                    run {
-                        if (authResultError == "") {
-                            with(loginFragmentViewModel) {
-                                setBottomNavVisibility(true)
-                            }
-                            Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null)
-                        } else {
-                            Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
-                            toggleLoginProgressBar(false)
-                            login_enter_email.error = getString(R.string.login_error_default_message)
-                            login_enter_email.requestFocus()
-                        }
-                    }
-                })
-            } else {
-                login_enter_email.error = getString(R.string.login_error_default_message)
-                login_enter_email.requestFocus()
-            }
+            attemptLogin(view)
         }
         create_account_button.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_login_to_signUpFragment, null)
         }
+        login_enter_password.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
+                attemptLogin(view)
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
-    private fun validInput(email: String?, password: String?): Boolean {
+    private fun attemptLogin(view: View) {
+        hideKeyboard(view)
+        if (isValidInput(login_enter_email.text.toString(), login_enter_password.text.toString())) {
+            toggleLoginProgressBar(true)
+            loginFragmentViewModel.attemptLogin(login_enter_email.text.toString(), login_enter_password.text.toString()).observe(this, Observer { authResultError ->
+                run {
+                    if (authResultError == "") {
+                        with(loginFragmentViewModel) {
+                            setBottomNavVisibility(true)
+                        }
+                        Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null)
+                    } else {
+                        Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
+                        toggleLoginProgressBar(false)
+                        login_enter_email.error = getString(R.string.login_error_default_message)
+                        login_enter_email.requestFocus()
+                        showKeyboard()
+                    }
+                }
+            })
+        } else {
+            login_enter_email.error = getString(R.string.login_error_default_message)
+            login_enter_email.requestFocus()
+        }
+    }
+
+    private fun showKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun isValidInput(email: String?, password: String?): Boolean {
         return !email.isNullOrEmpty() && !password.isNullOrEmpty() && email!!.contains('@') && email.contains('.')
     }
 

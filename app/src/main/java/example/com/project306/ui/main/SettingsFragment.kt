@@ -41,7 +41,6 @@ class SettingsFragment : Fragment() {
                         activity?.finish()
                     }
                 }
-
             })
         }
     }
