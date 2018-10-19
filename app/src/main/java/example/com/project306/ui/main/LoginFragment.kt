@@ -10,19 +10,16 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_login.*
-import androidx.navigation.NavOptions
-
-
 
 
 class LoginFragment : Fragment() {

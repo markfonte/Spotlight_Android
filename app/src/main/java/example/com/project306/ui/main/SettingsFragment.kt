@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.databinding.FragmentSettingsBinding
@@ -35,7 +36,8 @@ class SettingsFragment : Fragment() {
                 run {
                     if (logoutResult == "success") {
                         settingsFragmentViewModel.setBottomNavVisibility(false)
-                        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_loginStartFragment, null)
+                        val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
+                        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_loginStartFragment, null, navOptions)
                     } else {
                         Log.e(LOG_TAG, "This should never happen. Fix IMMEDIATELY if this error occurs.")
                         activity?.finish()
