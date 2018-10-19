@@ -16,7 +16,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var mainFragmentViewModel: MainViewModel
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
         mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
@@ -35,6 +34,9 @@ class MainFragment : androidx.fragment.app.Fragment() {
             }
         }
         if (mainFragmentViewModel.currentUser.value == null) {
+            with(mainFragmentViewModel) {
+                setBottomNavVisibility(false)
+            }
             view.let { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginStartFragment, null) }
         }
     }

@@ -31,7 +31,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="@{viewModel.isBottomNavVisible ? View.VISIBLE : View.GONE}"
+        android:visibility="@{safeUnbox(viewModel.isBottomNavVisible) ? View.VISIBLE : View.GONE}"
         app:menu="@menu/menu_bottom_nav" />
 
 </LinearLayout>

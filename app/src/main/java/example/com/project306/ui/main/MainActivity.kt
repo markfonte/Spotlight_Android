@@ -1,8 +1,11 @@
 package example.com.project306.ui.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,7 +24,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
         mainActivityViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
-        val binding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity)
+        DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity).apply {
+            viewModel = mainActivityViewModel
+            setLifecycleOwner(this@MainActivity)
+        }
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment?
                 ?: return
 
@@ -30,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         initializeBottomNav(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-
-        binding.viewModel = mainActivityViewModel
     }
 
     private fun initializeBottomNav(navController: NavController) {
