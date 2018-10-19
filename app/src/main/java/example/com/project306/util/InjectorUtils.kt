@@ -33,4 +33,9 @@ object InjectorUtils {
         val repository: MainRepository = getMainRepository()
         return MainActivityViewModelFactory(repository)
     }
+
+    fun provideSettingsViewModelFactory(): SettingsViewModelFactory {
+        val repository: MainRepository = getMainRepository()
+        return SettingsViewModelFactory(repository)
+    }
 }
