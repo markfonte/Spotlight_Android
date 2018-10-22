@@ -7,23 +7,18 @@ import com.google.firebase.auth.FirebaseUser
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
-    private var mCurrentUser: FirebaseUser? = null
+    var mCurrentUser: MutableLiveData<FirebaseUser> = MutableLiveData()
+
 
     init {
-        mCurrentUser = mAuth?.currentUser
-    }
-
-    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
-        val result: MutableLiveData<FirebaseUser> = MutableLiveData()
-        result.value = mCurrentUser
-        return result
+        mCurrentUser.value = mAuth?.currentUser
     }
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                mCurrentUser = mAuth?.currentUser
+                mCurrentUser.value = mAuth?.currentUser
                 result.value = ""
             } else {
                 result.value = it.exception.toString()
@@ -36,7 +31,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                mCurrentUser = mAuth?.currentUser
+                mCurrentUser.value = mAuth?.currentUser
                 result.value = ""
             } else {
                 result.value = it.exception.toString()
@@ -47,11 +42,12 @@ class FirebaseService {
     }
 
     fun getUserDisplayName(): String? {
-        return mCurrentUser?.displayName
+        return mCurrentUser.value?.displayName
     }
 
     fun firebaseLogout() : MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
+        mCurrentUser.value = null
         mAuth?.signOut()
         result.value = "success"
         return result

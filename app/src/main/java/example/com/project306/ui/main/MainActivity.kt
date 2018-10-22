@@ -39,11 +39,6 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.appMainToolbar, navController)
     }
 
-    override fun onResume() {
-        super.onResume()
-        validateUser()
-    }
-
     private fun initializeBottomNav(navController: NavController) {
         findViewById<BottomNavigationView>(R.id.bottom_nav)?.let { bottomNavigationView ->
             NavigationUI.setupWithNavController(bottomNavigationView, navController)

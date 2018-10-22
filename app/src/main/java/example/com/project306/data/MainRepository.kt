@@ -14,7 +14,7 @@ class MainRepository {
     }
 
     fun getCurrentUser(): MutableLiveData<FirebaseUser> {
-        return firebaseService.getCurrentUser()
+        return firebaseService.mCurrentUser
     }
 
     fun accountsLogout() : MutableLiveData<String> {
