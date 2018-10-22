@@ -1,14 +1,11 @@
 package example.com.project306.ui.main
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +16,7 @@ import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
+import example.com.project306.util.SystemUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -54,10 +52,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun attemptLogin(view: View) {
-        hideKeyboard(view)
-        if (isValidInput(login_enter_email.text.toString(), login_enter_password.text.toString())) {
+        SystemUtils.hideKeyboard(context, view)
+        val currentEmail: String? = login_enter_email.text.toString()
+        val currentPassword: String? = login_enter_password.text.toString()
+        if (isValidInput(currentEmail, currentPassword)) {
             toggleLoginProgressBar(true)
-            loginFragmentViewModel.attemptLogin(login_enter_email.text.toString(), login_enter_password.text.toString()).observe(this, Observer { authResultError ->
+            loginFragmentViewModel.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
                 run {
                     if (authResultError == "") {
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
@@ -67,24 +67,16 @@ class LoginFragment : Fragment() {
                         toggleLoginProgressBar(false)
                         login_enter_email.error = getString(R.string.login_error_default_message)
                         login_enter_email.requestFocus()
-                        showKeyboard()
+                        SystemUtils.showKeyboard(activity)
                     }
                 }
             })
         } else {
-            login_enter_email.error = getString(R.string.login_error_default_message)
+            Log.i(LOG_TAG, "Poorly formed input")
+            login_enter_email.error = getString(R.string.login_error_poorly_formed_input)
             login_enter_email.requestFocus()
+            SystemUtils.showKeyboard(activity)
         }
-    }
-
-    private fun showKeyboard() {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun isValidInput(email: String?, password: String?): Boolean {

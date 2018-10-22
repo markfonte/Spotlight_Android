@@ -17,10 +17,18 @@ class MainRepository {
         return firebaseService.mCurrentUser
     }
 
-    fun accountsLogout() : MutableLiveData<String> {
+    fun accountsLogout(): MutableLiveData<String> {
         isBottomNavVisible.value = false
         isAppBarVisible.value = false
         return firebaseService.firebaseLogout()
+    }
+
+    fun attemptCreateAccout(email: String, password: String) :LiveData<String> {
+        return firebaseService.attemptCreateAccount(email, password)
+    }
+
+    fun attemptEmailVerification(email: String): LiveData<String> {
+        return firebaseService.sendEmailVerification(email)
     }
 
     companion object {

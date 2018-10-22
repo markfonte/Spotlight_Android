@@ -27,6 +27,19 @@ class FirebaseService {
         return result
     }
 
+    fun attemptCreateAccount(email: String, password: String): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                mCurrentUser.value = mAuth?.currentUser
+                result.value = ""
+            } else {
+                result.value = it.exception.toString()
+            }
+        }
+        return result
+    }
+
     fun createUserWithEmailAndPassword(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
@@ -36,7 +49,18 @@ class FirebaseService {
             } else {
                 result.value = it.exception.toString()
             }
+        }
+        return result
+    }
 
+    fun sendEmailVerification(email: String): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mCurrentUser.value?.sendEmailVerification()?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                result.value = ""
+            } else {
+                result.value = it.exception.toString()
+            }
         }
         return result
     }
@@ -45,7 +69,7 @@ class FirebaseService {
         return mCurrentUser.value?.displayName
     }
 
-    fun firebaseLogout() : MutableLiveData<String> {
+    fun firebaseLogout(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mCurrentUser.value = null
         mAuth?.signOut()

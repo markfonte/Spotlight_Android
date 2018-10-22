@@ -11,6 +11,7 @@
     <string name="login_main_prompt">Welcome! Please log in.</string>
     <string name="attempt_login_button_text">Log In!</string>
     <string name="login_error_default_message">Your sign-in credentials were incorrect. Please try again.</string>
+    <string name="login_error_poorly_formed_input">Please enter valid login credentials.</string>
     <string name="create_account_button">No Account? Create one</string>
     <string name="forgot_password_button_text">Forgot Password?</string>
     <string name="sign_up_enter_password_hint">Password</string>
@@ -26,4 +27,6 @@
     <string name="sign_up_to_login_button_text">Log In!</string>
     <string name="settings_logout_button_text">Log Out</string>
     <string name="menu_title_settings">Profile</string>
+    <string name="sign_up_error_poorly_formed_input">Please enter valid inputs for each field.</string>
+    <string name="sign_up_error_default_message">There was an error creating your account. If you believe this was an error, contact support.</string>
 </resources>
