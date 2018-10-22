@@ -7,16 +7,19 @@ import com.google.firebase.auth.FirebaseUser
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
     var isBottomNavVisible: MutableLiveData<Boolean> = MutableLiveData()
+    var isAppBarVisible: MutableLiveData<Boolean> = MutableLiveData()
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
         return firebaseService.attemptLogin(email, password)
     }
 
-    fun getCurrentUser(): LiveData<FirebaseUser> {
+    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
         return firebaseService.getCurrentUser()
     }
 
     fun accountsLogout() : MutableLiveData<String> {
+        isBottomNavVisible.value = false
+        isAppBarVisible.value = false
         return firebaseService.firebaseLogout()
     }
 

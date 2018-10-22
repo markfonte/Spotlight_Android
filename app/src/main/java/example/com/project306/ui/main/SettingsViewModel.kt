@@ -8,8 +8,4 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
     fun logout() : MutableLiveData<String> {
         return mainRepository.accountsLogout()
     }
-
-    fun setBottomNavVisibility(makeVisible: Boolean) {
-        mainRepository.isBottomNavVisible.value = makeVisible
-    }
 }

@@ -7,4 +7,9 @@ class EditRankingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).validateUser()
+    }
 }

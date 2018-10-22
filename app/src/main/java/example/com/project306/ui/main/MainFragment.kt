@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.databinding.MainFragmentBinding
 import example.com.project306.util.InjectorUtils
@@ -38,18 +36,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (mainFragmentViewModel.currentUser.value == null) {
-            with(mainFragmentViewModel) {
-                setBottomNavVisibility(false)
-            }
-            view?.let {
-                val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
-                Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_loginStartFragment, null, navOptions)
-            }
-        } else {
-            with(mainFragmentViewModel) {
-                setBottomNavVisibility(true)
-            }
-        }
+        (activity as MainActivity).validateUser()
     }
 }

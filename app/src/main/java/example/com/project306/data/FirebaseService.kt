@@ -13,7 +13,7 @@ class FirebaseService {
         mCurrentUser = mAuth?.currentUser
     }
 
-    fun getCurrentUser(): LiveData<FirebaseUser> {
+    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
         val result: MutableLiveData<FirebaseUser> = MutableLiveData()
         result.value = mCurrentUser
         return result

@@ -35,7 +35,6 @@ class SettingsFragment : Fragment() {
             settingsFragmentViewModel.logout().observe(this, Observer { logoutResult ->
                 run {
                     if (logoutResult == "success") {
-                        settingsFragmentViewModel.setBottomNavVisibility(false)
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
                         Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_loginStartFragment, null, navOptions)
                     } else {
@@ -45,6 +44,11 @@ class SettingsFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).validateUser()
     }
 
     companion object {

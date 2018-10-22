@@ -60,9 +60,6 @@ class LoginFragment : Fragment() {
             loginFragmentViewModel.attemptLogin(login_enter_email.text.toString(), login_enter_password.text.toString()).observe(this, Observer { authResultError ->
                 run {
                     if (authResultError == "") {
-                        with(loginFragmentViewModel) {
-                            setBottomNavVisibility(true)
-                        }
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
                         Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null, navOptions)
                     } else {

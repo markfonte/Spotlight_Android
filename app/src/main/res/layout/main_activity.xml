@@ -4,36 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="example.com.project306.ui.main.MainActivityViewModel" />
     </data>
 
-<LinearLayout
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context=".ui.main.MainActivity">
-
-    <fragment
-        android:id="@+id/main_nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:context=".ui.main.MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="@{safeUnbox(viewModel.isBottomNavVisible) ? View.VISIBLE : View.GONE}"
-        app:menu="@menu/menu_bottom_nav" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="@{safeUnbox(viewModel.isAppBarVisible()) ? View.VISIBLE : View.GONE}">
 
-</LinearLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <fragment
+            android:id="@+id/main_nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{safeUnbox(viewModel.isBottomNavVisible) ? View.VISIBLE : View.GONE}"
+            app:menu="@menu/menu_bottom_nav" />
+
+    </LinearLayout>
 
 </layout>
