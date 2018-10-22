@@ -38,4 +38,14 @@ object InjectorUtils {
         val repository: MainRepository = getMainRepository()
         return SettingsViewModelFactory(repository)
     }
+
+    fun provideChooseValuesViewModelFactory(): ChooseValuesViewModelFactory {
+        val repository: MainRepository = getMainRepository()
+        return ChooseValuesViewModelFactory(repository)
+    }
+
+    fun provideEditRankingViewModelFactory(): EditRankingViewModelFactory {
+        val repository: MainRepository = getMainRepository()
+        return EditRankingViewModelFactory(repository)
+    }
 }
