@@ -18,8 +18,13 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                mCurrentUser.value = mAuth?.currentUser
-                result.value = ""
+                if (!mAuth?.currentUser?.isEmailVerified!!) {
+                    result.value = "email not verified"
+                    firebaseLogout()
+                } else {
+                    mCurrentUser.value = mAuth?.currentUser
+                    result.value = ""
+                }
             } else {
                 result.value = it.exception.toString()
             }
@@ -30,21 +35,7 @@ class FirebaseService {
     fun attemptCreateAccount(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                mCurrentUser.value = mAuth?.currentUser
-                result.value = ""
-            } else {
-                result.value = it.exception.toString()
-            }
-        }
-        return result
-    }
-
-    fun createUserWithEmailAndPassword(email: String, password: String): LiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                mCurrentUser.value = mAuth?.currentUser
+            if (it.isSuccessful) { //do not sign them in yet
                 result.value = ""
             } else {
                 result.value = it.exception.toString()

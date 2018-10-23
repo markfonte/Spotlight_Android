@@ -1,5 +1,6 @@
 package example.com.project306.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -61,7 +62,7 @@ class SignUpFragment : Fragment() {
             signUpFragmentViewModel.attemptCreateAccount(currentEmail!!, currentPassword!!).observe(this, Observer { error ->
                 run {
                     if (error == "") {
-                        sendEmailVerification()
+                        sendEmailVerification(currentEmail, view)
                     } else {
                         Log.i(LOG_TAG, "Error creating account: $error")
                         sign_up_enter_display_name.error = getString(R.string.sign_up_error_default_message)
@@ -78,8 +79,24 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun sendEmailVerification() {
-        Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, "Your account was successfully created. Please check your email to verify that this is you.", Snackbar.LENGTH_INDEFINITE).show()
+    private fun sendEmailVerification(email: String, view: View) {
+        signUpFragmentViewModel.attemptEmailVerification(email).observe(this, Observer { error ->
+            run {
+                if (error == "") {
+                    val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, "Your account was successfully created. Please check your email to verify it's you, then log in.", Snackbar.LENGTH_INDEFINITE)
+                    val snackbarView: View? = snackbar?.view
+                    val snackbarMessage: TextView? = snackbarView?.findViewById(R.id.snackbar_text)
+                    snackbarMessage?.setTextColor(Color.WHITE)
+                    snackbar?.setAction("OK") {
+                        snackbar.dismiss()
+                        Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_loginFragment, null)
+                    }
+                    snackbar?.show()
+                } else {
+                    Log.e(LOG_TAG, "Verification email was not sent.")
+                }
+            }
+        })
     }
 
     private fun isValidInput(displayName: String?, email: String?, password: String?, confirmPassword: String?): Boolean {

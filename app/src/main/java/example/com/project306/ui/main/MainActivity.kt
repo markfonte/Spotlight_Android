@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun validateUser() {
-        if (mainActivityViewModel.currentUser.value == null) {
+        if (mainActivityViewModel.currentUser.value == null || !mainActivityViewModel.currentUser.value?.isEmailVerified!!) {
             with(mainActivityViewModel) {
                 setBottomNavVisibility(false)
                 setAppBarVisibility(false)

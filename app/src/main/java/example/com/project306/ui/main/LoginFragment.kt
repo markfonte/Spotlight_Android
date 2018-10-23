@@ -59,20 +59,30 @@ class LoginFragment : Fragment() {
             toggleLoginProgressBar(true)
             loginFragmentViewModel.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
                 run {
-                    if (authResultError == "") {
-                        val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
-                        Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null, navOptions)
-                    } else {
-                        Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
-                        toggleLoginProgressBar(false)
-                        login_enter_email.error = getString(R.string.login_error_default_message)
-                        login_enter_email.requestFocus()
-                        SystemUtils.showKeyboard(activity)
+                    when (authResultError) {
+                        "" -> {
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
+                            Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null, navOptions)
+                        }
+                        "email not verified" -> {
+                            Log.i(LOG_TAG, "Email not verified")
+                            toggleLoginProgressBar(false)
+                            login_enter_email.error = "Please verify your email address and log in again."
+                            login_enter_email.requestFocus()
+                            SystemUtils.showKeyboard(activity)
+                        }
+                        else -> {
+                            Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
+                            toggleLoginProgressBar(false)
+                            login_enter_email.error = getString(R.string.login_error_default_message)
+                            login_enter_email.requestFocus()
+                            SystemUtils.showKeyboard(activity)
+                        }
                     }
                 }
             })
         } else {
-            Log.i(LOG_TAG, "Poorly formed input")
+            Log.i(LOG_TAG, "Poorly formed login input")
             login_enter_email.error = getString(R.string.login_error_poorly_formed_input)
             login_enter_email.requestFocus()
             SystemUtils.showKeyboard(activity)
