@@ -9,7 +9,6 @@ class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     var mCurrentUser: MutableLiveData<FirebaseUser> = MutableLiveData()
 
-
     init {
         mCurrentUser.value = mAuth?.currentUser
     }

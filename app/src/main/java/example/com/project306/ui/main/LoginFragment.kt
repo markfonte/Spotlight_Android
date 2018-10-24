@@ -67,7 +67,7 @@ class LoginFragment : Fragment() {
                         "email not verified" -> {
                             Log.i(LOG_TAG, "Email not verified")
                             toggleLoginProgressBar(false)
-                            login_enter_email.error = "Please verify your email address and log in again."
+                            login_enter_email.error = getString(R.string.login_error_email_not_verified)
                             login_enter_email.requestFocus()
                             SystemUtils.showKeyboard(activity)
                         }
