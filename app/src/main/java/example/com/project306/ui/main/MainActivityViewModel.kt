@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import example.com.project306.data.MainRepository
 
-class MainActivityViewModel( val mainRepository: MainRepository) : ViewModel() {
+class MainActivityViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var isBottomNavVisible: MutableLiveData<Boolean> = mainRepository.isBottomNavVisible
     var isAppBarVisible: MutableLiveData<Boolean> = mainRepository.isAppBarVisible
     var currentUser: MutableLiveData<FirebaseUser> = mainRepository.getCurrentUser()

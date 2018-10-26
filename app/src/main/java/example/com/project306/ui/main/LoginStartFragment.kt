@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_login_start.*
 class LoginStartFragment : Fragment() {
 
     private lateinit var loginStartFragmentViewModel: LoginStartViewModel
-    private var testBool: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: LoginStartViewModelFactory = InjectorUtils.provideLoginStartViewModelFactory()
