@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
@@ -68,14 +69,13 @@ class LoginFragment : Fragment() {
                             Log.i(LOG_TAG, "Email not verified")
                             toggleLoginProgressBar(false)
                             login_enter_email.error = getString(R.string.login_error_email_not_verified)
-                            login_enter_email.requestFocus()
-                            SystemUtils.showKeyboard(activity)
+                            showResendEmailVerificationPopUp(currentEmail, view)
                         }
                         else -> {
                             Log.i(LOG_TAG, "Firebase authentication error: $authResultError")
                             toggleLoginProgressBar(false)
                             login_enter_email.error = getString(R.string.login_error_default_message)
-                            login_enter_email.requestFocus()
+                            login_enter_password.requestFocus()
                             SystemUtils.showKeyboard(activity)
                         }
                     }
@@ -89,8 +89,43 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun showResendEmailVerificationPopUp(email: String, view: View) {
+        val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, getString(R.string.login_prompt_resend_email_verification), Snackbar.LENGTH_LONG).setDuration(resources.getInteger(R.integer.CUSTOM_SNACKBAR_LENGTH_LONG))
+        SystemUtils.setSnackbarDefaultOptions(snackbar)
+        snackbar?.setAction("YES") {
+            snackbar.dismiss()
+            attemptEmailVerification(email, view)
+        }
+        snackbar?.show()
+    }
+
+    private fun attemptEmailVerification(email: String, view: View) {
+        loginFragmentViewModel.attemptEmailVerification(email).observe(this, Observer { error ->
+            run {
+                if (error == "") {
+                    val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, getString(R.string.login_email_verification_success_confirmation), Snackbar.LENGTH_INDEFINITE)
+                    SystemUtils.setSnackbarDefaultOptions(s)
+                    s?.setAction("OK") {
+                        s.dismiss()
+                    }
+                    s?.show()
+                } else {
+                    Log.e(LOG_TAG, "Verification email was not sent.")
+                    val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, getString(R.string.login_email_verification_failed), Snackbar.LENGTH_LONG).setDuration(resources.getInteger(R.integer.CUSTOM_SNACKBAR_LENGTH_LONG))
+                    SystemUtils.setSnackbarDefaultOptions(s)
+                    s?.setAction("YES") {
+                        s.dismiss()
+                        attemptEmailVerification(email, view)
+                    }
+                    s?.show()
+                }
+            }
+
+        })
+    }
+
     private fun isValidInput(email: String?, password: String?): Boolean {
-        return !email.isNullOrEmpty() && !password.isNullOrEmpty() && email!!.contains('@') && email.contains('.')
+        return !email.isNullOrEmpty() && !password.isNullOrEmpty() && email!!.length < 30 && password!!.length < 30 && email.contains('@') && email.contains('.')
     }
 
     private fun toggleLoginProgressBar(showProgress: Boolean) {

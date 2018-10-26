@@ -1,6 +1,5 @@
 package example.com.project306.ui.main
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -84,9 +83,7 @@ class SignUpFragment : Fragment() {
             run {
                 if (error == "") {
                     val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, getString(R.string.sign_up_and_email_verification_success_confirmation), Snackbar.LENGTH_INDEFINITE)
-                    val snackbarView: View? = snackbar?.view
-                    val snackbarMessage: TextView? = snackbarView?.findViewById(R.id.snackbar_text)
-                    snackbarMessage?.setTextColor(Color.WHITE)
+                    SystemUtils.setSnackbarDefaultOptions(snackbar)
                     snackbar?.setAction("OK") {
                         snackbar.dismiss()
                         Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_loginFragment, null)
@@ -94,17 +91,11 @@ class SignUpFragment : Fragment() {
                     snackbar?.show()
                 } else {
                     Log.e(LOG_TAG, "Verification email was not sent.")
-                    val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, getString(R.string.sign_up_email_verification_failed), Snackbar.LENGTH_INDEFINITE)
-                    val snackbarView: View? = snackbar?.view
-                    val snackbarMessage: TextView? = snackbarView?.findViewById(R.id.snackbar_text)
-                    snackbarMessage?.setTextColor(Color.WHITE)
+                    val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, getString(R.string.sign_up_email_verification_failed), Snackbar.LENGTH_LONG).setDuration(resources.getInteger(R.integer.CUSTOM_SNACKBAR_LENGTH_LONG))
+                    SystemUtils.setSnackbarDefaultOptions(snackbar)
                     snackbar?.setAction("YES") {
                         snackbar.dismiss()
                         sendEmailVerification(email, view)
-                    }
-                    snackbar?.setAction("NO") { //automatically logs them in
-                        snackbar.dismiss()
-                        Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_loginFragment, null)
                     }
                     snackbar?.show()
                 }
@@ -113,7 +104,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun isValidInput(displayName: String?, email: String?, password: String?, confirmPassword: String?): Boolean {
-        return !displayName.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && email!!.contains('@') && email.contains(".") && password == confirmPassword
+        return !displayName.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && displayName!!.length < 30 && email!!.length < 30 && password!!.length < 30 && confirmPassword!!.length < 30 && email.contains('@') && email.contains(".") && password == confirmPassword
     }
 
     companion object {

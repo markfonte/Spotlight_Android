@@ -32,4 +32,7 @@
     <string name="login_error_email_not_verified">Please verify your email address and log in again.</string>
     <string name="sign_up_and_email_verification_success_confirmation">Your account was successfully created. Please check your email to verify it\'s you, then log in.</string>
     <string name="sign_up_email_verification_failed">Verification email not sent. Retry?</string>
+    <string name="login_email_verification_failed">Verification email not sent. Retry?</string>
+    <string name="login_email_verification_success_confirmation">Verification email sent. Please check your email to verify it\'s you, then log in.</string>
+    <string name="login_prompt_resend_email_verification">Resend verification email?</string>
 </resources>

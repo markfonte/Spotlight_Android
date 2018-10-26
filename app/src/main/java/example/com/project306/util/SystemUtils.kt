@@ -2,8 +2,12 @@ package example.com.project306.util
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
+import example.com.project306.R
 
 object SystemUtils {
 
@@ -15,5 +19,11 @@ object SystemUtils {
     fun hideKeyboard(context: Context?, view: View) {
         val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun setSnackbarDefaultOptions(snackbar: Snackbar?) {
+        val snackbarView: View? = snackbar?.view
+        val snackbarMessage: TextView? = snackbarView?.findViewById(R.id.snackbar_text)
+        snackbarMessage?.setTextColor(Color.WHITE)
     }
 }
