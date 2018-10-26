@@ -47,5 +47,5 @@ ext {
     firebaseCoreVersion = '16.0.4'
     firebaseAuthVersion = '16.0.5'
     playServicesAuthVersion = '16.0.1'
-    firebaseFirestoreVersion = '17.1.1'
+    firebaseFirestoreVersion = '17.1.2'
 }
