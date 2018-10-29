@@ -57,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:text="@string/login_start_sign_up_button_text"
-            style="@style/borderlessButtonStyle"
             app:layout_constraintEnd_toStartOf="@+id/seventy_percent_horizontal_guide"
             app:layout_constraintStart_toStartOf="@+id/thirty_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@+id/login_start_title" />
