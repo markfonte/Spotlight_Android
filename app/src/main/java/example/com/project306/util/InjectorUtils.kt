@@ -48,4 +48,9 @@ object InjectorUtils {
         val repository: MainRepository = getMainRepository()
         return EditRankingViewModelFactory(repository)
     }
+
+    fun provideSororityScheduleViewModelFactory(): SororityScheduleViewModelFactory {
+        val repository: MainRepository = getMainRepository()
+        return SororityScheduleViewModelFactory(repository)
+    }
 }

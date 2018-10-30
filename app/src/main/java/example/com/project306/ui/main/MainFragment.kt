@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import example.com.project306.R
+import example.com.project306.adapter.SororitySchedulePagerAdapter
 import example.com.project306.databinding.MainFragmentBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -14,6 +16,8 @@ import kotlinx.android.synthetic.main.main_fragment.*
 class MainFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var mainFragmentViewModel: MainViewModel
+    private lateinit var sororitySchedulePagerAdapter: SororitySchedulePagerAdapter
+    private lateinit var sororityScheduleViewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
@@ -32,6 +36,9 @@ class MainFragment : androidx.fragment.app.Fragment() {
                 mDisplayName.value = "Mark Fonte"
             }
         }
+        sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
+        sororityScheduleViewPager = sorority_schedule_view_pager
+        sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
     }
 
     override fun onResume() {
