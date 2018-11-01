@@ -36,4 +36,8 @@
     <string name="login_email_verification_success_confirmation">Verification email sent. Please check your email to verify it\'s you, then log in.</string>
     <string name="login_prompt_resend_email_verification">Resend verification email?</string>
     <string name="SORORITY_SCHEDULE_PAGE_POSITION">SORORITY_SCHEDULE_PAGE_POSITION</string>
+    <string name="first_round_display_title">1st Round: Open House</string>
+    <string name="second_round_display_title">2nd Round: Philanthropy</string>
+    <string name="third_round_display_title">3rd Round: Sisterhood</string>
+    <string name="fourth_round_display_title">4th Round: Preference</string>
 </resources>

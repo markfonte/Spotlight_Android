@@ -39,6 +39,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
         sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
         sororityScheduleViewPager = sorority_schedule_view_pager
         sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
+        tabLayout.setupWithViewPager(sororityScheduleViewPager)
     }
 
     override fun onResume() {
