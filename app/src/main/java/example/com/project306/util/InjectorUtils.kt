@@ -1,56 +1,62 @@
 package example.com.project306.util
 
 import example.com.project306.data.MainRepository
+import example.com.project306.data.SororityScheduleRepository
 import example.com.project306.ui.main.*
 
 object InjectorUtils {
 
-    private fun getMainRepository(): MainRepository {
+    private fun getMainRepositorySingleton(): MainRepository {
         return MainRepository.getInstance()
     }
 
+    private fun getSororityScheduleRepository(): SororityScheduleRepository {
+        return SororityScheduleRepository()
+    }
+
     fun provideMainViewModelFactory(): MainViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return MainViewModelFactory(repository)
     }
 
     fun provideLoginViewModelFactory(): LoginViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return LoginViewModelFactory(repository)
     }
 
     fun provideSignUpViewModelFactory(): SignUpViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return SignUpViewModelFactory(repository)
     }
 
     fun provideLoginStartViewModelFactory(): LoginStartViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return LoginStartViewModelFactory(repository)
     }
 
     fun provideMainActivityViewModelFactory(): MainActivityViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return MainActivityViewModelFactory(repository)
     }
 
     fun provideSettingsViewModelFactory(): SettingsViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return SettingsViewModelFactory(repository)
     }
 
     fun provideChooseValuesViewModelFactory(): ChooseValuesViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return ChooseValuesViewModelFactory(repository)
     }
 
     fun provideEditRankingViewModelFactory(): EditRankingViewModelFactory {
-        val repository: MainRepository = getMainRepository()
+        val repository: MainRepository = getMainRepositorySingleton()
         return EditRankingViewModelFactory(repository)
     }
 
     fun provideSororityScheduleViewModelFactory(): SororityScheduleViewModelFactory {
-        val repository: MainRepository = getMainRepository()
-        return SororityScheduleViewModelFactory(repository)
+        val mainRepository: MainRepository = getMainRepositorySingleton()
+        val sororityScheduleRepository : SororityScheduleRepository = getSororityScheduleRepository()
+        return SororityScheduleViewModelFactory(mainRepository, sororityScheduleRepository)
     }
 }
