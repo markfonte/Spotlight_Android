@@ -1,12 +1,17 @@
 package example.com.project306.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
+    private var fsDb: FirebaseFirestore = FirebaseFirestore.getInstance()
+
     var mCurrentUser: MutableLiveData<FirebaseUser> = MutableLiveData()
 
     init {
@@ -57,6 +62,20 @@ class FirebaseService {
 
     fun getUserDisplayName(): String? {
         return mCurrentUser.value?.displayName
+    }
+
+    fun updateUserInformation(values: HashMap<Any, Any>): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        fsDb.collection("users").document(mCurrentUser.value?.uid!!).set(values)
+                .addOnSuccessListener {
+                    Log.d(LOG_TAG, "Successfully updated database")
+                    result.value = ""
+                }
+                .addOnFailureListener {
+                    Log.e(LOG_TAG, "Error writing to document", it)
+                    result.value = it.toString()
+                }
+        return result
     }
 
     fun firebaseLogout(): MutableLiveData<String> {
