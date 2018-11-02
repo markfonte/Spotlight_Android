@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
@@ -28,6 +27,9 @@ class FirebaseService {
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
                     result.value = ""
+//                    var dummyMap: MutableMap<String, Any> = HashMap()
+//                    dummyMap.put("name", "Mark")
+//                    updateUserInformation(dummyMap)
                 }
             } else {
                 result.value = it.exception.toString()
@@ -64,7 +66,7 @@ class FirebaseService {
         return mCurrentUser.value?.displayName
     }
 
-    fun updateUserInformation(values: HashMap<Any, Any>): LiveData<String> {
+    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mCurrentUser.value?.uid!!).set(values)
                 .addOnSuccessListener {
