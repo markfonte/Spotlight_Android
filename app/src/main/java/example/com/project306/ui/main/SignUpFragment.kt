@@ -40,18 +40,18 @@ class SignUpFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_loginFragment, null)
         }
         attempt_create_account_button.setOnClickListener {
-            attemptLogin(view)
+            attemptSignUp(view)
         }
         sign_up_enter_confirm_password.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
-                attemptLogin(view)
+                attemptSignUp(view)
                 return@OnEditorActionListener true
             }
             false
         })
     }
 
-    private fun attemptLogin(view: View) {
+    private fun attemptSignUp(view: View) {
         SystemUtils.hideKeyboard(context, view)
         val currentDisplayName: String? = sign_up_enter_display_name.text.toString()
         val currentEmail: String? = sign_up_enter_email.text.toString()

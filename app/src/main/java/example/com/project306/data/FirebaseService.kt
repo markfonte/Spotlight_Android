@@ -40,6 +40,10 @@ class FirebaseService {
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) { //do not sign them in yet
                 result.value = ""
+                if(mAuth?.currentUser != null) {
+                    var x = "do something"
+                    x += "fuck"
+                }
                 setupNewAccount()
             } else {
                 result.value = it.exception.toString()
@@ -66,7 +70,7 @@ class FirebaseService {
 
     fun sendEmailVerification(email: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mCurrentUser.value?.sendEmailVerification()?.addOnCompleteListener {
+        mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener {
             if (it.isSuccessful) {
                 result.value = ""
             } else {
