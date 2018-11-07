@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseService {
@@ -40,10 +41,6 @@ class FirebaseService {
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) { //do not sign them in yet
                 result.value = ""
-                if(mAuth?.currentUser != null) {
-                    var x = "do something"
-                    x += "fuck"
-                }
                 setupNewAccount()
             } else {
                 result.value = it.exception.toString()
@@ -59,7 +56,7 @@ class FirebaseService {
      when they first log in. Then this function logs them out and we continue
      with our expected functionality.
      */
-    private fun setupNewAccount() : LiveData<String> {
+    private fun setupNewAccount(): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = "false"
@@ -103,6 +100,23 @@ class FirebaseService {
         mCurrentUser.value = null
         mAuth?.signOut()
         result.value = "success"
+        return result
+    }
+
+    fun getPanhelValues(): LiveData<ArrayList<*>> {
+        val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
+        fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    val panhelValues = document.data
+                    result.value = panhelValues?.get("values") as ArrayList<*>
+                }
+            } else {
+                Log.e(LOG_TAG, "task failed", task.exception)
+                result.value = arrayListOf<String>()
+            }
+        }
         return result
     }
 

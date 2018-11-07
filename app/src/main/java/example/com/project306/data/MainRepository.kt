@@ -31,6 +31,10 @@ class MainRepository {
         return firebaseService.sendEmailVerification(email)
     }
 
+    fun getPanhelValues() : LiveData<ArrayList<*>> {
+        return firebaseService.getPanhelValues()
+    }
+
     companion object {
 
         // For Singleton instantiation
