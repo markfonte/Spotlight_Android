@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/home_fragment_recycler_sorority_name"
+        android:id="@+id/sorority_schedule_recycler_sorority_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_standard"
@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/home_fragment_recycler_time_slot"
+        android:id="@+id/sorority_schedule_recycler_time_slot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_standard"
         android:text="@string/home_fragment_recycler_time_slot_text_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_fragment_recycler_sorority_name" />
+        app:layout_constraintTop_toBottomOf="@+id/sorority_schedule_recycler_sorority_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
