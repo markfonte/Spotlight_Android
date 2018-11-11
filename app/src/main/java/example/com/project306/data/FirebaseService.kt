@@ -24,6 +24,7 @@ class FirebaseService {
             if (it.isSuccessful) {
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
+                    
                     firebaseLogout()
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
