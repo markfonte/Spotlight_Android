@@ -24,7 +24,7 @@ class FirebaseService {
             if (it.isSuccessful) {
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
-                    
+
                     firebaseLogout()
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
@@ -80,6 +80,12 @@ class FirebaseService {
 
     fun getUserDisplayName(): String? {
         return mCurrentUser.value?.displayName
+    }
+
+    fun areValuesSet(): LiveData<Boolean> {
+        val result: MutableLiveData<Boolean> = MutableLiveData()
+        
+        return result
     }
 
     private fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {

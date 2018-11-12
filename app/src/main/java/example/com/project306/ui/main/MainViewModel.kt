@@ -9,5 +9,7 @@ import example.com.project306.util.SororityTimeSlot
 class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var mDisplayName: MutableLiveData<String> = MutableLiveData()
     private lateinit var sororityTimeSlots: MutableLiveData<List<SororityTimeSlot>>
-    private var panhelValues: LiveData<ArrayList<*>> = mainRepository.getPanhelValues()
+    fun areValuesSet() : LiveData<Boolean> {
+        return mainRepository.areValuesSet()
+    }
 }

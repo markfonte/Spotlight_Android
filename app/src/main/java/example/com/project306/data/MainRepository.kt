@@ -35,6 +35,10 @@ class MainRepository {
         return firebaseService.getPanhelValues()
     }
 
+    fun areValuesSet(): LiveData<Boolean> {
+        return firebaseService.areValuesSet()
+    }
+
     companion object {
 
         // For Singleton instantiation
