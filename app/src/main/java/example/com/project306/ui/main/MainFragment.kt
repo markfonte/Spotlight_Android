@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import example.com.project306.R
@@ -41,10 +42,16 @@ class MainFragment : androidx.fragment.app.Fragment() {
         sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
         tabLayout.setupWithViewPager(sororityScheduleViewPager)
 
+
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).validateUser()
+        if((activity as MainActivity).validateUser()) { //they are logged in
+            mainFragmentViewModel.areValuesSet().observe(this, Observer {
+                val boollll = it
+                val x = boollll
+            })
+        }
     }
 }

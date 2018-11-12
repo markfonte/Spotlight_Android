@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun validateUser() {
+    fun validateUser() : Boolean {
         if (mainActivityViewModel.currentUser.value == null || !mainActivityViewModel.currentUser.value?.isEmailVerified!!) {
             with(mainActivityViewModel) {
                 setBottomNavVisibility(false)
@@ -53,12 +53,14 @@ class MainActivity : AppCompatActivity() {
             }
             val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginStartFragment, true).build()
             navController.navigate(R.id.loginStartFragment, null, navOptions)
+            return false
         } else {
             with(mainActivityViewModel) {
                 setBottomNavVisibility(true)
                 setAppBarVisibility(true)
             }
         }
+        return true
     }
 
     override fun onBackPressed() {

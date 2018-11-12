@@ -84,7 +84,15 @@ class FirebaseService {
 
     fun areValuesSet(): LiveData<Boolean> {
         val result: MutableLiveData<Boolean> = MutableLiveData()
-        
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    val userData = document.data
+                    result.value = userData?.get("areValuesSet") != "false"
+                }
+            }
+        }
         return result
     }
 
