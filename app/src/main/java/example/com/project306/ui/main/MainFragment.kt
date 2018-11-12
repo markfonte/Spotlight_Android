@@ -47,10 +47,11 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if((activity as MainActivity).validateUser()) { //they are logged in
+        if ((activity as MainActivity).validateUser()) { //they are logged in
             mainFragmentViewModel.areValuesSet().observe(this, Observer {
-                val boollll = it
-                val x = boollll
+                if (it == false) {
+                    (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_chooseValuesFragment, null)
+                }
             })
         }
     }
