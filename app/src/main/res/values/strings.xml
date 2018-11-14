@@ -40,5 +40,6 @@
     <string name="second_round_display_title">2nd Round: Philanthropy</string>
     <string name="third_round_display_title">3rd Round: Sisterhood</string>
     <string name="fourth_round_display_title">4th Round: Preference</string>
-    <string name="choose_values_title_prompt">Please Choose 3 Values</string>
+    <string name="choose_values_title_prompt">Please select the 3 values you will be looking for the most in your new home! You will be able to change them later.</string>
+    <string name="choose_values_submit_button_text">Submit</string>
 </resources>
