@@ -39,8 +39,8 @@ class MainRepository {
         return firebaseService.areValuesSet()
     }
 
-    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
-        return firebaseService.updateUserInformation(values)
+    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+        return firebaseService.overwriteUserInformation(values)
     }
 
     companion object {

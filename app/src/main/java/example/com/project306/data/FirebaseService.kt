@@ -61,7 +61,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = false
-        updateUserInformation(newUserMap)
+        overwriteUserInformation(newUserMap)
         firebaseLogout()
         return result
     }
@@ -96,7 +96,7 @@ class FirebaseService {
         return result
     }
 
-    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
                 .addOnSuccessListener {

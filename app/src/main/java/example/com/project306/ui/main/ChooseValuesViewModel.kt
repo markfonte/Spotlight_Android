@@ -8,6 +8,6 @@ class ChooseValuesViewModel(private val mainRepository: MainRepository) : ViewMo
     var panhelValues: LiveData<ArrayList<*>> = mainRepository.getPanhelValues()
 
     fun submitChosenValues(values: MutableMap<String, Any>): LiveData<String> {
-        return mainRepository.updateUserInformation(values)
+        return mainRepository.overwriteUserInformation(values)
     }
 }
