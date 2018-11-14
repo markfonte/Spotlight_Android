@@ -16,6 +16,7 @@ import example.com.project306.databinding.FragmentChooseValuesBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_choose_values.*
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -23,11 +24,11 @@ class ChooseValuesFragment : Fragment() {
     private lateinit var chooseValuesFragmentViewModel: ChooseValuesViewModel
     private lateinit var panhelValues: ArrayList<*>
     private lateinit var currentlyCheckedBoxes: HashMap<Int, String>
-    private lateinit var submittedCheckboxes: Stack<String>
+    private lateinit var submittedCheckboxes: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        submittedCheckboxes = Stack()
+        submittedCheckboxes = ArrayList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,7 +59,7 @@ class ChooseValuesFragment : Fragment() {
             while (i < panhelValues.size) {
                 if (currentlyCheckedBoxes[i] != "") {
                     ++count
-                    submittedCheckboxes.push(currentlyCheckedBoxes[i])
+                    submittedCheckboxes.add(currentlyCheckedBoxes[i]!!)
                 }
                 ++i
             }
@@ -88,13 +89,16 @@ class ChooseValuesFragment : Fragment() {
     private fun sendConfirmationAlertDialog() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle("Confirm Your Selections")
-                .setMessage("Select ${submittedCheckboxes.pop()}, ${submittedCheckboxes.pop()}, and ${submittedCheckboxes.pop()}?")
+                .setMessage("Select ${submittedCheckboxes[0]}, ${submittedCheckboxes[1]}, and ${submittedCheckboxes[2]}?")
                 .setPositiveButton(android.R.string.yes, null)
                 .setNegativeButton(android.R.string.no, null)
                 .create()
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                //send to database, release if successful
+                val newValuesMap: MutableMap<String, Any> = HashMap()
+                newValuesMap["areValuesSet"] = true
+                newValuesMap["values"] = Arrays.asList(submittedCheckboxes[0], submittedCheckboxes[1], submittedCheckboxes[2])
+                chooseValuesFragmentViewModel.submitChosenValues(newValuesMap)
             }
         }
         alertDialog.show()

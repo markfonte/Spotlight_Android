@@ -23,7 +23,7 @@ class MainRepository {
         return firebaseService.firebaseLogout()
     }
 
-    fun attemptCreateAccout(email: String, password: String) :LiveData<String> {
+    fun attemptCreateAccout(email: String, password: String): LiveData<String> {
         return firebaseService.attemptCreateAccount(email, password)
     }
 
@@ -31,12 +31,16 @@ class MainRepository {
         return firebaseService.sendEmailVerification(email)
     }
 
-    fun getPanhelValues() : LiveData<ArrayList<*>> {
+    fun getPanhelValues(): LiveData<ArrayList<*>> {
         return firebaseService.getPanhelValues()
     }
 
     fun areValuesSet(): LiveData<Boolean> {
         return firebaseService.areValuesSet()
+    }
+
+    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+        return firebaseService.updateUserInformation(values)
     }
 
     companion object {

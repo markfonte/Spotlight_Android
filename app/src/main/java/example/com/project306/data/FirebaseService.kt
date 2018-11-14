@@ -53,14 +53,14 @@ class FirebaseService {
     /* createAccountWithEmailAndPassword automatically logs user in. While this
      is not the end functionality we want, we can leverage this to do the first-time
      login work - such as creating the user-specific document in the database and
-     setting "areValuesSet" to "false" so we know to start the onboarding process
+     setting "areValuesSet" to false so we know to start the onboarding process
      when they first log in. Then this function logs them out and we continue
      with our expected functionality.
      */
     private fun setupNewAccount(): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val newUserMap: MutableMap<String, Any> = HashMap()
-        newUserMap["areValuesSet"] = "false"
+        newUserMap["areValuesSet"] = false
         updateUserInformation(newUserMap)
         firebaseLogout()
         return result
@@ -89,14 +89,14 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
-                    result.value = userData?.get("areValuesSet") != "false"
+                    result.value = userData?.get("areValuesSet") != false
                 }
             }
         }
         return result
     }
 
-    private fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
                 .addOnSuccessListener {

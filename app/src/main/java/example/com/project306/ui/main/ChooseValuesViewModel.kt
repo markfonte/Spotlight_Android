@@ -6,4 +6,8 @@ import example.com.project306.data.MainRepository
 
 class ChooseValuesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var panhelValues: LiveData<ArrayList<*>> = mainRepository.getPanhelValues()
+
+    fun submitChosenValues(values: MutableMap<String, Any>): LiveData<String> {
+        return mainRepository.updateUserInformation(values)
+    }
 }
