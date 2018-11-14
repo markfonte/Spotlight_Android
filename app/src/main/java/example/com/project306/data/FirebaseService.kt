@@ -66,7 +66,7 @@ class FirebaseService {
         return result
     }
 
-    fun sendEmailVerification(email: String): LiveData<String> {
+    fun sendEmailVerification(): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener {
             if (it.isSuccessful) {
@@ -76,10 +76,6 @@ class FirebaseService {
             }
         }
         return result
-    }
-
-    fun getUserDisplayName(): String? {
-        return mCurrentUser.value?.displayName
     }
 
     fun areValuesSet(): LiveData<Boolean> {

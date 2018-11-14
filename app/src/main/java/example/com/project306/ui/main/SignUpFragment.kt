@@ -79,7 +79,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun sendEmailVerification(email: String, view: View) {
-        signUpFragmentViewModel.attemptEmailVerification(email).observe(this, Observer { error ->
+        signUpFragmentViewModel.attemptEmailVerification().observe(this, Observer { error ->
             run {
                 if (error == "") {
                     val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, getString(R.string.sign_up_and_email_verification_success_confirmation), Snackbar.LENGTH_INDEFINITE)

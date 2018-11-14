@@ -27,8 +27,8 @@ class MainRepository {
         return firebaseService.attemptCreateAccount(email, password)
     }
 
-    fun attemptEmailVerification(email: String): LiveData<String> {
-        return firebaseService.sendEmailVerification(email)
+    fun attemptEmailVerification(): LiveData<String> {
+        return firebaseService.sendEmailVerification()
     }
 
     fun getPanhelValues(): LiveData<ArrayList<*>> {

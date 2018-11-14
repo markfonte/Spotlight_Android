@@ -9,7 +9,7 @@ class LoginViewModel(private val mainRepository: MainRepository) : ViewModel() {
         return mainRepository.attemptLogin(email, password)
     }
 
-    fun attemptEmailVerification(email: String): LiveData<String> {
-        return mainRepository.attemptEmailVerification(email)
+    fun attemptEmailVerification(): LiveData<String> {
+        return mainRepository.attemptEmailVerification()
     }
 }

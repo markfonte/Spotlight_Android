@@ -9,7 +9,7 @@ class SignUpViewModel(private val mainRepository: MainRepository) : ViewModel() 
         return mainRepository.attemptCreateAccout(email, password)
     }
 
-    fun attemptEmailVerification(email: String): LiveData<String> {
-        return mainRepository.attemptEmailVerification(email)
+    fun attemptEmailVerification(): LiveData<String> {
+        return mainRepository.attemptEmailVerification()
     }
 }

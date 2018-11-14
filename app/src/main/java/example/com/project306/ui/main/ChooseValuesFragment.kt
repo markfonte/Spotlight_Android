@@ -58,6 +58,7 @@ class ChooseValuesFragment : Fragment() {
         choose_values_submit_button.setOnClickListener {
             var count = 0
             var i = 0
+            submittedCheckboxes = ArrayList()
             while (i < panhelValues.size) {
                 if (currentlyCheckedBoxes[i] != "") {
                     ++count
