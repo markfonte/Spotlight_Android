@@ -2,6 +2,7 @@ package example.com.project306.ui.main
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import example.com.project306.R
 import example.com.project306.databinding.FragmentChooseValuesBinding
 import example.com.project306.util.InjectorUtils
@@ -98,7 +100,18 @@ class ChooseValuesFragment : Fragment() {
                 val newValuesMap: MutableMap<String, Any> = HashMap()
                 newValuesMap["areValuesSet"] = true
                 newValuesMap["values"] = Arrays.asList(submittedCheckboxes[0], submittedCheckboxes[1], submittedCheckboxes[2])
-                chooseValuesFragmentViewModel.submitChosenValues(newValuesMap)
+                chooseValuesFragmentViewModel.submitChosenValues(newValuesMap).observe(this, Observer { error ->
+                    run {
+                        if (error == "") {
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
+                            (activity as MainActivity).navController.navigate(R.id.action_chooseValuesFragment_to_mainFragment, null, navOptions)
+                        }
+                        else {
+                            Log.e(LOG_TAG, "Error setting values: $error")
+                        }
+                        alertDialog.dismiss()
+                    }
+                })
             }
         }
         alertDialog.show()
@@ -121,5 +134,8 @@ class ChooseValuesFragment : Fragment() {
             checkboxHolder.addView(newCheckbox)
         }
         choose_values_checkbox_holder.addView(checkboxHolder)
+    }
+    companion object {
+        private val LOG_TAG : String = ChooseValuesFragment::class.java.name
     }
 }

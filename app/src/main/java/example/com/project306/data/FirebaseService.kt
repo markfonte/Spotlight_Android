@@ -100,7 +100,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
                 .addOnSuccessListener {
-                    Log.d(LOG_TAG, "Successfully updated database")
+                    Log.d(LOG_TAG, "Successfully overwrote user document")
                     result.value = ""
                 }
                 .addOnFailureListener {
