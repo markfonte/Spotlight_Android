@@ -8,10 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import example.com.project306.R
+import example.com.project306.adapter.SororityScheduleRecyclerAdapter
 import example.com.project306.databinding.FragmentSororityScheduleBinding
 import example.com.project306.util.InjectorUtils
 import example.com.project306.util.SororityTimeSlot
+import kotlinx.android.synthetic.main.fragment_sorority_schedule.*
 
 class SororityScheduleFragment : Fragment() {
 
@@ -53,7 +56,8 @@ class SororityScheduleFragment : Fragment() {
                 currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
                 timeSlots.add(currentTimeSlot)
             }
-            val x = 0
+            sorority_schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
+            sorority_schedule_recycler_view.adapter = SororityScheduleRecyclerAdapter(timeSlots)
         })
 
     }

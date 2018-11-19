@@ -138,7 +138,12 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userDocument = document.data
-                    result.value = userDocument?.get(scheduleName) as ArrayList<*>
+                    if(userDocument?.get(scheduleName) != null) {
+                        result.value = userDocument[scheduleName] as ArrayList<*>
+                    }
+                    else {
+                        result.value = arrayListOf<Any>()
+                    }
                 }
             } else {
                 Log.e(LOG_TAG, "getSchedule task failed", task.exception)
