@@ -1,17 +1,12 @@
 package example.com.project306.util
 
 import example.com.project306.data.MainRepository
-import example.com.project306.data.SororityScheduleRepository
 import example.com.project306.ui.main.*
 
 object InjectorUtils {
 
     private fun getMainRepositorySingleton(): MainRepository {
         return MainRepository.getInstance()
-    }
-
-    private fun getSororityScheduleRepository(): SororityScheduleRepository {
-        return SororityScheduleRepository()
     }
 
     fun provideMainViewModelFactory(): MainViewModelFactory {
@@ -56,7 +51,6 @@ object InjectorUtils {
 
     fun provideSororityScheduleViewModelFactory(): SororityScheduleViewModelFactory {
         val mainRepository: MainRepository = getMainRepositorySingleton()
-        val sororityScheduleRepository : SororityScheduleRepository = getSororityScheduleRepository()
-        return SororityScheduleViewModelFactory(mainRepository, sororityScheduleRepository)
+        return SororityScheduleViewModelFactory(mainRepository)
     }
 }
