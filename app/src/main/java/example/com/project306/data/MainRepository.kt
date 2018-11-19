@@ -43,7 +43,7 @@ class MainRepository {
         return firebaseService.overwriteUserInformation(values)
     }
 
-    fun getSchedule(scheduleName: String): LiveData<ArrayList<*>> {
+    fun getSchedule(scheduleName: String): LiveData<ArrayList<HashMap<String, String>>> {
         return firebaseService.getSchedule(scheduleName)
     }
 

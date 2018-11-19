@@ -46,8 +46,8 @@ class SororityScheduleFragment : Fragment() {
             else -> "fourth_round"
         }
         sororityScheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
-            val houses : ArrayList<*> = it
-            val timeSlots : ArrayList<SororityTimeSlot> = arrayListOf()
+            val houses: ArrayList<HashMap<String, String>> = it
+            val timeSlots: ArrayList<SororityTimeSlot> = arrayListOf()
             for (house in houses) {
                 house as HashMap<String, String>
                 val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
@@ -55,6 +55,7 @@ class SororityScheduleFragment : Fragment() {
                 currentTimeSlot.Date = house["date"]
                 currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
                 timeSlots.add(currentTimeSlot)
+                sororityScheduleFragmentViewModel.isDataToDisplay.value = true
             }
             sorority_schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
             sorority_schedule_recycler_view.adapter = SororityScheduleRecyclerAdapter(timeSlots)

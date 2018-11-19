@@ -44,4 +44,5 @@
     <string name="choose_values_submit_button_text">Submit</string>
     <string name="sorority_schedule_row_date_text_default">Date</string>
     <string name="sorority_schedule_row_greek_letters_text_default">Greek Letters</string>
+    <string name="sorority_schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
 </resources>

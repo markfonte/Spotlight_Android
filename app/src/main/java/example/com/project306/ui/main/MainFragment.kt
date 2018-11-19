@@ -32,11 +32,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        main_button.setOnClickListener {
-            with(mainFragmentViewModel) {
-                mDisplayName.value = "Mark Fonte"
-            }
-        }
         sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
         sororityScheduleViewPager = sorority_schedule_view_pager
         sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
