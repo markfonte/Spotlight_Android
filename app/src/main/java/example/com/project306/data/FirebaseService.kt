@@ -131,6 +131,23 @@ class FirebaseService {
         return result
     }
 
+    fun getSchedule(scheduleName: String): LiveData<ArrayList<*>> {
+        val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    val userDocument = document.data
+                    result.value = userDocument?.get(scheduleName) as ArrayList<*>
+                }
+            } else {
+                Log.e(LOG_TAG, "getSchedule task failed", task.exception)
+                result.value = arrayListOf<Any>()
+            }
+        }
+        return result
+    }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 

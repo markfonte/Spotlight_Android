@@ -4,8 +4,8 @@
     <string name="menu_title_home">Home</string>
     <string name="menu_title_ranking">Ranking</string>
     <string name="menu_title_view">View</string>
-    <string name="home_fragment_recycler_time_slot_text_default">Time Slot</string>
-    <string name="home_fragment_recycler_sorority_name_text_default">Sorority Name</string>
+    <string name="sorority_schedule_time_text_default">Time</string>
+    <string name="sorority_schedule_display_name_text_default">Sorority Display Name</string>
     <string name="login_enter_email_hint">Email</string>
     <string name="login_enter_password_hint">Password</string>
     <string name="login_main_prompt">Welcome! Please log in.</string>
@@ -42,4 +42,6 @@
     <string name="fourth_round_display_title">4th Round: Preference</string>
     <string name="choose_values_title_prompt">Please select the 3 values you will be looking for the most in your new home! You will be able to change them later.</string>
     <string name="choose_values_submit_button_text">Submit</string>
+    <string name="sorority_schedule_row_date_text_default">Date</string>
+    <string name="sorority_schedule_row_greek_letters_text_default">Greek Letters</string>
 </resources>

@@ -43,6 +43,10 @@ class MainRepository {
         return firebaseService.overwriteUserInformation(values)
     }
 
+    fun getSchedule(scheduleName: String): LiveData<ArrayList<*>> {
+        return firebaseService.getSchedule(scheduleName)
+    }
+
     companion object {
 
         // For Singleton instantiation

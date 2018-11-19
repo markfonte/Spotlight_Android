@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import example.com.project306.R
 import example.com.project306.databinding.FragmentSororityScheduleBinding
 import example.com.project306.util.InjectorUtils
+import example.com.project306.util.SororityTimeSlot
 
 class SororityScheduleFragment : Fragment() {
 
     private lateinit var sororityScheduleFragmentViewModel: SororityScheduleViewModel
-    private var position : Int = -1
+    private var position: Int = -1
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: SororityScheduleViewModelFactory = InjectorUtils.provideSororityScheduleViewModelFactory()
         sororityScheduleFragmentViewModel = ViewModelProviders.of(this, factory).get(SororityScheduleViewModel::class.java)
@@ -30,6 +32,29 @@ class SororityScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        buildScheduleView()
+    }
+
+    private fun buildScheduleView() {
+        val scheduleName: String = when (position) {
+            0 -> "first_round"
+            1 -> "second_round"
+            2 -> "third_round"
+            else -> "fourth_round"
+        }
+        sororityScheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
+            val houses : ArrayList<*> = it
+            val timeSlots : ArrayList<SororityTimeSlot> = arrayListOf()
+            for (house in houses) {
+                house as HashMap<String, String>
+                val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
+                currentTimeSlot.Time = house["time"]
+                currentTimeSlot.Date = house["date"]
+                currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
+                timeSlots.add(currentTimeSlot)
+            }
+            val x = 0
+        })
 
     }
 }

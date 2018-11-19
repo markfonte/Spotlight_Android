@@ -6,5 +6,7 @@ import example.com.project306.data.MainRepository
 import example.com.project306.data.SororityScheduleRepository
 
 class SororityScheduleViewModel(private val mainRepository: MainRepository, private val sororityScheduleRepository: SororityScheduleRepository) : ViewModel() {
-
+    fun getSchedule(scheduleName: String): LiveData<ArrayList<*>> {
+        return mainRepository.getSchedule(scheduleName)
+    }
 }
