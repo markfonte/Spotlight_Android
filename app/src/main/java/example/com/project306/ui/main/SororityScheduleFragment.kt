@@ -49,7 +49,6 @@ class SororityScheduleFragment : Fragment() {
             val houses: ArrayList<HashMap<String, String>> = it
             val timeSlots: ArrayList<SororityTimeSlot> = arrayListOf()
             for (house in houses) {
-                house as HashMap<String, String>
                 val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
                 currentTimeSlot.Time = house["time"]
                 currentTimeSlot.Date = house["date"]
@@ -57,6 +56,7 @@ class SororityScheduleFragment : Fragment() {
                 timeSlots.add(currentTimeSlot)
                 sororityScheduleFragmentViewModel.isDataToDisplay.value = true
             }
+            sororityScheduleFragmentViewModel.isDataLoading.value = false
             sorority_schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
             sorority_schedule_recycler_view.adapter = SororityScheduleRecyclerAdapter(timeSlots)
         })
