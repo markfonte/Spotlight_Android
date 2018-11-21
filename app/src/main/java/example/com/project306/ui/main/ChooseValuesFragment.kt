@@ -106,8 +106,7 @@ class ChooseValuesFragment : Fragment() {
                         if (error == "") {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
                             (activity as MainActivity).navController.navigate(R.id.action_chooseValuesFragment_to_mainFragment, null, navOptions)
-                        }
-                        else {
+                        } else {
                             Log.e(LOG_TAG, "Error setting values: $error")
                         }
                         alertDialog.dismiss()
@@ -136,7 +135,8 @@ class ChooseValuesFragment : Fragment() {
         }
         choose_values_checkbox_holder.addView(checkboxHolder)
     }
+
     companion object {
-        private val LOG_TAG : String = ChooseValuesFragment::class.java.name
+        private val LOG_TAG: String = ChooseValuesFragment::class.java.name
     }
 }
