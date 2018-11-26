@@ -153,6 +153,22 @@ class FirebaseService {
         return result
     }
 
+    fun getStaticHouseData(): MutableLiveData<Any> {
+        val result: MutableLiveData<Any> = MutableLiveData()
+        fsDb.collection("panhel_data").document("house_information").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    result.value = document.data
+                }
+            } else {
+                Log.e(LOG_TAG, "getStaticHouseData task failed", task.exception)
+                result.value = null
+            }
+        }
+        return result
+    }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 

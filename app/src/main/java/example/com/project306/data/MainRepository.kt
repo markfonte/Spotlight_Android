@@ -8,6 +8,11 @@ class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
     var isBottomNavVisible: MutableLiveData<Boolean> = MutableLiveData()
     var isAppBarVisible: MutableLiveData<Boolean> = MutableLiveData()
+    var staticHouseData: MutableLiveData<Any> = firebaseService.getStaticHouseData()
+
+    fun refreshStaticHouseData() {
+        staticHouseData.value = firebaseService.getStaticHouseData().value
+    }
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
         return firebaseService.attemptLogin(email, password)

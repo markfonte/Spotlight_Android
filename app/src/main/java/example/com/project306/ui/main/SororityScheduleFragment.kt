@@ -39,27 +39,29 @@ class SororityScheduleFragment : Fragment() {
     }
 
     private fun buildScheduleView() {
-        val scheduleName: String = when (position) {
-            0 -> "first_round"
-            1 -> "second_round"
-            2 -> "third_round"
-            else -> "fourth_round"
-        }
-        sororityScheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
-            val houses: ArrayList<HashMap<String, String>> = it
-            val timeSlots: ArrayList<SororityTimeSlot> = arrayListOf()
-            for (house in houses) {
-                val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
-                currentTimeSlot.Time = house["time"]
-                currentTimeSlot.Date = house["date"]
-                currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
-                timeSlots.add(currentTimeSlot)
-                sororityScheduleFragmentViewModel.isDataToDisplay.value = true
+        if (sororityScheduleFragmentViewModel.staticHouseData.value != null) {
+            val scheduleName: String = when (position) {
+                0 -> "first_round"
+                1 -> "second_round"
+                2 -> "third_round"
+                else -> "fourth_round"
             }
-            sororityScheduleFragmentViewModel.isDataLoading.value = false
-            sorority_schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
-            sorority_schedule_recycler_view.adapter = SororityScheduleRecyclerAdapter(timeSlots)
-        })
+            sororityScheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
+                val houses: ArrayList<HashMap<String, String>> = it
+                val timeSlots: ArrayList<SororityTimeSlot> = arrayListOf()
+                for (house in houses) {
+                    val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
+                    currentTimeSlot.Time = house["time"]
+                    currentTimeSlot.Date = house["date"]
+                    currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
+                    timeSlots.add(currentTimeSlot)
+                    sororityScheduleFragmentViewModel.isDataToDisplay.value = true
+                }
+                sororityScheduleFragmentViewModel.isDataLoading.value = false
+                sorority_schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
+                sorority_schedule_recycler_view.adapter = SororityScheduleRecyclerAdapter(timeSlots)
+            })
 
+        }
     }
 }

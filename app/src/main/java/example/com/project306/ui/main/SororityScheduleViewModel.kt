@@ -12,6 +12,7 @@ class SororityScheduleViewModel(private val mainRepository: MainRepository) : Vi
 
     var isDataToDisplay: MutableLiveData<Boolean> = MutableLiveData()
     var isDataLoading: MutableLiveData<Boolean> = MutableLiveData()
+    var staticHouseData: MutableLiveData<Any> = mainRepository.staticHouseData
 
     init {
         isDataToDisplay.value = false

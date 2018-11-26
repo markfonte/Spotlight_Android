@@ -32,10 +32,14 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
-        sororityScheduleViewPager = sorority_schedule_view_pager
-        sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
-        tabLayout.setupWithViewPager(sororityScheduleViewPager)
+        mainFragmentViewModel.staticHouseData.observe(this, Observer {//Sorority Schedule pages not inflated until static house data is acquired
+            if (it != null) {
+                sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
+                sororityScheduleViewPager = sorority_schedule_view_pager
+                sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
+                tabLayout.setupWithViewPager(sororityScheduleViewPager)
+            }
+        })
     }
 
     override fun onResume() {
