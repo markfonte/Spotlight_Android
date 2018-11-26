@@ -16,6 +16,7 @@ Spotlight lets sorority rushees streamline their rush process!
 * [Firebase Authentication](https://firebase.google.com/) - For managing user authentication
 * [Maven](https://maven.apache.org/) - For dependency management
 * [Glide](https://github.com/bumptech/glide) - For smooth image loading and caching
+* [Project Specification](https://invis.io/V4ODC1BRD7E) - For project design goals and specifications
 
 ## Contributing
 

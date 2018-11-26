@@ -55,7 +55,7 @@ class SororityScheduleFragment : Fragment() {
                     val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
                     currentTimeSlot.Time = house["time"]
                     currentTimeSlot.Date = house["date"]
-                    currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")//TODO: Change when pulling in "static" house information
+                    currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
                     currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
                     timeSlots.add(currentTimeSlot)
                     sororityScheduleFragmentViewModel.isDataToDisplay.value = true
