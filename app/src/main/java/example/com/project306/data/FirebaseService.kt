@@ -153,13 +153,14 @@ class FirebaseService {
         return result
     }
 
-    fun getStaticHouseData(): MutableLiveData<Any> {
-        val result: MutableLiveData<Any> = MutableLiveData()
+    fun getStaticHouseData(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
+        val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("panhel_data").document("house_information").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
-                    result.value = document.data
+                    @Suppress("UNCHECKED_CAST")
+                    result.value = document.data as HashMap<String, HashMap<String, String>>
                 }
             } else {
                 Log.e(LOG_TAG, "getStaticHouseData task failed", task.exception)

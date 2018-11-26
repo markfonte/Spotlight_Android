@@ -49,11 +49,14 @@ class SororityScheduleFragment : Fragment() {
             sororityScheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
                 val houses: ArrayList<HashMap<String, String>> = it
                 val timeSlots: ArrayList<SororityTimeSlot> = arrayListOf()
+                val staticHouseData = sororityScheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
                 for (house in houses) {
+                    val currentStaticHouseData = staticHouseData[house["house_id"]]
                     val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
                     currentTimeSlot.Time = house["time"]
                     currentTimeSlot.Date = house["date"]
-                    currentTimeSlot.DisplayName = house["house_id"] //TODO: Change when pulling in "static" house information
+                    currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")//TODO: Change when pulling in "static" house information
+                    currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
                     timeSlots.add(currentTimeSlot)
                     sororityScheduleFragmentViewModel.isDataToDisplay.value = true
                 }
