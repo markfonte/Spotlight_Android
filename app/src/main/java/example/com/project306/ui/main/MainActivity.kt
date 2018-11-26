@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setTheme(R.style.AppTheme_NoActionBar)
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
         mainActivityViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         val binding: MainActivityBinding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity).apply {

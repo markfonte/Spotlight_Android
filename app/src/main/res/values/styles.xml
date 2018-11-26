@@ -13,6 +13,7 @@
         <item name="colorButtonNormal">@color/colorButtonBackgroundDefault</item>
     </style>
 
+
     <style name="borderlessButtonStyle">
         <item name="android:colorBackground">@color/colorButtonBackgroundDefault</item>
         <item name="colorControlHighlight">@android:color/black</item>
@@ -24,6 +25,11 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
 </resources>
