@@ -28,8 +28,8 @@ class MainRepository {
         return firebaseService.firebaseLogout()
     }
 
-    fun attemptCreateAccout(email: String, password: String): LiveData<String> {
-        return firebaseService.attemptCreateAccount(email, password)
+    fun attemptCreateAccout(email: String, password: String, displayName: String): LiveData<String> {
+        return firebaseService.attemptCreateAccount(email, password, displayName)
     }
 
     fun attemptEmailVerification(): LiveData<String> {

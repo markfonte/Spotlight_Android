@@ -58,7 +58,7 @@ class SignUpFragment : Fragment() {
         val currentPassword: String? = sign_up_enter_password.text.toString()
         val currentConfirmPassword: String? = sign_up_enter_confirm_password.text.toString()
         if (isValidInput(currentDisplayName, currentEmail, currentPassword, currentConfirmPassword)) {
-            signUpFragmentViewModel.attemptCreateAccount(currentEmail!!, currentPassword!!).observe(this, Observer { error ->
+            signUpFragmentViewModel.attemptCreateAccount(currentEmail!!, currentPassword!!, currentDisplayName!!).observe(this, Observer { error ->
                 run {
                     if (error == "") {
                         sendEmailVerification(currentEmail, view)

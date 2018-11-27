@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -37,12 +38,12 @@ class FirebaseService {
         return result
     }
 
-    fun attemptCreateAccount(email: String, password: String): LiveData<String> {
+    fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) { //do not sign them in yet
                 result.value = ""
-                setupNewAccount()
+                setupNewAccount(displayName)
             } else {
                 result.value = it.exception.toString()
             }
@@ -57,13 +58,22 @@ class FirebaseService {
      when they first log in. Then this function logs them out and we continue
      with our expected functionality.
      */
-    private fun setupNewAccount(): LiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
+    private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = false
         overwriteUserInformation(newUserMap)
+        val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName)
+                .build()
+        mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d(LOG_TAG, "Display name set")
+            } else {
+                Log.e(LOG_TAG, task.exception.toString())
+            }
+
+        }
         firebaseLogout()
-        return result
     }
 
     fun sendEmailVerification(): LiveData<String> {
