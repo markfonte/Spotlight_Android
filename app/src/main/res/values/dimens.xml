@@ -3,6 +3,7 @@
     <dimen name="margin_standard">8dp</dimen>
     <dimen name="padding_standard">8dp</dimen>
     <dimen name="main_title_font_size">48sp</dimen>
+    <dimen name="title_font_size">24sp</dimen>
     <dimen name="medium_font_size">18sp</dimen>
     <dimen name="margin_extra_large">24dp</dimen>
 </resources>

@@ -45,4 +45,13 @@
     <string name="sorority_schedule_row_date_text_default">Date</string>
     <string name="sorority_schedule_row_greek_letters_text_default">Greek Letters</string>
     <string name="sorority_schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
+    <string name="display_values_title_default_text">My Values</string>
+    <string name="display_values_value_one_default_text" />
+    <string name="display_values_value_two_default_text" />
+    <string name="display_values_value_three_default_text" />
+    <string name="display_user_data_title_default_text">My Info</string>
+    <string name="display_user_data_display_name_prompt_default_text">Name</string>
+    <string name="display_user_data_display_name_default_text" />
+    <string name="display_user_data_email_prompt_default_text">Email</string>
+    <string name="display_user_data_email_default_text" />
 </resources>
