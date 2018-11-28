@@ -53,32 +53,36 @@
                 android:id="@+id/display_user_data_display_name_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_user_data_display_name_prompt_default_text"
-                android:textSize="@dimen/medium_font_size" />
+                android:textAllCaps="true"
+                android:textSize="@dimen/small_font_size" />
 
             <TextView
                 android:id="@+id/display_user_data_display_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                android:text="@string/display_user_data_display_name_default_text"
+                android:text="@{viewModel.displayName}"
                 android:textSize="@dimen/medium_font_size" />
 
             <TextView
                 android:id="@+id/display_user_data_email_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_user_data_email_prompt_default_text"
-                android:textSize="@dimen/medium_font_size" />
+                android:textAllCaps="true"
+                android:textSize="@dimen/small_font_size" />
 
             <TextView
                 android:id="@+id/display_user_data_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                android:text="@string/display_user_data_email_default_text"
+                android:text="@{viewModel.email}"
                 android:textSize="@dimen/medium_font_size" />
 
         </LinearLayout>
@@ -107,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                android:text="@string/display_values_value_one_default_text"
+                android:text="@{viewModel.valueOne}"
                 android:textSize="@dimen/medium_font_size" />
 
             <TextView
@@ -115,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                android:text="@string/display_values_value_two_default_text"
+                android:text="@{viewModel.valueTwo}"
                 android:textSize="@dimen/medium_font_size" />
 
             <TextView
@@ -123,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                android:text="@string/display_values_value_three_default_text"
+                android:text="@{viewModel.valueThree}"
                 android:textSize="@dimen/medium_font_size" />
 
         </LinearLayout>

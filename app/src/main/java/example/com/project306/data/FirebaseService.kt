@@ -19,6 +19,18 @@ class FirebaseService {
         mCurrentUser.value = mAuth?.currentUser
     }
 
+    fun getDisplayName(): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        result.value = mAuth?.currentUser?.displayName
+        return result
+    }
+
+    fun getEmail(): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        result.value = mAuth?.currentUser?.email
+        return result
+    }
+
     fun attemptLogin(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {

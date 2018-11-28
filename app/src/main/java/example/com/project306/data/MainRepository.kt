@@ -52,6 +52,14 @@ class MainRepository {
         return firebaseService.getSchedule(scheduleName)
     }
 
+    fun getDisplayName(): MutableLiveData<String> {
+        return firebaseService.getDisplayName()
+    }
+
+    fun getEmail(): MutableLiveData<String> {
+        return firebaseService.getEmail()
+    }
+
     companion object {
 
         // For Singleton instantiation

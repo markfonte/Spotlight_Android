@@ -5,7 +5,14 @@ import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
 class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel() {
-    fun logout() : MutableLiveData<String> {
+    fun logout(): MutableLiveData<String> {
         return mainRepository.accountsLogout()
     }
+
+
+    val valueOne: MutableLiveData<String> = MutableLiveData()
+    val valueTwo: MutableLiveData<String> = MutableLiveData()
+    val valueThree: MutableLiveData<String> = MutableLiveData()
+    val displayName: MutableLiveData<String> = mainRepository.getDisplayName()
+    val email: MutableLiveData<String> = mainRepository.getEmail()
 }
