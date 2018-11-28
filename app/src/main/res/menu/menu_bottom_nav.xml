@@ -3,13 +3,19 @@
     <item
         android:id="@id/mainFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/menu_title_home"/>
+        android:title="@string/menu_title_home" />
     <item
         android:id="@id/rankingFragment"
         android:icon="@drawable/ic_format_list_numbered_black_24dp"
-        android:title="@string/menu_title_ranking"/>
+        android:title="@string/menu_title_ranking" />
     <item
         android:id="@id/settingsFragment"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/menu_title_settings"/>
+        android:title="@string/menu_title_settings" />
+    <item
+        android:id="@id/editHouseFragment"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
+        android:title="@string/menu_title_edit_house"
+        android:visible="false" />
+
 </menu>

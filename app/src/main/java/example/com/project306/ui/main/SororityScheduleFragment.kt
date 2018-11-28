@@ -16,6 +16,8 @@ import example.com.project306.util.InjectorUtils
 import example.com.project306.util.SororityTimeSlot
 import kotlinx.android.synthetic.main.fragment_sorority_schedule.*
 
+
+
 class SororityScheduleFragment : Fragment() {
 
     private lateinit var sororityScheduleFragmentViewModel: SororityScheduleViewModel

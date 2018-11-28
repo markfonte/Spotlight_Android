@@ -63,7 +63,7 @@
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editHouse"
+        android:id="@+id/editHouseFragment"
         android:name="example.com.project306.ui.main.EditHouseFragment"
         android:label="View"
         tools:layout="@layout/fragment_edit_house" />

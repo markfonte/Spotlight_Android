@@ -8,7 +8,7 @@
     <string name="sorority_schedule_display_name_text_default">Sorority Display Name</string>
     <string name="login_enter_email_hint">Email</string>
     <string name="login_enter_password_hint">Password</string>
-    <string name="login_main_prompt">Welcome! Please log in.</string>
+    <string name="login_main_prompt">Log in</string>
     <string name="attempt_login_button_text">Log In!</string>
     <string name="login_error_default_message">Your sign-in credentials were incorrect. Please try again.</string>
     <string name="login_error_poorly_formed_input">Please enter valid login credentials.</string>
@@ -21,8 +21,8 @@
     <string name="attempt_create_account_button_text">Sign Up!</string>
     <string name="sign_up_main_prompt">Make an account (use your school email address)</string>
     <string name="app_display_title">Spotlight</string>
-    <string name="login_start_sign_up_button_text">Sign Up</string>
-    <string name="login_start_login_button_text">Log In</string>
+    <string name="login_start_sign_up_button_text">Sign Up!</string>
+    <string name="login_start_login_button_text">Log In!</string>
     <string name="sign_up_to_login_prompt_text">Already have an account?</string>
     <string name="sign_up_to_login_button_text">Log In!</string>
     <string name="settings_logout_button_text">Log Out</string>
@@ -54,4 +54,5 @@
     <string name="display_user_data_display_name_default_text" />
     <string name="display_user_data_email_prompt_default_text">Email</string>
     <string name="display_user_data_email_default_text" />
+    <string name="menu_title_edit_house">Edit</string>
 </resources>
