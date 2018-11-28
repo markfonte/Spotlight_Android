@@ -104,7 +104,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun isValidInput(displayName: String?, email: String?, password: String?, confirmPassword: String?): Boolean {
-        return !displayName.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && displayName!!.length < 30 && email!!.length < 30 && password!!.length < 30 && confirmPassword!!.length < 30 && email.contains('@') && email.contains(".") && password == confirmPassword
+        return !displayName.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && displayName.length < 30 && email.length < 30 && password.length < 30 && confirmPassword.length < 30 && email.contains('@') && email.contains(".") && password == confirmPassword
     }
 
     companion object {

@@ -125,7 +125,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun isValidInput(email: String?, password: String?): Boolean {
-        return !email.isNullOrEmpty() && !password.isNullOrEmpty() && email!!.length < 30 && password!!.length < 30 && email.contains('@') && email.contains('.')
+        return !email.isNullOrEmpty() && !password.isNullOrEmpty() && email.length < 30 && password.length < 30 && email.contains('@') && email.contains('.')
     }
 
     private fun toggleLoginProgressBar(showProgress: Boolean) {

@@ -53,4 +53,9 @@ object InjectorUtils {
         val mainRepository: MainRepository = getMainRepositorySingleton()
         return SororityScheduleViewModelFactory(mainRepository)
     }
+
+    fun provideEditHouseViewModelFactory(): EditHouseViewModelFactory {
+        val mainRepository: MainRepository = getMainRepositorySingleton()
+        return EditHouseViewModelFactory(mainRepository)
+    }
 }
