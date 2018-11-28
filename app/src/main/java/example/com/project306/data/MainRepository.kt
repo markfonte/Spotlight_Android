@@ -60,6 +60,10 @@ class MainRepository {
         return firebaseService.getEmail()
     }
 
+    fun getUserValues(): MutableLiveData<ArrayList<String>> {
+        return firebaseService.getUserValues()
+    }
+
     companion object {
 
         // For Singleton instantiation

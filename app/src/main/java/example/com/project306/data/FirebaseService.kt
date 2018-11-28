@@ -31,6 +31,24 @@ class FirebaseService {
         return result
     }
 
+    fun getUserValues(): MutableLiveData<ArrayList<String>> {
+        val result: MutableLiveData<ArrayList<String>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener {task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    val userData = document.data
+                    @Suppress("UNCHECKED_CAST")
+                    result.value =  userData?.get("values") as ArrayList<String>
+                }
+            } else {
+                Log.e(LOG_TAG, "task failed", task.exception)
+                result.value = arrayListOf()
+            }
+
+        }
+        return result
+    }
     fun attemptLogin(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {

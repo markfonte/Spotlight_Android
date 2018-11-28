@@ -34,7 +34,7 @@
             android:id="@+id/display_user_data_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
+            android:layout_margin="@dimen/margin_large"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
@@ -47,7 +47,8 @@
                 android:drawableEnd="@drawable/ic_edit_black_24dp"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_user_data_title_default_text"
-                android:textSize="@dimen/title_font_size" />
+                android:textSize="@dimen/title_font_size"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/display_user_data_display_name_prompt"
@@ -91,7 +92,7 @@
             android:id="@+id/display_values_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
+            android:layout_margin="@dimen/margin_large"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
@@ -104,12 +105,14 @@
                 android:drawableEnd="@drawable/ic_edit_black_24dp"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_values_title_default_text"
-                android:textSize="@dimen/title_font_size" />
+                android:textSize="@dimen/title_font_size"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/display_values_value_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.valueOne}"
                 android:textSize="@dimen/medium_font_size" />
@@ -139,7 +142,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/settings_logout_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/display_values_container" />

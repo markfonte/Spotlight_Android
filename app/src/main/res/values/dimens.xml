@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_standard">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
     <dimen name="padding_standard">8dp</dimen>
     <dimen name="main_title_font_size">48sp</dimen>
     <dimen name="title_font_size">24sp</dimen>
-    <dimen name="small_font_size">12sp</dimen>
+    <dimen name="small_font_size">14sp</dimen>
     <dimen name="medium_font_size">18sp</dimen>
     <dimen name="margin_extra_large">24dp</dimen>
 </resources>

@@ -44,6 +44,15 @@ class SettingsFragment : Fragment() {
                 }
             })
         }
+        settingsFragmentViewModel.getUserValues().observe(this, Observer {
+            if(it.size == 3) {
+                with(settingsFragmentViewModel) {
+                    valueOne.value = it[0]
+                    valueTwo.value = it[1]
+                    valueThree.value = it[2]
+                }
+            }
+        })
     }
 
     override fun onResume() {
