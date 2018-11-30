@@ -40,8 +40,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/seventy_percent_horizontal_guide"
             app:layout_constraintStart_toStartOf="@+id/thirty_percent_vertical_guide"
@@ -52,34 +52,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
+                android:background="@drawable/button_default"
                 android:padding="12dp"
-                android:fontFamily="@font/lato_regular"
-                android:textSize="23sp"
                 android:paddingStart="36dp"
                 android:paddingEnd="36dp"
-                android:background="@drawable/button_default"
+                android:text="@string/login_start_sign_up_button_text"
                 android:textAllCaps="false"
-                android:text="@string/login_start_sign_up_button_text" />
+                android:textSize="23sp" />
 
             <Button
                 android:id="@+id/login_start_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_login"
                 android:layout_margin="@dimen/margin_standard"
-                android:textAllCaps="false"
-                android:textSize="19sp"
+                android:background="@drawable/button_login"
                 android:padding="12dp"
                 android:paddingStart="36dp"
                 android:paddingEnd="36dp"
-                android:text="@string/login_start_login_button_text" />
+                android:text="@string/login_start_login_button_text"
+                android:textAllCaps="false"
+                android:textSize="19sp" />
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="340dp"
-            android:layout_height="340dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/logo_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

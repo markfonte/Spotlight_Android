@@ -1,6 +1,7 @@
 package example.com.project306.ui.main
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
@@ -11,5 +12,11 @@ class LoginViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     fun attemptEmailVerification(): LiveData<String> {
         return mainRepository.attemptEmailVerification()
+    }
+
+    val showLoginButton: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        showLoginButton.value = false
     }
 }

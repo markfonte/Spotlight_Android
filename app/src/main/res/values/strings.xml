@@ -12,8 +12,8 @@
     <string name="attempt_login_button_text">Log In!</string>
     <string name="login_error_default_message">Your sign-in credentials were incorrect. Please try again.</string>
     <string name="login_error_poorly_formed_input">Please enter valid login credentials.</string>
-    <string name="create_account_button">No Account? Create one</string>
-    <string name="forgot_password_button_text">Forgot Password?</string>
+    <string name="create_account_button">Nevermind, I don\'t have an\naccount, let\'s make one!</string>
+    <string name="forgot_password_button_text">Forgot your password?</string>
     <string name="sign_up_enter_password_hint">Password</string>
     <string name="sign_up_enter_display_name_hint">Name</string>
     <string name="sign_up_enter_email_hint">Email</string>
