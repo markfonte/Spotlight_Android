@@ -37,9 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appMainToolbar)
         NavigationUI.setupWithNavController(binding.appMainToolbar, navController)
-
-        app_main_toolbar.logo = getDrawable(R.drawable.spotlight_logo_white)
-
     }
 
     private fun initializeBottomNav(navController: NavController) {

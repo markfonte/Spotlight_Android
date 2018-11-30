@@ -17,15 +17,14 @@ class SororitySchedulePagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(
     }
 
     override fun getCount(): Int {
-        return 4
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> RoundTitles().FIRST_ROUND_DISPLAY_TITLE
             1 -> RoundTitles().SECOND_ROUND_DISPLAY_TITLE
-            2 -> RoundTitles().THIRD_ROUND_DISPLAY_TITLE
-            else -> RoundTitles().FOURTH_ROUND_DISPLAY_TITLE
+            else -> RoundTitles().THIRD_ROUND_DISPLAY_TITLE
         }
     }
 }

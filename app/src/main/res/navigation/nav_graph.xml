@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="example.com.project306.ui.main.MainFragment"
-        android:label="Home"
+        android:label=""
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
@@ -70,12 +70,12 @@
     <fragment
         android:id="@+id/rankingFragment"
         android:name="example.com.project306.ui.main.EditRankingFragment"
-        android:label="Rank"
+        android:label=""
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="example.com.project306.ui.main.SettingsFragment"
-        android:label="Profile"
+        android:label=""
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_loginStartFragment"
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/loginStartFragment"
         android:name="example.com.project306.ui.main.LoginStartFragment"
-        android:label="Spotlight"
+        android:label=""
         tools:layout="@layout/fragment_login_start">
         <action
             android:id="@+id/action_loginStartFragment_to_signUpFragment"

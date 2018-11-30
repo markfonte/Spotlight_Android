@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spotlight</string>
+    <string name="app_name" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_title_home">Home</string>
     <string name="menu_title_ranking">Ranking</string>
@@ -20,7 +20,7 @@
     <string name="sign_up_enter_confirm_password_hint">Confirm Password</string>
     <string name="attempt_create_account_button_text">Sign Up!</string>
     <string name="sign_up_main_prompt">Make an account (use your school email address)</string>
-    <string name="app_display_title">Spotlight</string>
+    <string name="app_display_title"></string>
     <string name="login_start_sign_up_button_text">Sign Up!</string>
     <string name="login_start_login_button_text">Log In!</string>
     <string name="sign_up_to_login_prompt_text">Already have an account?</string>
