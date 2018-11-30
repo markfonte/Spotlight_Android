@@ -117,7 +117,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/forgot_password_button"  />
+            app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
 
         <TextView
             android:id="@+id/forgot_password_button"
