@@ -31,7 +31,8 @@
             app:layout_constraintBottom_toTopOf="@+id/login_main_prompt"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/login_main_title_content_description"/>
 
         <TextView
             android:id="@+id/login_main_prompt"
