@@ -32,9 +32,11 @@
                 app:theme="@style/ToolbarTheme">
 
                 <ImageView
+                    android:id="@+id/app_main_toolbar_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/spotlight_logo_white" />
+                    android:src="@drawable/spotlight_logo_white"
+                    android:contentDescription="@string/app_main_toolbar_image_content_description"/>
 
             </androidx.appcompat.widget.Toolbar>
 

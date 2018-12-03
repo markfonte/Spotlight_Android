@@ -56,4 +56,5 @@
     <string name="display_user_data_email_default_text" />
     <string name="menu_title_edit_house">Edit</string>
     <string name="login_main_title_content_description">Purple Spotlight Logo</string>
+    <string name="app_main_toolbar_image_content_description">White Spotlight Logo</string>
 </resources>
