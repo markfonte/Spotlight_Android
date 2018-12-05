@@ -3,11 +3,11 @@ package example.com.project306.adapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import example.com.project306.ui.main.SororityScheduleFragment
 import example.com.project306.util.RoundTitles
 
-class SororitySchedulePagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
+class SororitySchedulePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = SororityScheduleFragment()
         fragment.arguments = Bundle().apply {
