@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="@dimen/margin_standard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_standard">
 
     <LinearLayout
         android:id="@+id/date_and_time_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/sorority_schedule_row_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/savoye_let_plain"
-            android:textSize="@dimen/large_font_size"
             android:layout_margin="@dimen/margin_standard"
-            android:text="@string/sorority_schedule_row_date_text_default" />
+            android:fontFamily="@font/savoye_let_plain"
+            android:text="@string/sorority_schedule_row_date_text_default"
+            android:textSize="@dimen/large_font_size" />
 
         <TextView
             android:id="@+id/sorority_schedule_row_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/savoye_let_plain"
-            android:textSize="@dimen/large_font_size"
             android:layout_margin="@dimen/margin_standard"
-            android:text="@string/sorority_schedule_time_text_default"/>
+            android:fontFamily="@font/savoye_let_plain"
+            android:text="@string/sorority_schedule_time_text_default"
+            android:textSize="@dimen/large_font_size" />
 
     </LinearLayout>
 
@@ -52,20 +52,20 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:fontFamily="@font/savoye_let_plain"
-            android:textSize="@dimen/extra_large_font_size"
             android:text="@string/sorority_schedule_display_name_text_default"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textSize="@dimen/extra_large_font_size" />
 
         <TextView
             android:id="@+id/sorority_schedule_row_greek_letters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_font_size"
-            android:fontFamily="@font/lucida_grande_regular"
-            android:layout_marginEnd="@dimen/margin_standard"
             android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_standard"
             android:layout_marginBottom="@dimen/margin_standard"
-            android:text="@string/sorority_schedule_row_greek_letters_text_default" />
+            android:fontFamily="@font/lucida_grande_regular"
+            android:text="@string/sorority_schedule_row_greek_letters_text_default"
+            android:textSize="@dimen/medium_font_size" />
 
     </LinearLayout>
 

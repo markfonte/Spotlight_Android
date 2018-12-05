@@ -102,7 +102,6 @@
                 android:id="@+id/display_values_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_edit_purple_24dp"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_values_title_default_text"
                 android:textSize="@dimen/title_font_size"
