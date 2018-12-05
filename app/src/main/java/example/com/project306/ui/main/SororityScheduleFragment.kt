@@ -69,16 +69,4 @@ class SororityScheduleFragment : Fragment() {
 
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
 }

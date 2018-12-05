@@ -8,4 +8,6 @@
     <dimen name="small_font_size">14sp</dimen>
     <dimen name="medium_font_size">18sp</dimen>
     <dimen name="margin_extra_large">24dp</dimen>
+    <dimen name="large_font_size">28sp</dimen>
+    <dimen name="extra_large_font_size">36sp</dimen>
 </resources>
