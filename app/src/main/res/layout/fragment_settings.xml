@@ -34,8 +34,10 @@
             android:id="@+id/display_user_data_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_large"
+            android:layout_margin="@dimen/margin_extra_large"
+            android:background="@drawable/settings_group_background"
             android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +50,7 @@
                 android:gravity="center_vertical|start"
                 android:text="@string/display_user_data_title_default_text"
                 android:textSize="@dimen/title_font_size"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_user_data_display_name_prompt"
@@ -66,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.displayName}"
-                android:textSize="@dimen/medium_font_size" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/display_user_data_email_prompt"
@@ -84,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.email}"
-                android:textSize="@dimen/medium_font_size" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -92,8 +94,10 @@
             android:id="@+id/display_values_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_large"
+            android:layout_margin="@dimen/margin_extra_large"
+            android:background="@drawable/settings_group_background"
             android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/display_user_data_container">
@@ -105,7 +109,7 @@
                 android:gravity="center_vertical|start"
                 android:text="@string/display_values_title_default_text"
                 android:textSize="@dimen/title_font_size"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_values_value_one"
@@ -114,7 +118,7 @@
                 android:layout_marginTop="@dimen/margin_standard"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.valueOne}"
-                android:textSize="@dimen/medium_font_size" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/display_values_value_two"
@@ -122,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.valueTwo}"
-                android:textSize="@dimen/medium_font_size" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/display_values_value_three"
@@ -130,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.valueThree}"
-                android:textSize="@dimen/medium_font_size" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -139,8 +143,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            android:text="@string/settings_logout_button_text"
             android:background="@drawable/button_default"
+            android:text="@string/settings_logout_button_text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

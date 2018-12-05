@@ -9,5 +9,6 @@
     <color name="colorHint">#9FAA62E9</color>
     <color name="colorTextDefault">#FFAA62E9</color>
     <color name="colorButtonBackgroundDefault">#21AA62E9</color>
+    <color name="colorMutedPurple">#FFD1B3F4</color>
 
 </resources>
