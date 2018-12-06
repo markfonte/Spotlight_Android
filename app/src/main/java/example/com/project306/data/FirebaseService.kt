@@ -210,6 +210,20 @@ class FirebaseService {
         return result
     }
 
+    fun sendForgotPasswordEmail(email: String) : MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener {task ->
+            if(task.isSuccessful) {
+                result.value =  ""
+            }
+            else {
+                result.value = task.exception.toString()
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+            }
+        }
+        return result
+    }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 

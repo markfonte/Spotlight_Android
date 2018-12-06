@@ -64,6 +64,10 @@ class MainRepository {
         return firebaseService.getUserValues()
     }
 
+    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
+        return firebaseService.sendForgotPasswordEmail(email)
+    }
+    
     companion object {
 
         // For Singleton instantiation
