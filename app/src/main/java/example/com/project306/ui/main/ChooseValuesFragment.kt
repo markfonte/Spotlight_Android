@@ -90,7 +90,7 @@ class ChooseValuesFragment : Fragment() {
     }
 
     private fun sendConfirmationAlertDialog() {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Confirm Your Selections")
                 .setMessage("Select ${submittedCheckboxes[0]}, ${submittedCheckboxes[1]}, and ${submittedCheckboxes[2]}?")
                 .setPositiveButton(android.R.string.yes, null)
