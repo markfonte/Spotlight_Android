@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_fragment_container"
+    android:id="@+id/settings_fragment_container"
     tools:context=".ui.main.SettingsFragment">
 
     <data>
@@ -46,7 +46,6 @@
                 android:id="@+id/display_user_data_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_edit_purple_24dp"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_user_data_title_default_text"
                 android:textSize="@dimen/title_font_size"
@@ -66,6 +65,10 @@
                 android:id="@+id/display_user_data_display_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_edit_purple_24dp"
+                android:focusable="true"
                 android:gravity="center_vertical|start"
                 android:text="@{viewModel.displayName}"
                 android:textSize="20sp" />
@@ -144,9 +147,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:background="@drawable/button_default"
-            android:text="@string/settings_logout_button_text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            android:text="@string/settings_logout_button_text"
             android:textAllCaps="false"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

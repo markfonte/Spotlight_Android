@@ -11,14 +11,14 @@
         android:layout_margin="@dimen/margin_standard">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/enter_email_dialog_enter_email"
+            android:id="@+id/enter_name_dialog_enter_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:defaultFocusHighlightEnabled="true"
             android:focusable="true"
             android:focusedByDefault="true"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
             android:maxLines="1"
             android:singleLine="true"
             tools:targetApi="o" />

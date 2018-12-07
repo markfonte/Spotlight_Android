@@ -9,8 +9,12 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
         return mainRepository.accountsLogout()
     }
 
-    fun getUserValues() : MutableLiveData<ArrayList<String>> {
+    fun getUserValues(): MutableLiveData<ArrayList<String>> {
         return mainRepository.getUserValues()
+    }
+
+    fun changeDisplayName(name: String): MutableLiveData<String> {
+        return mainRepository.changeDisplayName(name)
     }
 
     val valueOne: MutableLiveData<String> = MutableLiveData()

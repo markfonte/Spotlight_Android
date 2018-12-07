@@ -33,13 +33,13 @@ class FirebaseService {
 
     fun getUserValues(): MutableLiveData<ArrayList<String>> {
         val result: MutableLiveData<ArrayList<String>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener {task ->
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
                     @Suppress("UNCHECKED_CAST")
-                    result.value =  userData?.get("values") as ArrayList<String>
+                    result.value = userData?.get("values") as ArrayList<String>
                 }
             } else {
                 Log.e(LOG_TAG, "task failed", task.exception)
@@ -49,6 +49,7 @@ class FirebaseService {
         }
         return result
     }
+
     fun attemptLogin(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
@@ -92,18 +93,25 @@ class FirebaseService {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = false
         overwriteUserInformation(newUserMap)
+        changeDisplayName(displayName)
+        firebaseLogout()
+    }
+
+    fun changeDisplayName(name: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
         val profileUpdates = UserProfileChangeRequest.Builder()
-                .setDisplayName(displayName)
+                .setDisplayName(name)
                 .build()
         mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d(LOG_TAG, "Display name set")
+                result.value = ""
             } else {
                 Log.e(LOG_TAG, task.exception.toString())
+                result.value = task.exception.toString()
             }
-
         }
-        firebaseLogout()
+        return result
     }
 
     fun sendEmailVerification(): LiveData<String> {
@@ -210,13 +218,12 @@ class FirebaseService {
         return result
     }
 
-    fun sendForgotPasswordEmail(email: String) : MutableLiveData<String> {
+    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener {task ->
-            if(task.isSuccessful) {
-                result.value =  ""
-            }
-            else {
+        mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
                 result.value = task.exception.toString()
                 Log.e(LOG_TAG, task.exception.toString(), task.exception)
             }

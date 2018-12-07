@@ -68,6 +68,10 @@ class MainRepository {
         return firebaseService.sendForgotPasswordEmail(email)
     }
 
+    fun changeDisplayName(name: String): MutableLiveData<String> {
+        return firebaseService.changeDisplayName(name)
+    }
+
     companion object {
 
         // For Singleton instantiation
