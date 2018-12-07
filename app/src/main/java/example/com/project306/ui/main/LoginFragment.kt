@@ -78,7 +78,7 @@ class LoginFragment : Fragment() {
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    loginFragmentViewModel.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString())
+                    loginFragmentViewModel.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
                     val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, "Check your email for password reset information!", Snackbar.LENGTH_INDEFINITE)
                     SystemUtils.setSnackbarDefaultOptions(s)
                     s?.setAction("OK") {
@@ -99,7 +99,7 @@ class LoginFragment : Fragment() {
 
     private fun attemptLogin(view: View) {
         SystemUtils.hideKeyboard(context, view)
-        val currentEmail: String? = login_enter_email.text.toString()
+        val currentEmail: String? = login_enter_email.text.toString().trim()
         val currentPassword: String? = login_enter_password.text.toString()
         if (isValidInput(currentEmail, currentPassword)) {
             toggleLoginProgressBar(true)

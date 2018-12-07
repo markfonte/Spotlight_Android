@@ -73,7 +73,7 @@ class SettingsFragment : Fragment() {
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    temporaryDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString()
+                    temporaryDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
                     if (isValidDisplayName(temporaryDisplayName)) {
                         settingsFragmentViewModel.changeDisplayName(temporaryDisplayName).observe(this, Observer { error ->
                             if (error == "") {

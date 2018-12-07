@@ -126,7 +126,7 @@ class ChooseValuesFragment : Fragment() {
             newCheckbox.text = i.toString()
             newCheckbox.setOnClickListener {
                 if ((it as CheckBox).isChecked) {
-                    currentlyCheckedBoxes[it.id] = it.text.toString()
+                    currentlyCheckedBoxes[it.id] = it.text.toString().trim()
                 } else {
                     currentlyCheckedBoxes[it.id] = ""
                 }

@@ -53,8 +53,8 @@ class SignUpFragment : Fragment() {
 
     private fun attemptSignUp(view: View) {
         SystemUtils.hideKeyboard(context, view)
-        val currentDisplayName: String? = sign_up_enter_display_name.text.toString()
-        val currentEmail: String? = sign_up_enter_email.text.toString()
+        val currentDisplayName: String? = sign_up_enter_display_name.text.toString().trim()
+        val currentEmail: String? = sign_up_enter_email.text.toString().trim()
         val currentPassword: String? = sign_up_enter_password.text.toString()
         val currentConfirmPassword: String? = sign_up_enter_confirm_password.text.toString()
         if (isValidInput(currentDisplayName, currentEmail, currentPassword, currentConfirmPassword)) {
