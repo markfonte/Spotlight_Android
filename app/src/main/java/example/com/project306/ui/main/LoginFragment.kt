@@ -26,8 +26,6 @@ import kotlinx.android.synthetic.main.enter_email_dialog.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-
-
 class LoginFragment : Fragment() {
 
     private lateinit var loginFragmentViewModel: LoginViewModel
@@ -77,6 +75,7 @@ class LoginFragment : Fragment() {
                     .setPositiveButton("Send", null)
                     .setNegativeButton("Cancel", null)
                     .create()
+            alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     loginFragmentViewModel.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString())
@@ -88,11 +87,6 @@ class LoginFragment : Fragment() {
                     s?.show()
                     login_enter_password.text?.clear()
                     alertDialog.dismiss()
-                }
-                alertDialog.enter_email_dialog_enter_email.setOnFocusChangeListener { _, hasFocus ->
-                    if(hasFocus) {
-                        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-                    }
                 }
                 alertDialog.enter_email_dialog_enter_email.requestFocus()
                 alertDialog.enter_email_dialog_enter_email.text = login_enter_email.text

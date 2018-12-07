@@ -68,6 +68,7 @@ class SettingsFragment : Fragment() {
                     .setPositiveButton("Change", null)
                     .setNegativeButton("Cancel", null)
                     .create()
+            alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     temporaryDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString()
@@ -100,6 +101,9 @@ class SettingsFragment : Fragment() {
                 settingsFragmentViewModel.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
             }
             alertDialog.show()
+        }
+        display_user_data_password.setOnClickListener {
+            
         }
     }
 

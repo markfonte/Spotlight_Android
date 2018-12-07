@@ -91,6 +91,30 @@
                 android:text="@{viewModel.email}"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/display_user_data_password_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:gravity="center_vertical|start"
+                android:text="@string/display_user_data_password_prompt_default_text"
+                android:textAllCaps="true"
+                android:textSize="@dimen/small_font_size" />
+
+            <TextView
+                android:id="@+id/display_user_data_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_edit_purple_24dp"
+                android:focusable="true"
+                android:gravity="center_vertical|start"
+                android:inputType="textPassword"
+                android:text="@string/display_user_data_password"
+                android:textSize="20sp"
+                tools:ignore="TextViewEdits" />
+
         </LinearLayout>
 
         <LinearLayout

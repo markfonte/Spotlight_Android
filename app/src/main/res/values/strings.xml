@@ -59,4 +59,6 @@
     <string name="app_main_toolbar_image_content_description">White Spotlight Logo</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
+    <string name="display_user_data_password_prompt_default_text">Password</string>
+    <string name="display_user_data_password">FakeWd</string>
 </resources>
