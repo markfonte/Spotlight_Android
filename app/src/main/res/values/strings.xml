@@ -61,4 +61,7 @@
     <string name="name">Name</string>
     <string name="display_user_data_password_prompt_default_text">Password</string>
     <string name="display_user_data_password">FakeWd</string>
+    <string name="password">Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
 </resources>

@@ -19,7 +19,9 @@ import example.com.project306.R
 import example.com.project306.databinding.FragmentSettingsBinding
 import example.com.project306.util.InjectorUtils
 import example.com.project306.util.SystemUtils
+import kotlinx.android.synthetic.main.enter_confirm_password_dialog.*
 import kotlinx.android.synthetic.main.enter_name_dialog.*
+import kotlinx.android.synthetic.main.enter_password_dialog.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
@@ -72,7 +74,7 @@ class SettingsFragment : Fragment() {
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     temporaryDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString()
-                    if (isValid(temporaryDisplayName)) {
+                    if (isValidDisplayName(temporaryDisplayName)) {
                         settingsFragmentViewModel.changeDisplayName(temporaryDisplayName).observe(this, Observer { error ->
                             if (error == "") {
                                 settingsFragmentViewModel.displayName.value = temporaryDisplayName
@@ -91,11 +93,6 @@ class SettingsFragment : Fragment() {
                         alertDialog.dismiss()
                     }
                 }
-                alertDialog.enter_name_dialog_enter_name.setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-                    }
-                }
                 alertDialog.enter_name_dialog_enter_name.requestFocus()
                 alertDialog.enter_name_dialog_enter_name.setText(settingsFragmentViewModel.displayName.value)
                 settingsFragmentViewModel.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
@@ -103,14 +100,82 @@ class SettingsFragment : Fragment() {
             alertDialog.show()
         }
         display_user_data_password.setOnClickListener {
-            
+            updatePassword()
         }
     }
 
-    private fun isValid(displayName: String?): Boolean {
+    private fun updatePassword() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Please Re-Enter Your Password")
+                .setView(activity?.layoutInflater?.inflate(R.layout.enter_password_dialog, null))
+                .setPositiveButton("Go", null)
+                .setNegativeButton("Cancel", null)
+                .create()
+        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                if (isValidPassword(alertDialog.enter_password_dialog_enter_password.text.toString())) {
+                    settingsFragmentViewModel.reauthenticateUser(alertDialog.enter_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
+                        if (error == "") {
+                            showUpdatePasswordDialog()
+                        } else {
+                            val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "The password you entered was incorrect.", Snackbar.LENGTH_LONG)
+                            SystemUtils.setSnackbarDefaultOptions(s)
+                            s?.show()
+                        }
+                    })
+                    alertDialog.dismiss()
+                }
+            }
+            alertDialog.enter_password_dialog_enter_password.requestFocus()
+        }
+        alertDialog.show()
+    }
+
+    private fun showUpdatePasswordDialog() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Please Enter Your New Password")
+                .setView(activity?.layoutInflater?.inflate(R.layout.enter_confirm_password_dialog, null))
+                .setPositiveButton("Go", null)
+                .setNegativeButton("Cancel", null)
+                .create()
+        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                if (areValidPasswordCombo(alertDialog.enter_confirm_password_dialog_enter_password.text.toString(), alertDialog.enter_confirm_password_dialog_enter_confirm_password.text.toString())) {
+                    settingsFragmentViewModel.updatePassword(alertDialog.enter_confirm_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
+                        if (error == "") {
+                            val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Your password has been updated.", Snackbar.LENGTH_LONG)
+                            SystemUtils.setSnackbarDefaultOptions(s)
+                            s?.show()
+                        } else {
+                            val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Your password could not be updated. Please try again.", Snackbar.LENGTH_INDEFINITE)
+                            SystemUtils.setSnackbarDefaultOptions(s)
+                            s?.setAction("OK") {
+                                s.dismiss()
+                            }
+                            s?.show()
+                        }
+                    })
+                    alertDialog.dismiss()
+                }
+            }
+            alertDialog.enter_confirm_password_dialog_enter_password.requestFocus()
+        }
+        alertDialog.show()
+    }
+
+    private fun areValidPasswordCombo(password: String?, confirmPassword: String?): Boolean {
+        return !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && password.length < 30 && password == confirmPassword
+    }
+
+    private fun isValidDisplayName(displayName: String?): Boolean {
         return !displayName.isNullOrEmpty() && displayName.length < 30 && displayName != settingsFragmentViewModel.displayName.value
     }
 
+    private fun isValidPassword(password: String?) : Boolean {
+        return !password.isNullOrEmpty() && password.length <= 30
+    }
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).validateUser()

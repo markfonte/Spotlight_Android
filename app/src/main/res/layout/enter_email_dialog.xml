@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_standard">
+        android:layout_margin="@dimen/margin_large">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enter_email_dialog_enter_email"
@@ -21,6 +22,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
+            app:backgroundTint="@color/colorPrimary"
             tools:targetApi="o" />
 
     </com.google.android.material.textfield.TextInputLayout>

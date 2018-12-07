@@ -3,11 +3,10 @@ package example.com.project306.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
@@ -224,8 +223,35 @@ class FirebaseService {
             if (task.isSuccessful) {
                 result.value = ""
             } else {
-                result.value = task.exception.toString()
                 Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun reauthenticateUser(password: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
+        mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun updatePassword(newPassword: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
             }
         }
         return result

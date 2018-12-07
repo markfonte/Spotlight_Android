@@ -108,7 +108,7 @@
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_email_wrapper"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/design_default_color_primary">
+            app:passwordToggleTint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_enter_password"
@@ -128,7 +128,7 @@
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_password_wrapper"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/design_default_color_primary">
+            app:passwordToggleTint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_enter_confirm_password"

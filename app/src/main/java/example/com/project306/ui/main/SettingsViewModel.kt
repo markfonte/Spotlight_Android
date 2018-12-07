@@ -17,6 +17,14 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
         return mainRepository.changeDisplayName(name)
     }
 
+    fun reauthenticateUser(password: String): MutableLiveData<String> {
+        return mainRepository.reauthenticateUser(password)
+    }
+
+    fun updatePassword(newPassword: String): MutableLiveData<String> {
+        return mainRepository.updatePassword(newPassword)
+    }
+
     val valueOne: MutableLiveData<String> = MutableLiveData()
     val valueTwo: MutableLiveData<String> = MutableLiveData()
     val valueThree: MutableLiveData<String> = MutableLiveData()

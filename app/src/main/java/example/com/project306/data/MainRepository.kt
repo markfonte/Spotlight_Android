@@ -72,6 +72,14 @@ class MainRepository {
         return firebaseService.changeDisplayName(name)
     }
 
+    fun reauthenticateUser(password: String): MutableLiveData<String> {
+        return firebaseService.reauthenticateUser(password)
+    }
+
+    fun updatePassword(newPassword: String): MutableLiveData<String> {
+        return firebaseService.updatePassword(newPassword)
+    }
+
     companion object {
 
         // For Singleton instantiation
