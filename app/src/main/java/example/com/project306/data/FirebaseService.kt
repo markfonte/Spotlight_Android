@@ -55,7 +55,6 @@ class FirebaseService {
             if (it.isSuccessful) {
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
-
                     firebaseLogout()
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
@@ -72,8 +71,8 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
             if (it.isSuccessful) { //do not sign them in yet
-                result.value = ""
                 setupNewAccount(displayName)
+                result.value = ""
             } else {
                 result.value = it.exception.toString()
             }
