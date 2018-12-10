@@ -1,6 +1,7 @@
 package example.com.project306.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.firebase.storage.StorageReference
 import example.com.project306.R
 import example.com.project306.databinding.FragmentEditHouseBinding
 import example.com.project306.util.GlideApp
@@ -47,15 +47,13 @@ class EditHouseFragment : Fragment() {
             greekLetters.value = EditHouseFragmentArgs.fromBundle(arguments).greekLetters
             streetAddress.value = EditHouseFragmentArgs.fromBundle(arguments).streetAddress
             houseId.value = EditHouseFragmentArgs.fromBundle(arguments).houseId
-            val ref : StorageReference = getStaticHouseImageReference(houseId.value!!)
             GlideApp.with(context!!)
-                    .load(ref)
+                    .load(getStaticHouseImageReference(houseId.value!!))
                     .into(edit_house_house_image)
         }
         edit_house_submit_button.setOnClickListener {
-
+            Log.d(LOG_TAG, "Save button clicked")
         }
-
     }
 
     companion object {

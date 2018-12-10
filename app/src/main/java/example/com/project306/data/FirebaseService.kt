@@ -260,11 +260,7 @@ class FirebaseService {
     }
 
     fun getStaticHouseImageReference(fileName: String): StorageReference {
-        val file : String = "$fileName.jpg"
-        val result = storage.reference.child("house_images").child(file)
-        val path = result.path
-        val name = result.name
-        return result
+        return storage.reference.child("house_images").child("$fileName.jpg")
     }
 
     companion object {
