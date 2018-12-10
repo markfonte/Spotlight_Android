@@ -59,6 +59,7 @@ class SororityScheduleFragment : Fragment() {
                     currentTimeSlot.Date = house["date"]
                     currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
                     currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
+                    currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
                     timeSlots.add(currentTimeSlot)
                     sororityScheduleFragmentViewModel.isDataToDisplay.value = true
                 }
