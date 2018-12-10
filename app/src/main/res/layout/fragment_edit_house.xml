@@ -80,16 +80,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_standard"
-                android:layout_marginTop="@dimen/margin_extra_large"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/margin_standard"
-                android:layout_marginBottom="@dimen/margin_standard"
                 android:gravity="center_vertical|start"
                 android:text="@string/display_values_title_default_text"
                 android:textSize="@dimen/medium_font_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_street_address" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_house_house_image" />
 
             <CheckBox
                 android:id="@+id/edit_house_value_one"
@@ -188,6 +187,21 @@
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/edit_house_enter_comments" />
 
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/edit_house_house_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:adjustViewBounds="true"
+                android:foregroundGravity="center"
+                android:maxHeight="200dp"
+                android:padding="@dimen/padding_standard"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="H, 16:9"
+                app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/edit_house_street_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

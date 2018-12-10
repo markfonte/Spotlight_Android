@@ -2,6 +2,7 @@ package example.com.project306.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.storage.StorageReference
 import example.com.project306.data.MainRepository
 
 class EditHouseViewModel(private val mainRepository: MainRepository) : ViewModel() {
@@ -19,5 +20,9 @@ class EditHouseViewModel(private val mainRepository: MainRepository) : ViewModel
 
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
+    }
+
+    fun getStaticHouseImageReference(fileName: String): StorageReference {
+        return mainRepository.getStaticHouseImageReference(fileName)
     }
 }

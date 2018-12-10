@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.storage.StorageReference
 import example.com.project306.R
 import example.com.project306.databinding.FragmentEditHouseBinding
+import example.com.project306.util.GlideApp
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_edit_house.*
 
@@ -45,10 +47,15 @@ class EditHouseFragment : Fragment() {
             greekLetters.value = EditHouseFragmentArgs.fromBundle(arguments).greekLetters
             streetAddress.value = EditHouseFragmentArgs.fromBundle(arguments).streetAddress
             houseId.value = EditHouseFragmentArgs.fromBundle(arguments).houseId
+            val ref : StorageReference = getStaticHouseImageReference(houseId.value!!)
+            GlideApp.with(context!!)
+                    .load(ref)
+                    .into(edit_house_house_image)
         }
         edit_house_submit_button.setOnClickListener {
 
         }
+
     }
 
     companion object {

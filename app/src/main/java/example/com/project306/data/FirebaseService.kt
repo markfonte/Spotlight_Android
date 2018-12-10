@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.*
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     private var fsDb: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var storage = FirebaseStorage.getInstance()
 
     var mCurrentUser: MutableLiveData<FirebaseUser> = MutableLiveData()
 
@@ -253,6 +256,14 @@ class FirebaseService {
                 result.value = task.exception.toString()
             }
         }
+        return result
+    }
+
+    fun getStaticHouseImageReference(fileName: String): StorageReference {
+        val file : String = "$fileName.jpg"
+        val result = storage.reference.child("house_images").child(file)
+        val path = result.path
+        val name = result.name
         return result
     }
 

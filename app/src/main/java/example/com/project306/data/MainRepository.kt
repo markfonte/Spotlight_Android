@@ -3,6 +3,7 @@ package example.com.project306.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.StorageReference
 
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
@@ -78,6 +79,10 @@ class MainRepository {
 
     fun updatePassword(newPassword: String): MutableLiveData<String> {
         return firebaseService.updatePassword(newPassword)
+    }
+
+    fun getStaticHouseImageReference(fileName: String): StorageReference {
+        return firebaseService.getStaticHouseImageReference(fileName)
     }
 
     companion object {
