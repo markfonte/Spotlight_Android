@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
@@ -20,7 +19,7 @@ class SororityScheduleRecyclerAdapter(private val sororityTimeSlots: ArrayList<S
         val date: TextView = v.findViewById(R.id.sorority_schedule_row_date)
         val greekLetters: TextView = v.findViewById(R.id.sorority_schedule_row_greek_letters)
         val streetAddress: TextView = v.findViewById(R.id.sorority_schedule_row_street_address)
-        val clickContainer: LinearLayout = v.findViewById(R.id.sorority_schedule_button_container)
+        val houseId: TextView = v.findViewById(R.id.sorority_schedule_row_house_id)
         val rowContainer: ConstraintLayout = v.findViewById(R.id.sorority_schedule_row_container)
     }
 
@@ -36,11 +35,13 @@ class SororityScheduleRecyclerAdapter(private val sororityTimeSlots: ArrayList<S
         viewHolder.date.text = sororityTimeSlots[position].Date
         viewHolder.greekLetters.text = sororityTimeSlots[position].GreekLetters
         viewHolder.streetAddress.text = sororityTimeSlots[position].StreetAddress
+        viewHolder.houseId.text = sororityTimeSlots[position].HouseId
         viewHolder.rowContainer.setOnClickListener {
-            val displayName : String = it.findViewById<TextView>(R.id.sorority_schedule_row_display_name).text.toString()
-            val greekLetters : String = it.findViewById<TextView>(R.id.sorority_schedule_row_greek_letters).text.toString()
+            val displayName: String = it.findViewById<TextView>(R.id.sorority_schedule_row_display_name).text.toString()
+            val greekLetters: String = it.findViewById<TextView>(R.id.sorority_schedule_row_greek_letters).text.toString()
             val streetAddress: String = it.findViewById<TextView>(R.id.sorority_schedule_row_street_address).text.toString()
-            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress)
+            val houseId: String = it.findViewById<TextView>(R.id.sorority_schedule_row_house_id).text.toString()
+            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId)
             Navigation.findNavController(it).navigate(R.id.editHouseFragment, bundle)
         }
     }

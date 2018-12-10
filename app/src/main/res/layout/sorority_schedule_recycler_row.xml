@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sorority_schedule_row_container"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_standard">
+    android:layout_marginBottom="@dimen/margin_standard"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/date_and_time_wrapper"
@@ -89,6 +89,12 @@
 
     <TextView
         android:id="@+id/sorority_schedule_row_street_address"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/sorority_schedule_row_house_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />

@@ -5,5 +5,6 @@ data class SororityTimeSlot(
         var Date: String?,
         var DisplayName: String?,
         var GreekLetters: String?,
-        var StreetAddress: String?
+        var StreetAddress: String?,
+        var HouseId: String?
 )

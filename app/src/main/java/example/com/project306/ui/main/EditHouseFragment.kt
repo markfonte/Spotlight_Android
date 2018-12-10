@@ -44,6 +44,7 @@ class EditHouseFragment : Fragment() {
             displayName.value = EditHouseFragmentArgs.fromBundle(arguments).displayName
             greekLetters.value = EditHouseFragmentArgs.fromBundle(arguments).greekLetters
             streetAddress.value = EditHouseFragmentArgs.fromBundle(arguments).streetAddress
+            houseId.value = EditHouseFragmentArgs.fromBundle(arguments).houseId
         }
         edit_house_submit_button.setOnClickListener {
 

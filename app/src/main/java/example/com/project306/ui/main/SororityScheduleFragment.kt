@@ -54,12 +54,13 @@ class SororityScheduleFragment : Fragment() {
                 val staticHouseData = sororityScheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
                 for (house in houses) {
                     val currentStaticHouseData = staticHouseData[house["house_id"]]
-                    val currentTimeSlot = SororityTimeSlot("", "", "", "", "")
+                    val currentTimeSlot = SororityTimeSlot("", "", "", "", "", "")
                     currentTimeSlot.Time = house["time"]
                     currentTimeSlot.Date = house["date"]
                     currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
                     currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
                     currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
+                    currentTimeSlot.HouseId = house["house_id"]
                     timeSlots.add(currentTimeSlot)
                     sororityScheduleFragmentViewModel.isDataToDisplay.value = true
                 }
