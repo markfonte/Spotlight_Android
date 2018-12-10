@@ -49,6 +49,9 @@ class MainFragment : androidx.fragment.app.Fragment() {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_chooseValuesFragment, null)
                 }
+                else {
+                    mainFragmentViewModel.setBottomNavVisibility(true)
+                }
             })
         }
     }

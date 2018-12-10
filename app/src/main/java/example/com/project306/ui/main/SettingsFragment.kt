@@ -173,12 +173,21 @@ class SettingsFragment : Fragment() {
         return !displayName.isNullOrEmpty() && displayName.length < 30 && displayName != settingsFragmentViewModel.displayName.value
     }
 
-    private fun isValidPassword(password: String?) : Boolean {
+    private fun isValidPassword(password: String?): Boolean {
         return !password.isNullOrEmpty() && password.length <= 30
     }
+
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).validateUser()
+        if ((activity as MainActivity).validateUser()) { //they are logged in
+            settingsFragmentViewModel.areValuesSet().observe(this, Observer {
+                if (it == false) {
+                    (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_chooseValuesFragment, null)
+                } else {
+                    settingsFragmentViewModel.setBottomNavVisibility(true)
+                }
+            })
+        }
     }
 
     companion object {

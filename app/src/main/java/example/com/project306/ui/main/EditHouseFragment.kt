@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import example.com.project306.R
 import example.com.project306.databinding.FragmentEditHouseBinding
 import example.com.project306.util.InjectorUtils
+import kotlinx.android.synthetic.main.fragment_edit_house.*
 
 
 class EditHouseFragment : Fragment() {
@@ -29,6 +30,7 @@ class EditHouseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        editHouseFragmentViewModel.setBottomNavVisibility(false)
         editHouseFragmentViewModel.getUserValues().observe(this, Observer {
             if (it.size == 3) {
                 with(editHouseFragmentViewModel) {
@@ -42,6 +44,9 @@ class EditHouseFragment : Fragment() {
             displayName.value = EditHouseFragmentArgs.fromBundle(arguments).displayName
             greekLetters.value = EditHouseFragmentArgs.fromBundle(arguments).greekLetters
             streetAddress.value = EditHouseFragmentArgs.fromBundle(arguments).streetAddress
+        }
+        edit_house_submit_button.setOnClickListener {
+
         }
     }
 

@@ -15,4 +15,8 @@ class EditHouseViewModel(private val mainRepository: MainRepository) : ViewModel
     fun getUserValues(): MutableLiveData<ArrayList<String>> {
         return mainRepository.getUserValues()
     }
+
+    fun setBottomNavVisibility(makeVisible: Boolean) {
+        mainRepository.isBottomNavVisible.value = makeVisible
+    }
 }

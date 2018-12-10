@@ -11,4 +11,5 @@
     <dimen name="margin_extra_extra_large">32dp</dimen>
     <dimen name="large_font_size">28sp</dimen>
     <dimen name="extra_large_font_size">36sp</dimen>
+    <dimen name="padding_small">4dp</dimen>
 </resources>

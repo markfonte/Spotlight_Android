@@ -82,10 +82,14 @@
 
     </fragment>
     <fragment
-        android:id="@+id/rankingFragment"
+        android:id="@+id/editRankingFragment"
         android:name="example.com.project306.ui.main.EditRankingFragment"
         android:label=""
-        tools:layout="@layout/fragment_ranking" />
+        tools:layout="@layout/fragment_edit_ranking" >
+        <action
+            android:id="@+id/action_editRankingFragment_to_chooseValuesFragment"
+            app:destination="@id/chooseValuesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="example.com.project306.ui.main.SettingsFragment"
@@ -94,6 +98,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_loginStartFragment"
             app:destination="@id/loginStartFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_chooseValuesFragment"
+            app:destination="@id/chooseValuesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginStartFragment"

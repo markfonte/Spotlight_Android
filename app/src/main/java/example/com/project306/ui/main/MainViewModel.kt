@@ -11,4 +11,8 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
     fun areValuesSet(): LiveData<Boolean> {
         return mainRepository.areValuesSet()
     }
+
+    fun setBottomNavVisibility(makeVisible: Boolean) {
+        mainRepository.isBottomNavVisible.value = makeVisible
+    }
 }
