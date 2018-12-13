@@ -17,7 +17,6 @@ import example.com.project306.util.SororityTimeSlot
 import kotlinx.android.synthetic.main.fragment_sorority_schedule.*
 
 
-
 class SororityScheduleFragment : Fragment() {
 
     private lateinit var sororityScheduleFragmentViewModel: SororityScheduleViewModel
@@ -70,5 +69,9 @@ class SororityScheduleFragment : Fragment() {
             })
 
         }
+    }
+
+    companion object {
+        private val LOG_TAG: String = SororityScheduleFragment::class.java.name
     }
 }
