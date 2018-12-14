@@ -263,6 +263,11 @@ class FirebaseService {
         return storage.reference.child("house_images").child("$fileName.jpg")
     }
 
+    fun performSubmitCommentsAction() : MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        return result
+    }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 
