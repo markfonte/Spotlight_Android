@@ -93,6 +93,9 @@ class FirebaseService {
     private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = false
+        newUserMap["isRecruitmentComplete"] = false
+        newUserMap["bidHouse"] = ""
+        newUserMap["currentRound"] = 0 //Don't forget this is zero-indexed!
         overwriteUserInformation(newUserMap)
         changeDisplayName(displayName)
         firebaseLogout()
@@ -263,7 +266,7 @@ class FirebaseService {
         return storage.reference.child("house_images").child("$fileName.jpg")
     }
 
-    fun performSubmitCommentsAction() : MutableLiveData<String> {
+    fun performSubmitCommentsAction(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         return result
     }
