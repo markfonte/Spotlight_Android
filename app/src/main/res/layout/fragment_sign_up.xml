@@ -7,6 +7,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="example.com.project306.ui.main.SignUpViewModel" />
@@ -104,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_email_hint"
                 android:inputType="textEmailAddress"
+                android:textColor="@android:color/white"
                 app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_password_hint"
                 android:inputType="textPassword"
+                android:textColor="@android:color/white"
                 app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -136,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:theme="@style/signUpScreenInputs"
+            android:visibility="@{safeUnbox(viewModel.showConfirmPassword) ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_password_wrapper"
@@ -148,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_confirm_password_hint"
                 android:inputType="textPassword"
+                android:textColor="@android:color/white"
                 app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -165,6 +171,7 @@
             android:textAllCaps="false"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white"
+            android:visibility="@{safeUnbox(viewModel.showCreateAccountButton) ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_confirm_password_wrapper" />

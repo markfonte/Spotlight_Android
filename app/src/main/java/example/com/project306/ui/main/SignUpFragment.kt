@@ -1,6 +1,8 @@
 package example.com.project306.ui.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +50,33 @@ class SignUpFragment : Fragment() {
                 return@OnEditorActionListener true
             }
             false
+        })
+        sign_up_enter_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (signUpFragmentViewModel.showConfirmPassword.value == false) {
+                    signUpFragmentViewModel.showConfirmPassword.value = true
+                }
+            }
+        })
+
+        sign_up_enter_confirm_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (signUpFragmentViewModel.showCreateAccountButton.value == false) {
+                    signUpFragmentViewModel.showCreateAccountButton.value = true
+                }
+            }
         })
     }
 
