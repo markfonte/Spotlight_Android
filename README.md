@@ -7,6 +7,7 @@ Spotlight lets sorority rushees streamline their rush process!
 * Ability to write and view notes on every house they rush
 * Editing rankings with a smooth drag-n-drop interface
 * Value matching for values-based recruitment
+* Built in Google Maps integration for finding directions to their next house
 * And more!!
 
 ## Built With
@@ -16,6 +17,7 @@ Spotlight lets sorority rushees streamline their rush process!
 * [Firebase Authentication](https://firebase.google.com/) - For managing user authentication
 * [Maven](https://maven.apache.org/) - For dependency management
 * [Glide](https://github.com/bumptech/glide) - For smooth image loading and caching
+* [Google Maps API](https:developers.google.com/maps/documentation/urls/guide) - For maps integration
 * [Project Specification](https://invis.io/V4ODC1BRD7E) - For project design goals and specifications
 
 ## Contributing
@@ -24,10 +26,13 @@ While the source code is open to the public, this project is currently not open 
 
 ## Authors
 
-* **Mark Fonte** - *Lead Android Developer* - [markfonte](https://github.com/markfonte)
+* **Mark Fonte** - *CTO, Lead Android Developer* - [markfonte](https://github.com/markfonte)
 
 ## Acknowledgments
 
-* Kwan Lee, Taylor Lansey, Josh Lee & Josh Brodbine of project 306
-* Dr. Eric Fretz
+* *Senior Principle Software Engineer, Lead iOS Developer* - **Kwan Lee**
+* **Taylor Lansey** - *CEO* 
+* **Josh Brodbine** - *COO* 
+* **Josh Lee** - *Lead Consultant*
+* **Dr. Eric Fretz** - *Mentor, Sponsor*
 * [android-sunflower](https://github.com/googlesamples/android-sunflower) for the basics of Android Jetpack
