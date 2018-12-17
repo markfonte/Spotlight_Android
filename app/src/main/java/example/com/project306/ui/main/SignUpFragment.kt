@@ -1,5 +1,6 @@
 package example.com.project306.ui.main
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -78,6 +79,18 @@ class SignUpFragment : Fragment() {
                 }
             }
         })
+        sign_up_main_prompt.setOnClickListener {
+            buildInfoDialog()
+        }
+    }
+
+    private fun buildInfoDialog() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Help")
+                .setMessage(getString(R.string.sign_up_info_message))
+                .setPositiveButton("OK", null)
+                .create()
+        alertDialog.show()
     }
 
     private fun attemptSignUp(view: View) {
