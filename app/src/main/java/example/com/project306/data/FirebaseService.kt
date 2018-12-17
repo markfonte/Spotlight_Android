@@ -157,7 +157,7 @@ class FirebaseService {
         }
         return result
     }
-    
+
     fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)

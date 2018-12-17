@@ -14,16 +14,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
 
-        <TextView
+        <ImageView
             android:id="@+id/sign_up_main_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
-            android:fontFamily="@font/savoye_let_plain"
+            android:contentDescription="@string/login_main_title_content_description"
             android:gravity="center"
-            android:text="@string/app_display_title"
+            android:src="@drawable/spotlight_logo_white"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textSize="@dimen/main_title_font_size"
             app:layout_constraintBottom_toTopOf="@+id/sign_up_main_prompt"
@@ -36,8 +37,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:paddingStart="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_small"
             android:text="@string/sign_up_main_prompt"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/sign_up_enter_display_name_wrapper"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide" />
@@ -68,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:theme="@style/signUpScreenInputs"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/thirty_percent_horizontal_guide">
@@ -77,7 +82,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_display_name_hint"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:textColor="@android:color/white"
+                app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,6 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:theme="@style/signUpScreenInputs"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_display_name_wrapper">
@@ -95,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_email_hint"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,18 +113,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:theme="@style/signUpScreenInputs"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_email_wrapper"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary">
+            app:passwordToggleTint="@android:color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_enter_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_password_hint"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,27 +135,36 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:theme="@style/signUpScreenInputs"
             app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_password_wrapper"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary">
+            app:passwordToggleTint="@android:color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_enter_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_enter_confirm_password_hint"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                app:backgroundTint="@android:color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/attempt_create_account_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:background="@drawable/button_sign_up_fragment"
+            android:padding="12dp"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
             android:text="@string/attempt_create_account_button_text"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@id/sign_up_enter_confirm_password_wrapper" />
@@ -160,17 +180,25 @@
             android:gravity="center"
             android:text="@string/sign_up_to_login_prompt_text"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@+id/attempt_create_account_button" />
 
         <Button
             android:id="@+id/sign_up_to_login_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
+            android:background="@drawable/button_sign_up_fragment"
             android:gravity="center"
+            android:padding="12dp"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
             android:text="@string/sign_up_to_login_button_text"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
             app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
             app:layout_constraintTop_toBottomOf="@+id/sign_up_to_login_prompt" />

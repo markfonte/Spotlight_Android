@@ -27,7 +27,7 @@
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme"/>
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -42,4 +42,11 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
+    <style name="signUpScreenInputs" parent="@style/BaseAppTheme">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+    </style>
 </resources>
