@@ -3,18 +3,19 @@
 Spotlight lets sorority rushees streamline their rush process!
 
 ### Features Include:
-* A personalized list of their rush schedule, according to Panhel
-* Ability to write and view notes on every house they rush
-* Editing rankings with a smooth drag-n-drop interface
+* Automatically imported, personalized schedules from the Panhellic council for each rushee
+* Ability to write, save and view comments on every house
+* Editing house preference rankings with a smooth drag-n-drop interface
 * Value matching for values-based recruitment
-* Built in Google Maps integration for finding directions to their next house
-* And more!!
+* Built in Google Maps integration for finding directions to the house
+* And much more!!
 
 ## Built With
 
-* [Android Jetpack](https://developer.android.com/jetpack/) - For data binding, navigation, viewmodels and other great architecture components
+* [Android Jetpack](https://developer.android.com/jetpack/) - For data binding, navigation, viewmodels and many other architecture components
 * [Firebase Firestore](https://firebase.google.com/) - For NoSQL database storage
 * [Firebase Authentication](https://firebase.google.com/) - For managing user authentication
+* [Firebase Storage](https://firebase.google.com/) - For static storage
 * [Maven](https://maven.apache.org/) - For dependency management
 * [Glide](https://github.com/bumptech/glide) - For smooth image loading and caching
 * [Google Maps API](https:developers.google.com/maps/documentation/urls/guide) - For maps integration
@@ -30,8 +31,8 @@ While the source code is open to the public, this project is currently not open 
 
 ## Acknowledgments
 
-* *Senior Principle Software Engineer, Lead iOS Developer* - **Kwan Lee**
-* **Taylor Lansey** - *CEO* 
+* **Kwanhee Lee** - *Senior Principle Software Engineer, Lead iOS Developer* - [kwanhlee](https://github.com/kwanhlee)
+* **Taylor Lansey** - *CEO* - [tlansey](https://github.com/tlansey) 
 * **Josh Brodbine** - *COO* 
 * **Josh Lee** - *Lead Consultant*
 * **Dr. Eric Fretz** - *Mentor, Sponsor*
