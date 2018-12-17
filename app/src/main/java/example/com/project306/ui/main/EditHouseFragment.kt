@@ -1,5 +1,7 @@
 package example.com.project306.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -53,6 +55,17 @@ class EditHouseFragment : Fragment() {
         }
         edit_house_submit_button.setOnClickListener {
             Log.d(LOG_TAG, "Save button clicked")
+        }
+        edit_house_street_address.setOnClickListener {
+            //documentation: https://developers.google.com/maps/documentation/urls/android-intents
+            if (!editHouseFragmentViewModel.streetAddress.value.isNullOrEmpty()) {
+                val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(editHouseFragmentViewModel.streetAddress.value))
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
+                    (activity as MainActivity).startActivity(mapIntent)
+                }
+            }
         }
     }
 
