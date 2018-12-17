@@ -2,7 +2,7 @@
 
 Spotlight lets sorority rushees streamline their rush process!
 
-### Features Include:
+## Features Include:
 * Automatically imported, personalized schedules from the Panhellic council for each rushee
 * Ability to write, save and view comments on every house
 * Editing house preference rankings with a smooth drag-n-drop interface
