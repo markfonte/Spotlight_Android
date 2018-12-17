@@ -58,7 +58,7 @@ class FirebaseService {
             if (it.isSuccessful) {
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
-                    firebaseLogout()
+                    // firebaseLogout()
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
                     result.value = ""
@@ -98,7 +98,6 @@ class FirebaseService {
         newUserMap["currentRound"] = 0 //Don't forget this is zero-indexed!
         overwriteUserInformation(newUserMap)
         changeDisplayName(displayName)
-        firebaseLogout()
     }
 
     fun changeDisplayName(name: String): MutableLiveData<String> {
