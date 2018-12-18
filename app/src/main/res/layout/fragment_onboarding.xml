@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/choose_values_fragment_container"
-    tools:context=".ui.main.ChooseValuesFragment">
+    android:id="@+id/onboarding_fragment_container"
+    tools:context=".ui.main.OnboardingFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="example.com.project306.ui.main.ChooseValuesViewModel" />
+            type="example.com.project306.ui.main.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +17,12 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/choose_values_title"
+            android:id="@+id/onboarding_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:gravity="center"
-            android:text="@string/choose_values_title_text"
+            android:text="@string/onboarding_title_text"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,19 +30,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
-            android:id="@+id/choose_values_checkbox_holder"
+            android:id="@+id/onboarding_checkbox_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"
             android:layout_marginBottom="8dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/choose_values_submit_button"
+            app:layout_constraintBottom_toTopOf="@+id/onboarding_submit_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choose_values_title" />
+            app:layout_constraintTop_toBottomOf="@id/onboarding_title" />
 
         <Button
-            android:id="@+id/choose_values_submit_button"
+            android:id="@+id/onboarding_submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
@@ -51,7 +51,7 @@
             android:padding="12dp"
             android:paddingStart="36dp"
             android:paddingEnd="36dp"
-            android:text="@string/choose_values_submit_button_text"
+            android:text="@string/onboarding_submit_button_text"
             android:textAllCaps="false"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"

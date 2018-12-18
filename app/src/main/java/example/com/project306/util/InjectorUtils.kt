@@ -24,9 +24,9 @@ object InjectorUtils {
         return SignUpViewModelFactory(repository)
     }
 
-    fun provideLoginStartViewModelFactory(): LoginStartViewModelFactory {
+    fun provideLandingViewModelFactory(): LandingViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
-        return LoginStartViewModelFactory(repository)
+        return LandingViewModelFactory(repository)
     }
 
     fun provideMainActivityViewModelFactory(): MainActivityViewModelFactory {
@@ -39,9 +39,9 @@ object InjectorUtils {
         return SettingsViewModelFactory(repository)
     }
 
-    fun provideChooseValuesViewModelFactory(): ChooseValuesViewModelFactory {
+    fun provideOnboardingViewModelFactory(): OnboardingViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
-        return ChooseValuesViewModelFactory(repository)
+        return OnboardingViewModelFactory(repository)
     }
 
     fun provideRankingViewModelFactory(): RankingViewModelFactory {

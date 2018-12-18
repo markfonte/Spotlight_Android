@@ -40,8 +40,8 @@
     <string name="second_round_display_title">2nd Round: Philanthropy</string>
     <string name="third_round_display_title">3rd Round: Sisterhood</string>
     <string name="fourth_round_display_title">4th Round: Preference</string>
-    <string name="choose_values_title_text">Please select 3 values!</string>
-    <string name="choose_values_submit_button_text">Submit</string>
+    <string name="onboarding_title_text">Please select 3 values!</string>
+    <string name="onboarding_submit_button_text">Submit</string>
     <string name="schedule_row_date_text_default">Date</string>
     <string name="schedule_row_greek_letters_text_default">Greek Letters</string>
     <string name="schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>

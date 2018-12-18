@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
                 setBottomNavVisibility(false)
                 setAppBarVisibility(false)
             }
-            val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginStartFragment, true).build()
-            navController.navigate(R.id.loginStartFragment, null, navOptions)
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.landingFragment, true).build()
+            navController.navigate(R.id.landingFragment, null, navOptions)
             return false
         } else {
             with(mainActivityViewModel) {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentDestination = NavHostFragment.findNavController(main_nav_host_fragment).currentDestination
         when (currentDestination?.id) {
-            R.id.loginStartFragment -> {
+            R.id.landingFragment -> {
                 finish()
                 return
             }

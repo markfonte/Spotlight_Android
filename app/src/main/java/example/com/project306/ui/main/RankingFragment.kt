@@ -31,7 +31,7 @@ class RankingFragment : Fragment() {
         if ((activity as MainActivity).validateUser()) { //they are logged in
             rankingFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_rankingFragment_to_chooseValuesFragment, null)
+                    (activity as MainActivity).navController.navigate(R.id.action_rankingFragment_to_onboardingFragment, null)
                     rankingFragmentViewModel.setBottomNavVisibility(false)
                     rankingFragmentViewModel.setAppBarVisibility(false)
                 } else {

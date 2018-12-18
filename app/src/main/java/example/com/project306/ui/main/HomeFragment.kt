@@ -48,7 +48,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
         if ((activity as MainActivity).validateUser()) { //they are logged in
             homeFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_homeFragment_to_chooseValuesFragment, null)
+                    (activity as MainActivity).navController.navigate(R.id.action_homeFragment_to_onboardingFragment, null)
                     homeFragmentViewModel.setBottomNavVisibility(false)
                     homeFragmentViewModel.setAppBarVisibility(false)
                 } else {

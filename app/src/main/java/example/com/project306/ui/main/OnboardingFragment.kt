@@ -19,16 +19,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import example.com.project306.R
-import example.com.project306.databinding.FragmentChooseValuesBinding
+import example.com.project306.databinding.FragmentOnboardingBinding
 import example.com.project306.util.InjectorUtils
-import kotlinx.android.synthetic.main.fragment_choose_values.*
+import kotlinx.android.synthetic.main.fragment_onboarding.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-class ChooseValuesFragment : Fragment() {
-    private lateinit var chooseValuesFragmentViewModel: ChooseValuesViewModel
+class OnboardingFragment : Fragment() {
+    private lateinit var onboardingFragmentViewModel: OnboardingViewModel
     private lateinit var panhelValues: ArrayList<*>
     private lateinit var currentlyCheckedBoxes: HashMap<Int, String>
     private lateinit var submittedCheckboxes: ArrayList<String>
@@ -39,18 +39,18 @@ class ChooseValuesFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory: ChooseValuesViewModelFactory = InjectorUtils.provideChooseValuesViewModelFactory()
-        chooseValuesFragmentViewModel = ViewModelProviders.of(this, factory).get(ChooseValuesViewModel::class.java)
-        val binding = DataBindingUtil.inflate<FragmentChooseValuesBinding>(inflater, R.layout.fragment_choose_values, container, false).apply {
-            viewModel = chooseValuesFragmentViewModel
-            setLifecycleOwner(this@ChooseValuesFragment)
+        val factory: OnboardingViewModelFactory = InjectorUtils.provideOnboardingViewModelFactory()
+        onboardingFragmentViewModel = ViewModelProviders.of(this, factory).get(OnboardingViewModel::class.java)
+        val binding: FragmentOnboardingBinding = DataBindingUtil.inflate<FragmentOnboardingBinding>(inflater, R.layout.fragment_onboarding, container, false).apply {
+            viewModel = onboardingFragmentViewModel
+            setLifecycleOwner(this@OnboardingFragment)
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chooseValuesFragmentViewModel.panhelValues.observe(this, Observer {
+        onboardingFragmentViewModel.panhelValues.observe(this, Observer {
             panhelValues = it
             currentlyCheckedBoxes = HashMap()
             var i = 0
@@ -60,7 +60,7 @@ class ChooseValuesFragment : Fragment() {
             }
             buildRadioButtons()
         })
-        choose_values_submit_button.setOnClickListener {
+        onboarding_submit_button.setOnClickListener {
             var count = 0
             var i = 0
             submittedCheckboxes = ArrayList()
@@ -106,11 +106,11 @@ class ChooseValuesFragment : Fragment() {
                 val newValuesMap: MutableMap<String, Any> = HashMap()
                 newValuesMap["areValuesSet"] = true
                 newValuesMap["values"] = Arrays.asList(submittedCheckboxes[0], submittedCheckboxes[1], submittedCheckboxes[2])
-                chooseValuesFragmentViewModel.submitChosenValues(newValuesMap).observe(this, Observer { error ->
+                onboardingFragmentViewModel.submitChosenValues(newValuesMap).observe(this, Observer { error ->
                     run {
                         if (error == "") {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
-                            (activity as MainActivity).navController.navigate(R.id.action_chooseValuesFragment_to_homeFragment, null, navOptions)
+                            (activity as MainActivity).navController.navigate(R.id.action_onboardingFragment_to_homeFragment, null, navOptions)
                         } else {
                             Log.e(LOG_TAG, "Error setting values: $error")
                         }
@@ -153,10 +153,10 @@ class ChooseValuesFragment : Fragment() {
             }
             checkboxHolder.addView(newCheckbox)
         }
-        choose_values_checkbox_holder.addView(checkboxHolder)
+        onboarding_checkbox_holder.addView(checkboxHolder)
     }
 
     companion object {
-        private val LOG_TAG: String = ChooseValuesFragment::class.java.name
+        private val LOG_TAG: String = OnboardingFragment::class.java.name
     }
 }

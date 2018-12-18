@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
-class ChooseValuesViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class OnboardingViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var panhelValues: LiveData<ArrayList<*>> = mainRepository.getPanhelValues()
 
     fun submitChosenValues(values: MutableMap<String, Any>): LiveData<String> {

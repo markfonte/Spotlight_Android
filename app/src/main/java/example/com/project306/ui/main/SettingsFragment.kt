@@ -46,7 +46,7 @@ class SettingsFragment : Fragment() {
                 run {
                     if (logoutResult == "success") {
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
-                        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_loginStartFragment, null, navOptions)
+                        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_landingFragment, null, navOptions)
                     } else {
                         Log.e(LOG_TAG, "This should never happen. Fix IMMEDIATELY if this error occurs.")
                         activity?.finish()
@@ -182,7 +182,7 @@ class SettingsFragment : Fragment() {
         if ((activity as MainActivity).validateUser()) { //they are logged in
             settingsFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_chooseValuesFragment, null)
+                    (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_onboardingFragment, null)
                     settingsFragmentViewModel.setBottomNavVisibility(false)
                     settingsFragmentViewModel.setAppBarVisibility(false)
                 } else {

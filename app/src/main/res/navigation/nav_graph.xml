@@ -24,8 +24,8 @@
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
-            android:id="@+id/action_signUp_to_chooseValuesFragment"
-            app:destination="@id/chooseValuesFragment" />
+            android:id="@+id/action_signUp_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -47,22 +47,22 @@
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_chooseValuesFragment"
-            app:destination="@id/chooseValuesFragment" />
+            android:id="@+id/action_homeFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_loginStartFragment"
-            app:destination="@id/loginStartFragment" />
+            android:id="@+id/action_homeFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
         <action
             android:id="@+id/action_homeFragment_to_notesFragment"
             app:destination="@id/notesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/chooseValuesFragment"
-        android:name="example.com.project306.ui.main.ChooseValuesFragment"
+        android:id="@+id/onboardingFragment"
+        android:name="example.com.project306.ui.main.OnboardingFragment"
         android:label="Set Up"
-        tools:layout="@layout/fragment_choose_values">
+        tools:layout="@layout/fragment_onboarding">
         <action
-            android:id="@+id/action_chooseValuesFragment_to_homeFragment"
+            android:id="@+id/action_onboardingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
@@ -90,8 +90,8 @@
         android:label=""
         tools:layout="@layout/fragment_ranking">
         <action
-            android:id="@+id/action_rankingFragment_to_chooseValuesFragment"
-            app:destination="@id/chooseValuesFragment" />
+            android:id="@+id/action_rankingFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -99,24 +99,24 @@
         android:label=""
         tools:layout="@layout/fragment_settings">
         <action
-            android:id="@+id/action_settingsFragment_to_loginStartFragment"
-            app:destination="@id/loginStartFragment" />
+            android:id="@+id/action_settingsFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
         <action
-            android:id="@+id/action_settingsFragment_to_chooseValuesFragment"
-            app:destination="@id/chooseValuesFragment" />
+            android:id="@+id/action_settingsFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginStartFragment"
-        android:name="example.com.project306.ui.main.LoginStartFragment"
+        android:id="@+id/landingFragment"
+        android:name="example.com.project306.ui.main.LandingFragment"
         android:label=""
-        tools:layout="@layout/fragment_login_start">
+        tools:layout="@layout/fragment_landing">
         <action
-            android:id="@+id/action_loginStartFragment_to_signUpFragment"
+            android:id="@+id/action_landingFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
-            app:popUpTo="@id/loginStartFragment" />
+            app:popUpTo="@id/landingFragment" />
         <action
-            android:id="@+id/action_loginStartFragment_to_loginFragment"
+            android:id="@+id/action_landingFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@+id/loginStartFragment" />
+            app:popUpTo="@+id/landingFragment" />
     </fragment>
 </navigation>
