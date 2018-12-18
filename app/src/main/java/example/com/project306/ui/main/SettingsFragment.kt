@@ -104,6 +104,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun updatePassword() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Please Re-Enter Your Password")
@@ -132,6 +133,7 @@ class SettingsFragment : Fragment() {
         alertDialog.show()
     }
 
+    @SuppressLint("InflateParams")
     private fun showUpdatePasswordDialog() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Please Enter Your New Password")

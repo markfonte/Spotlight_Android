@@ -7,6 +7,6 @@ import example.com.project306.data.MainRepository
 class LandingViewModelFactory(private val repository: MainRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return LandingViewModel(repository) as T
+        return LandingViewModel() as T
     }
 }

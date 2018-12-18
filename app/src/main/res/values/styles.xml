@@ -14,17 +14,10 @@
         <item name="android:actionMenuTextColor">@android:color/black</item>
     </style>
 
-
     <style name="NoTextAllCaps" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="borderlessButtonStyle">
-        <item name="android:colorBackground">@color/colorButtonBackgroundDefault</item>
-        <item name="colorControlHighlight">@android:color/black</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme" />

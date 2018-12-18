@@ -45,7 +45,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/seventy_percent_horizontal_guide"
             app:layout_constraintStart_toStartOf="@+id/thirty_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/landing_spotlight_logo">
 
             <Button
                 android:id="@+id/login_start_sign_up_button"
@@ -76,9 +76,10 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/landing_spotlight_logo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/content_desc_landing_spotlight_logo"
             android:src="@drawable/logo_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
