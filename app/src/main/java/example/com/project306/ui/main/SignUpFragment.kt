@@ -52,7 +52,7 @@ class SignUpFragment : Fragment() {
             }
             false
         })
-        sign_up_enter_password.addTextChangedListener(object : TextWatcher {
+        sign_up_enter_display_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -65,8 +65,7 @@ class SignUpFragment : Fragment() {
                 }
             }
         })
-
-        sign_up_enter_confirm_password.addTextChangedListener(object : TextWatcher {
+        sign_up_enter_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -95,6 +94,7 @@ class SignUpFragment : Fragment() {
 
     private fun attemptSignUp(view: View) {
         SystemUtils.hideKeyboard(context, view)
+        toggleCreateAccountProgressBar(true)
         val currentDisplayName: String? = sign_up_enter_display_name.text.toString().trim()
         val currentEmail: String? = sign_up_enter_email.text.toString().trim()
         val currentPassword: String? = sign_up_enter_password.text.toString()
@@ -105,6 +105,7 @@ class SignUpFragment : Fragment() {
                     if (error == "") {
                         sendEmailVerification(currentEmail, view)
                     } else {
+                        toggleCreateAccountProgressBar(false)
                         Log.i(LOG_TAG, "Error creating account: $error")
                         sign_up_enter_display_name.error = getString(R.string.sign_up_error_default_message)
                         sign_up_enter_display_name.requestFocus()
@@ -113,6 +114,7 @@ class SignUpFragment : Fragment() {
                 }
             })
         } else {
+            toggleCreateAccountProgressBar(false)
             Log.i(LOG_TAG, "Poorly formed input")
             sign_up_enter_display_name.error = getString(R.string.sign_up_error_poorly_formed_input)
             sign_up_enter_display_name.requestFocus()
@@ -123,6 +125,7 @@ class SignUpFragment : Fragment() {
     private fun sendEmailVerification(email: String, view: View) {
         signUpFragmentViewModel.attemptEmailVerification().observe(this, Observer { error ->
             run {
+                toggleCreateAccountProgressBar(false)
                 if (error == "") {
                     val snackbar: Snackbar? = Snackbar.make(activity?.findViewById(R.id.sign_up_fragment_container)!!, getString(R.string.sign_up_and_email_verification_success_confirmation), Snackbar.LENGTH_INDEFINITE)
                     SystemUtils.setSnackbarDefaultOptions(snackbar)
@@ -147,6 +150,11 @@ class SignUpFragment : Fragment() {
 
     private fun isValidInput(displayName: String?, email: String?, password: String?, confirmPassword: String?): Boolean {
         return !displayName.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && displayName.length < 30 && email.length < 30 && password.length < 30 && confirmPassword.length < 30 && email.contains('@') && email.contains(".") && password == confirmPassword
+    }
+
+    private fun toggleCreateAccountProgressBar(showProgress: Boolean) {
+        signUpFragmentViewModel.isCreatingAccount.value = showProgress
+        signUpFragmentViewModel.showCreateAccountButton.value = !showProgress
     }
 
     companion object {

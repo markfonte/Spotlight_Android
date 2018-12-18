@@ -16,9 +16,11 @@ class SignUpViewModel(private val mainRepository: MainRepository) : ViewModel() 
 
     val showConfirmPassword: MutableLiveData<Boolean> = MutableLiveData()
     val showCreateAccountButton: MutableLiveData<Boolean> = MutableLiveData()
+    val isCreatingAccount: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         showConfirmPassword.value = false
         showCreateAccountButton.value = false
+        isCreatingAccount.value = false
     }
 }

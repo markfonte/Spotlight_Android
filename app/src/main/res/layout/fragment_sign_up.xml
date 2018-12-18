@@ -44,15 +44,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_info_outline_white_24dp"
+                android:focusable="true"
                 android:paddingStart="@dimen/padding_small"
                 android:paddingEnd="@dimen/padding_small"
                 android:text="@string/sign_up_main_prompt"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white"
-                android:drawableEnd="@drawable/ic_info_outline_white_24dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@id/sign_up_enter_display_name_wrapper"
                 app:layout_constraintEnd_toEndOf="@id/eighty_five_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@id/fifteen_percent_vertical_guide" />
@@ -218,6 +218,17 @@
                 app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/sign_up_to_login_prompt" />
+
+            <ProgressBar
+                android:id="@+id/attempt_create_account_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:theme="@style/BaseAppTheme.WhiteAccent"
+                android:visibility="@{safeUnbox(viewModel.isCreatingAccount)? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_to_login_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
