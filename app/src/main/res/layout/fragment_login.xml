@@ -14,157 +14,164 @@
             type="example.com.project306.ui.main.LoginViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/login_main_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:contentDescription="@string/login_main_title_content_description"
-            android:gravity="center"
-            android:src="@drawable/spotlight_logo_purple"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textSize="@dimen/main_title_font_size"
-            app:layout_constraintBottom_toTopOf="@+id/login_main_prompt"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/login_main_prompt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:layout_marginEnd="@dimen/margin_standard"
-            android:layout_marginBottom="@dimen/margin_standard"
-            android:text="@string/login_main_prompt"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toTopOf="@+id/login_enter_email_wrapper"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/thirty_percent_horizontal_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".3333" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/fifteen_percent_vertical_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".15" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/eighty_five_percent_vertical_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".85" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_enter_email_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@id/thirty_percent_horizontal_guide">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_enter_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/login_enter_email_hint"
-                android:inputType="textEmailAddress"
-                app:backgroundTint="@color/colorPrimary" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_enter_password_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@id/login_enter_email_wrapper"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_enter_password"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/login_main_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_enter_password_hint"
-                android:inputType="textPassword"
-                app:backgroundTint="@color/colorPrimary" />
+                android:layout_margin="@dimen/margin_standard"
+                android:contentDescription="@string/login_main_title_content_description"
+                android:gravity="center"
+                android:src="@drawable/spotlight_logo_purple"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="@dimen/main_title_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/login_main_prompt"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/login_main_prompt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:layout_marginEnd="@dimen/margin_standard"
+                android:layout_marginBottom="@dimen/margin_standard"
+                android:text="@string/login_main_prompt"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                app:layout_constraintBottom_toTopOf="@+id/login_enter_email_wrapper"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide" />
 
-        <ProgressBar
-            android:id="@+id/attempt_login_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/thirty_percent_horizontal_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".3333" />
 
-        <TextView
-            android:id="@+id/forgot_password_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/forgot_password_button_text"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/login_enter_password_wrapper" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/fifteen_percent_vertical_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".15" />
 
-        <TextView
-            android:id="@+id/create_account_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_standard"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/margin_standard"
-            android:layout_marginBottom="@dimen/margin_standard"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical|end"
-            android:text="@string/create_account_button"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/attempt_login_button" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/eighty_five_percent_vertical_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".85" />
 
-        <Button
-            android:id="@+id/attempt_login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:background="@drawable/button_default"
-            android:padding="12dp"
-            android:paddingStart="36dp"
-            android:paddingEnd="36dp"
-            android:text="@string/attempt_login_button_text"
-            android:textAllCaps="false"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:visibility="@{safeUnbox(viewModel.showLoginButton) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
-            app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
-            app:layout_constraintTop_toBottomOf="@+id/forgot_password_button" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_enter_email_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/thirty_percent_horizontal_guide">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_enter_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/login_enter_email_hint"
+                    android:inputType="textEmailAddress"
+                    app:backgroundTint="@color/colorPrimary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_enter_password_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@id/login_enter_email_wrapper"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_enter_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_enter_password_hint"
+                    android:inputType="textPassword"
+                    app:backgroundTint="@color/colorPrimary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/attempt_login_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
+
+            <TextView
+                android:id="@+id/forgot_password_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/forgot_password_button_text"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/login_enter_password_wrapper" />
+
+            <TextView
+                android:id="@+id/create_account_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_standard"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/margin_standard"
+                android:layout_marginBottom="@dimen/margin_standard"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical|end"
+                android:text="@string/create_account_button"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/attempt_login_button" />
+
+            <Button
+                android:id="@+id/attempt_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:background="@drawable/button_default"
+                android:padding="12dp"
+                android:paddingStart="36dp"
+                android:paddingEnd="36dp"
+                android:text="@string/attempt_login_button_text"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:visibility="@{safeUnbox(viewModel.showLoginButton) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toStartOf="@+id/eighty_five_percent_vertical_guide"
+                app:layout_constraintStart_toStartOf="@+id/fifteen_percent_vertical_guide"
+                app:layout_constraintTop_toBottomOf="@+id/forgot_password_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>
