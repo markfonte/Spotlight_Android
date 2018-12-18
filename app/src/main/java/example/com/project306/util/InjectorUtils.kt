@@ -9,7 +9,7 @@ object InjectorUtils {
         return MainRepository.getInstance()
     }
 
-    fun provideMainViewModelFactory(): HomeViewModelFactory {
+    fun provideHomeViewModelFactory(): HomeViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
         return HomeViewModelFactory(repository)
     }
@@ -44,18 +44,18 @@ object InjectorUtils {
         return ChooseValuesViewModelFactory(repository)
     }
 
-    fun provideEditRankingViewModelFactory(): EditRankingViewModelFactory {
+    fun provideRankingViewModelFactory(): RankingViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
-        return EditRankingViewModelFactory(repository)
+        return RankingViewModelFactory(repository)
     }
 
-    fun provideSororityScheduleViewModelFactory(): SororityScheduleViewModelFactory {
+    fun provideScheduleViewModelFactory(): ScheduleViewModelFactory {
         val mainRepository: MainRepository = getMainRepositorySingleton()
-        return SororityScheduleViewModelFactory(mainRepository)
+        return ScheduleViewModelFactory(mainRepository)
     }
 
-    fun provideEditHouseViewModelFactory(): EditHouseViewModelFactory {
+    fun provideNotesViewModelFactory(): NotesViewModelFactory {
         val mainRepository: MainRepository = getMainRepositorySingleton()
-        return EditHouseViewModelFactory(mainRepository)
+        return NotesViewModelFactory(mainRepository)
     }
 }

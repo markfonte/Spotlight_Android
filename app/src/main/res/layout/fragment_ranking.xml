@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/edit_ranking_fragment_container"
-    tools:context=".ui.main.EditRankingFragment">
+    android:id="@+id/ranking_fragment_container"
+    tools:context=".ui.main.RankingFragment">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="example.com.project306.ui.main.EditRankingViewModel" />
+            type="example.com.project306.ui.main.RankingViewModel" />
     </data>
 
     <ScrollView

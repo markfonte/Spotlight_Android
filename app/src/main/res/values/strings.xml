@@ -4,8 +4,8 @@
     <string name="menu_title_home">Home</string>
     <string name="menu_title_ranking">Ranking</string>
     <string name="menu_title_view">View</string>
-    <string name="sorority_schedule_time_text_default">Time</string>
-    <string name="sorority_schedule_display_name_text_default">Sorority Display Name</string>
+    <string name="schedule_time_text_default">Time</string>
+    <string name="schedule_display_name_text_default">House Display Name</string>
     <string name="login_enter_email_hint">Email</string>
     <string name="login_enter_password_hint">Password</string>
     <string name="login_main_prompt">Log in</string>
@@ -35,16 +35,16 @@
     <string name="login_email_verification_failed">Verification email not sent. Retry?</string>
     <string name="login_email_verification_success_confirmation">Verification email sent. Please check your email to verify it\'s you, then log in.</string>
     <string name="login_prompt_resend_email_verification">Resend verification email?</string>
-    <string name="SORORITY_SCHEDULE_PAGE_POSITION">SORORITY_SCHEDULE_PAGE_POSITION</string>
+    <string name="SCHEDULE_PAGE_POSITION">SCHEDULE_PAGE_POSITION</string>
     <string name="first_round_display_title">1st Round: Open House</string>
     <string name="second_round_display_title">2nd Round: Philanthropy</string>
     <string name="third_round_display_title">3rd Round: Sisterhood</string>
     <string name="fourth_round_display_title">4th Round: Preference</string>
     <string name="choose_values_title_text">Please select 3 values!</string>
     <string name="choose_values_submit_button_text">Submit</string>
-    <string name="sorority_schedule_row_date_text_default">Date</string>
-    <string name="sorority_schedule_row_greek_letters_text_default">Greek Letters</string>
-    <string name="sorority_schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
+    <string name="schedule_row_date_text_default">Date</string>
+    <string name="schedule_row_greek_letters_text_default">Greek Letters</string>
+    <string name="schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
     <string name="display_values_title_default_text">My Values</string>
     <string name="display_values_value_one_default_text" />
     <string name="display_values_value_two_default_text" />
@@ -54,7 +54,7 @@
     <string name="display_user_data_display_name_default_text" />
     <string name="display_user_data_email_prompt_default_text">Email</string>
     <string name="display_user_data_email_default_text" />
-    <string name="menu_title_edit_house">Edit</string>
+    <string name="menu_title_notes">Edit</string>
     <string name="login_main_title_content_description">Purple Spotlight Logo</string>
     <string name="app_main_toolbar_image_content_description">White Spotlight Logo</string>
     <string name="email">Email</string>
@@ -65,7 +65,7 @@
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="comments">Comments</string>
-    <string name="edit_house_enter_comments_hint">Enter Comments…</string>
-    <string name="edit_house_submit_button_text">Save</string>
+    <string name="notes_enter_comments_hint">Enter Comments…</string>
+    <string name="notes_submit_button_text">Save</string>
     <string name="sign_up_info_message">Welcome to Spotlight!\n\n- Please sign up using your school email address\n- Your password must be at least 6 characters\n- You will be able to change your name and password at any time\n\nQuestions? Contact tlansey@umich.edu!</string>
 </resources>

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="example.com.project306.ui.main.EditHouseViewModel" />
+            type="example.com.project306.ui.main.NotesViewModel" />
     </data>
 
     <ScrollView
@@ -34,7 +34,7 @@
                 app:layout_constraintGuide_percent=".9" />
 
             <TextView
-                android:id="@+id/edit_house_title"
+                android:id="@+id/notes_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/edit_house_greek_letters"
+                android:id="@+id/notes_greek_letters"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -61,10 +61,10 @@
                 android:textSize="@dimen/medium_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@id/edit_house_title" />
+                app:layout_constraintTop_toBottomOf="@id/notes_title" />
 
             <TextView
-                android:id="@+id/edit_house_street_address"
+                android:id="@+id/notes_street_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -76,10 +76,10 @@
                 android:textSize="@dimen/small_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_greek_letters" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_greek_letters" />
 
             <TextView
-                android:id="@+id/edit_house_my_values_title"
+                android:id="@+id/notes_my_values_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_standard"
@@ -91,10 +91,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_house_image" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_house_image" />
 
             <CheckBox
-                android:id="@+id/edit_house_value_one"
+                android:id="@+id/notes_value_one"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -107,10 +107,10 @@
                 android:textSize="@dimen/medium_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_my_values_title" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_my_values_title" />
 
             <CheckBox
-                android:id="@+id/edit_house_value_two"
+                android:id="@+id/notes_value_two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -123,10 +123,10 @@
                 android:textSize="@dimen/medium_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_value_one" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_value_one" />
 
             <CheckBox
-                android:id="@+id/edit_house_value_three"
+                android:id="@+id/notes_value_three"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -139,10 +139,10 @@
                 android:textSize="@dimen/medium_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_value_two" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_value_two" />
 
             <TextView
-                android:id="@+id/edit_house_comment_prompt"
+                android:id="@+id/notes_comment_prompt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_standard"
@@ -155,16 +155,16 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_value_three" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_value_three" />
 
             <EditText
-                android:id="@+id/edit_house_enter_comments"
+                android:id="@+id/notes_enter_comments"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
-                android:background="@drawable/background_edit_house_comments"
+                android:background="@drawable/background_notes_comments"
                 android:gravity="top|start"
-                android:hint="@string/edit_house_enter_comments_hint"
+                android:hint="@string/notes_enter_comments_hint"
                 android:inputType="textMultiLine"
                 android:maxLines="4"
                 android:minLines="4"
@@ -172,27 +172,26 @@
                 android:singleLine="false"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_comment_prompt"
+                app:layout_constraintTop_toBottomOf="@+id/notes_comment_prompt"
                 tools:ignore="Autofill" />
 
             <Button
-                android:id="@+id/edit_house_submit_button"
+                android:id="@+id/notes_submit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_large"
                 android:background="@drawable/button_default"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/edit_house_submit_button_text"
+                android:text="@string/notes_submit_button_text"
                 android:textAllCaps="false"
                 android:textSize="@dimen/medium_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_enter_comments" />
-
+                app:layout_constraintTop_toBottomOf="@+id/notes_enter_comments" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/edit_house_house_image"
+                android:id="@+id/notes_house_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
@@ -204,9 +203,10 @@
                 app:layout_constraintDimensionRatio="H, 16:9"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/edit_house_street_address" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_street_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
 </layout>

@@ -4,14 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import example.com.project306.ui.main.SororityScheduleFragment
+import example.com.project306.ui.main.ScheduleFragment
 import example.com.project306.util.RoundTitles
 
-class SororitySchedulePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
-        val fragment = SororityScheduleFragment()
+        val fragment = ScheduleFragment()
         fragment.arguments = Bundle().apply {
-            putInt( "SORORITY_SCHEDULE_PAGE_POSITION", position)
+            putInt( "SCHEDULE_PAGE_POSITION", position)
         }
         return fragment
     }

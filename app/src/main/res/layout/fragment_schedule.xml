@@ -2,8 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sorority_schedule_fragment_container"
-    tools:context=".ui.main.SororityScheduleFragment">
+    android:id="@+id/schedule_fragment_container"
+    tools:context=".ui.main.ScheduleFragment">
 
     <data>
 
@@ -12,7 +12,7 @@
 
         <variable
             name="viewModel"
-            type="example.com.project306.ui.main.SororityScheduleViewModel" />
+            type="example.com.project306.ui.main.ScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,11 +20,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/sorority_schedule_no_data"
+            android:id="@+id/schedule_no_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/sorority_schedule_no_data_text_default"
+            android:text="@string/schedule_no_data_text_default"
             android:textSize="@dimen/medium_font_size"
             android:visibility="@{safeUnbox(!viewModel.isDataToDisplay()) &amp;&amp; safeUnbox(!viewModel.isDataLoading()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sorority_schedule_recycler_view"
+            android:id="@+id/schedule_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"

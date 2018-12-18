@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import example.com.project306.R
-import example.com.project306.adapter.SororitySchedulePagerAdapter
+import example.com.project306.adapter.SchedulePagerAdapter
 import example.com.project306.databinding.FragmentHomeBinding
 import example.com.project306.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var homeFragmentViewModel: HomeViewModel
-    private lateinit var sororitySchedulePagerAdapter: SororitySchedulePagerAdapter
-    private lateinit var sororityScheduleViewPager: ViewPager
+    private lateinit var schedulePagerAdapter: SchedulePagerAdapter
+    private lateinit var scheduleViewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory: HomeViewModelFactory = InjectorUtils.provideMainViewModelFactory()
+        val factory: HomeViewModelFactory = InjectorUtils.provideHomeViewModelFactory()
         homeFragmentViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
         val binding: FragmentHomeBinding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false).apply {
             viewModel = homeFragmentViewModel
@@ -33,12 +33,12 @@ class HomeFragment : androidx.fragment.app.Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeFragmentViewModel.staticHouseData.observe(this, Observer {
-            //Sorority Schedule pages not inflated until static house data is acquired
+            //Schedule pages not inflated until static house data is acquired
             if (it != null) {
-                sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
-                sororityScheduleViewPager = sorority_schedule_view_pager
-                sororityScheduleViewPager.adapter = sororitySchedulePagerAdapter
-                tabLayout.setupWithViewPager(sororityScheduleViewPager)
+                schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager)
+                scheduleViewPager = schedule_view_pager
+                scheduleViewPager.adapter = schedulePagerAdapter
+                tabLayout.setupWithViewPager(scheduleViewPager)
             }
         })
     }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.storage.StorageReference
 import example.com.project306.data.MainRepository
 
-class EditHouseViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val displayName: MutableLiveData<String> = MutableLiveData()
     val greekLetters: MutableLiveData<String> = MutableLiveData()
     val streetAddress: MutableLiveData<String> = MutableLiveData()

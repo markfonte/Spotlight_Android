@@ -53,8 +53,8 @@
             android:id="@+id/action_homeFragment_to_loginStartFragment"
             app:destination="@id/loginStartFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_editHouseFragment"
-            app:destination="@id/editHouseFragment" />
+            android:id="@+id/action_homeFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseValuesFragment"
@@ -66,10 +66,10 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editHouseFragment"
-        android:name="example.com.project306.ui.main.EditHouseFragment"
+        android:id="@+id/notesFragment"
+        android:name="example.com.project306.ui.main.NotesFragment"
         android:label="View"
-        tools:layout="@layout/fragment_edit_house">
+        tools:layout="@layout/fragment_notes">
         <argument
             android:name="display_name"
             app:argType="string" />
@@ -85,12 +85,12 @@
 
     </fragment>
     <fragment
-        android:id="@+id/editRankingFragment"
-        android:name="example.com.project306.ui.main.EditRankingFragment"
+        android:id="@+id/rankingFragment"
+        android:name="example.com.project306.ui.main.RankingFragment"
         android:label=""
-        tools:layout="@layout/fragment_edit_ranking">
+        tools:layout="@layout/fragment_ranking">
         <action
-            android:id="@+id/action_editRankingFragment_to_chooseValuesFragment"
+            android:id="@+id/action_rankingFragment_to_chooseValuesFragment"
             app:destination="@id/chooseValuesFragment" />
     </fragment>
     <fragment

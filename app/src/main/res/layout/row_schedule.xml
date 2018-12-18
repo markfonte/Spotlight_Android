@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/sorority_schedule_row_container"
+    android:id="@+id/schedule_row_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_standard"
@@ -19,30 +19,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/sorority_schedule_row_date"
+            android:id="@+id/schedule_row_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:fontFamily="@font/savoye_let_plain"
-            android:text="@string/sorority_schedule_row_date_text_default"
+            android:text="@string/schedule_row_date_text_default"
             android:textSize="@dimen/large_font_size" />
 
         <TextView
-            android:id="@+id/sorority_schedule_row_time"
+            android:id="@+id/schedule_row_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:fontFamily="@font/savoye_let_plain"
-            android:text="@string/sorority_schedule_time_text_default"
+            android:text="@string/schedule_time_text_default"
             android:textSize="@dimen/large_font_size" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/sorority_schedule_button_container"
+        android:id="@+id/schedule_button_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_sorority_schedule_row"
+        android:background="@drawable/background_schedule_row"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,17 +51,17 @@
         app:layout_constraintTop_toBottomOf="@+id/date_and_time_wrapper">
 
         <TextView
-            android:id="@+id/sorority_schedule_row_display_name"
+            android:id="@+id/schedule_row_display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:fontFamily="@font/savoye_let_plain"
-            android:text="@string/sorority_schedule_display_name_text_default"
+            android:text="@string/schedule_display_name_text_default"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textSize="@dimen/extra_large_font_size" />
 
         <TextView
-            android:id="@+id/sorority_schedule_row_greek_letters"
+            android:id="@+id/schedule_row_greek_letters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
@@ -69,7 +69,7 @@
             android:layout_marginBottom="@dimen/margin_standard"
             android:textColor="@color/colorGreekLetters"
             android:fontFamily="@font/lucida_grande_regular"
-            android:text="@string/sorority_schedule_row_greek_letters_text_default"
+            android:text="@string/schedule_row_greek_letters_text_default"
             android:textSize="@dimen/medium_font_size" />
 
     </LinearLayout>
@@ -89,13 +89,13 @@
         app:layout_constraintGuide_percent=".9" />
 
     <TextView
-        android:id="@+id/sorority_schedule_row_street_address"
+        android:id="@+id/schedule_row_street_address"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/sorority_schedule_row_house_id"
+        android:id="@+id/schedule_row_house_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />

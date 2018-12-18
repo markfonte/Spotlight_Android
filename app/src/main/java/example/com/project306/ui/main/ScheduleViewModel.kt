@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
-class SororityScheduleViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class ScheduleViewModel(private val mainRepository: MainRepository) : ViewModel() {
     fun getSchedule(scheduleName: String): LiveData<ArrayList<HashMap<String, String>>> {
         return mainRepository.getSchedule(scheduleName)
     }
