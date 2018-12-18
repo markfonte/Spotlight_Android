@@ -24,37 +24,17 @@
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
-            android:id="@+id/action_signUp_to_onboardingFragment"
-            app:destination="@id/onboardingFragment" />
-        <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="example.com.project306.ui.main.HomeFragment"
-        android:label=""
+        android:label="Home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@+id/loginFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_exit_anim"
-            app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_landingFragment"
-            app:destination="@id/landingFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_notesFragment"
-            app:destination="@id/notesFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -68,7 +48,7 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="example.com.project306.ui.main.NotesFragment"
-        android:label="View"
+        android:label="Comment"
         tools:layout="@layout/fragment_notes">
         <argument
             android:name="display_name"
@@ -87,7 +67,7 @@
     <fragment
         android:id="@+id/rankingFragment"
         android:name="example.com.project306.ui.main.RankingFragment"
-        android:label=""
+        android:label="Ranking"
         tools:layout="@layout/fragment_ranking">
         <action
             android:id="@+id/action_rankingFragment_to_onboardingFragment"
@@ -96,7 +76,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="example.com.project306.ui.main.SettingsFragment"
-        android:label=""
+        android:label="Settings"
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_landingFragment"
@@ -108,7 +88,7 @@
     <fragment
         android:id="@+id/landingFragment"
         android:name="example.com.project306.ui.main.LandingFragment"
-        android:label=""
+        android:label="Spotlight"
         tools:layout="@layout/fragment_landing">
         <action
             android:id="@+id/action_landingFragment_to_signUpFragment"

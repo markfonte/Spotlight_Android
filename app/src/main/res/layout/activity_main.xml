@@ -13,7 +13,7 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/container"
+        android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
