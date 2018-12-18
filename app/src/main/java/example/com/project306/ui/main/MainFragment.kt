@@ -32,7 +32,8 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainFragmentViewModel.staticHouseData.observe(this, Observer {//Sorority Schedule pages not inflated until static house data is acquired
+        mainFragmentViewModel.staticHouseData.observe(this, Observer {
+            //Sorority Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
                 sororityScheduleViewPager = sorority_schedule_view_pager
@@ -48,9 +49,11 @@ class MainFragment : androidx.fragment.app.Fragment() {
             mainFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_chooseValuesFragment, null)
-                }
-                else {
+                    mainFragmentViewModel.setBottomNavVisibility(false)
+                    mainFragmentViewModel.setAppBarVisibility(false)
+                } else {
                     mainFragmentViewModel.setBottomNavVisibility(true)
+                    mainFragmentViewModel.setAppBarVisibility(true)
                 }
             })
         }

@@ -32,8 +32,11 @@ class EditRankingFragment : Fragment() {
             editRankingFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_editRankingFragment_to_chooseValuesFragment, null)
+                    editRankingFragmentViewModel.setBottomNavVisibility(false)
+                    editRankingFragmentViewModel.setAppBarVisibility(false)
                 } else {
                     editRankingFragmentViewModel.setBottomNavVisibility(true)
+                    editRankingFragmentViewModel.setAppBarVisibility(true)
                 }
             })
         }

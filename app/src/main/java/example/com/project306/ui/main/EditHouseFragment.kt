@@ -36,7 +36,7 @@ class EditHouseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         editHouseFragmentViewModel.setBottomNavVisibility(false)
         editHouseFragmentViewModel.getUserValues().observe(this, Observer {
-            if (it.size == 3) {
+            if (it?.size == 3) {
                 with(editHouseFragmentViewModel) {
                     valueOne.value = it[0]
                     valueTwo.value = it[1]

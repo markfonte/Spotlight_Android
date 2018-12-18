@@ -65,7 +65,7 @@ class SignUpFragment : Fragment() {
                 }
             }
         })
-        sign_up_enter_password.addTextChangedListener(object : TextWatcher {
+        sign_up_enter_confirm_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 

@@ -14,7 +14,7 @@ class EditHouseViewModel(private val mainRepository: MainRepository) : ViewModel
     val valueTwo: MutableLiveData<String> = MutableLiveData()
     val valueThree: MutableLiveData<String> = MutableLiveData()
 
-    fun getUserValues(): MutableLiveData<ArrayList<String>> {
+    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         return mainRepository.getUserValues()
     }
 

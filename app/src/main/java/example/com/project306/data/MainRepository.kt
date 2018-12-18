@@ -29,7 +29,7 @@ class MainRepository {
         return firebaseService.firebaseLogout()
     }
 
-    fun attemptCreateAccout(email: String, password: String, displayName: String): LiveData<String> {
+    fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
         return firebaseService.attemptCreateAccount(email, password, displayName)
     }
 
@@ -61,7 +61,7 @@ class MainRepository {
         return firebaseService.getEmail()
     }
 
-    fun getUserValues(): MutableLiveData<ArrayList<String>> {
+    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         return firebaseService.getUserValues()
     }
 

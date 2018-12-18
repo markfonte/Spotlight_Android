@@ -13,4 +13,8 @@ class EditRankingViewModel(private val mainRepository: MainRepository) : ViewMod
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
+
+    fun setAppBarVisibility(makeVisible: Boolean) {
+        mainRepository.isAppBarVisible.value = makeVisible
+    }
 }

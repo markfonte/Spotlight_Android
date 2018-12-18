@@ -55,7 +55,7 @@ class SettingsFragment : Fragment() {
             })
         }
         settingsFragmentViewModel.getUserValues().observe(this, Observer {
-            if (it.size == 3) {
+            if (it?.size == 3) {
                 with(settingsFragmentViewModel) {
                     valueOne.value = it[0]
                     valueTwo.value = it[1]
@@ -183,8 +183,11 @@ class SettingsFragment : Fragment() {
             settingsFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_chooseValuesFragment, null)
+                    settingsFragmentViewModel.setBottomNavVisibility(false)
+                    settingsFragmentViewModel.setAppBarVisibility(false)
                 } else {
                     settingsFragmentViewModel.setBottomNavVisibility(true)
+                    settingsFragmentViewModel.setAppBarVisibility(true)
                 }
             })
         }

@@ -12,6 +12,10 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         return mainRepository.areValuesSet()
     }
 
+    fun setAppBarVisibility(makeVisible: Boolean) {
+        mainRepository.isAppBarVisible.value = makeVisible
+    }
+
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }

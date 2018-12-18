@@ -10,7 +10,7 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
         return mainRepository.accountsLogout()
     }
 
-    fun getUserValues(): MutableLiveData<ArrayList<String>> {
+    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         return mainRepository.getUserValues()
     }
 
@@ -28,6 +28,10 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
 
     fun areValuesSet(): LiveData<Boolean> {
         return mainRepository.areValuesSet()
+    }
+
+    fun setAppBarVisibility(makeVisible: Boolean) {
+        mainRepository.isAppBarVisible.value = makeVisible
     }
 
     fun setBottomNavVisibility(makeVisible: Boolean) {

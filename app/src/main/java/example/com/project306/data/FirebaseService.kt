@@ -33,15 +33,14 @@ class FirebaseService {
         return result
     }
 
-    fun getUserValues(): MutableLiveData<ArrayList<String>> {
-        val result: MutableLiveData<ArrayList<String>> = MutableLiveData()
+    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
+        val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
-                    @Suppress("UNCHECKED_CAST")
-                    result.value = userData?.get("values") as ArrayList<String>
+                    result.value = userData?.get("values") as? ArrayList<String?>
                 }
             } else {
                 Log.e(LOG_TAG, "task failed", task.exception)
@@ -58,7 +57,6 @@ class FirebaseService {
             if (it.isSuccessful) {
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
-                    // firebaseLogout()
                 } else {
                     mCurrentUser.value = mAuth?.currentUser
                     result.value = ""
@@ -86,7 +84,7 @@ class FirebaseService {
     /* createAccountWithEmailAndPassword automatically logs user in. While this
      is not the end functionality we want, we can leverage this to do the first-time
      login work - such as creating the user-specific document in the database and
-     setting "areValuesSet" to false so we know to start the onboarding process
+     setting "areValuesSet" to false so we know to start the on-boarding process
      when they first log in. Then this function logs them out and we continue
      with our expected functionality.
      */
@@ -150,7 +148,7 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
-                    result.value = userData?.get("currentRound") as Int
+                    result.value = userData?.get("currentRound") as? Int
                 }
             }
         }
@@ -186,7 +184,7 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val panhelValues = document.data
-                    result.value = panhelValues?.get("values") as ArrayList<*>
+                    result.value = panhelValues?.get("values") as? ArrayList<*>
                 }
             } else {
                 Log.e(LOG_TAG, "task failed", task.exception)
@@ -205,7 +203,7 @@ class FirebaseService {
                     val userDocument = document.data
                     if (userDocument?.get(scheduleName) != null) {
                         @Suppress("UNCHECKED_CAST")
-                        result.value = userDocument[scheduleName] as ArrayList<HashMap<String, String>>
+                        result.value = userDocument[scheduleName] as? ArrayList<HashMap<String, String>>
                     } else {
                         result.value = arrayListOf()
                     }
@@ -225,7 +223,7 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     @Suppress("UNCHECKED_CAST")
-                    result.value = document.data as HashMap<String, HashMap<String, String>>
+                    result.value = document.data as? HashMap<String, HashMap<String, String>>
                 }
             } else {
                 Log.e(LOG_TAG, "getStaticHouseData task failed", task.exception)
