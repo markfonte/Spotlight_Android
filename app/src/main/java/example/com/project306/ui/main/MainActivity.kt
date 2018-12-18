@@ -10,9 +10,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import example.com.project306.R
-import example.com.project306.databinding.MainActivityBinding
+import example.com.project306.databinding.ActivityMainBinding
 import example.com.project306.util.InjectorUtils
-import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme_NoActionBar)
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
         mainActivityViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
-        val binding: MainActivityBinding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity).apply {
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             viewModel = mainActivityViewModel
             setLifecycleOwner(this@MainActivity)
         }

@@ -33,6 +33,8 @@ class FirebaseService {
         return result
     }
 
+
+    @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
@@ -40,6 +42,7 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
+
                     result.value = userData?.get("values") as? ArrayList<String?>
                 }
             } else {

@@ -19,9 +19,9 @@ import example.com.project306.R
 import example.com.project306.databinding.FragmentSettingsBinding
 import example.com.project306.util.InjectorUtils
 import example.com.project306.util.SystemUtils
-import kotlinx.android.synthetic.main.enter_confirm_password_dialog.*
-import kotlinx.android.synthetic.main.enter_name_dialog.*
-import kotlinx.android.synthetic.main.enter_password_dialog.*
+import kotlinx.android.synthetic.main.dialog_enter_confirm_password.*
+import kotlinx.android.synthetic.main.dialog_enter_name.*
+import kotlinx.android.synthetic.main.dialog_enter_password.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
@@ -66,7 +66,7 @@ class SettingsFragment : Fragment() {
         display_user_data_display_name.setOnClickListener {
             val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Change Your Name")
-                    .setView(activity?.layoutInflater?.inflate(R.layout.enter_name_dialog, null))
+                    .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_name, null))
                     .setPositiveButton("Change", null)
                     .setNegativeButton("Cancel", null)
                     .create()
@@ -107,7 +107,7 @@ class SettingsFragment : Fragment() {
     private fun updatePassword() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Please Re-Enter Your Password")
-                .setView(activity?.layoutInflater?.inflate(R.layout.enter_password_dialog, null))
+                .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_password, null))
                 .setPositiveButton("Go", null)
                 .setNegativeButton("Cancel", null)
                 .create()
@@ -135,7 +135,7 @@ class SettingsFragment : Fragment() {
     private fun showUpdatePasswordDialog() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Please Enter Your New Password")
-                .setView(activity?.layoutInflater?.inflate(R.layout.enter_confirm_password_dialog, null))
+                .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_confirm_password, null))
                 .setPositiveButton("Go", null)
                 .setNegativeButton("Cancel", null)
                 .create()

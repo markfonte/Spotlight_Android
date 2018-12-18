@@ -109,8 +109,8 @@ class ChooseValuesFragment : Fragment() {
                 chooseValuesFragmentViewModel.submitChosenValues(newValuesMap).observe(this, Observer { error ->
                     run {
                         if (error == "") {
-                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
-                            (activity as MainActivity).navController.navigate(R.id.action_chooseValuesFragment_to_mainFragment, null, navOptions)
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
+                            (activity as MainActivity).navController.navigate(R.id.action_chooseValuesFragment_to_homeFragment, null, navOptions)
                         } else {
                             Log.e(LOG_TAG, "Error setting values: $error")
                         }

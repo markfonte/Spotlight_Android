@@ -10,29 +10,29 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import example.com.project306.R
 import example.com.project306.adapter.SororitySchedulePagerAdapter
-import example.com.project306.databinding.MainFragmentBinding
+import example.com.project306.databinding.FragmentHomeBinding
 import example.com.project306.util.InjectorUtils
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
-class MainFragment : androidx.fragment.app.Fragment() {
+class HomeFragment : androidx.fragment.app.Fragment() {
 
-    private lateinit var mainFragmentViewModel: MainViewModel
+    private lateinit var homeFragmentViewModel: HomeViewModel
     private lateinit var sororitySchedulePagerAdapter: SororitySchedulePagerAdapter
     private lateinit var sororityScheduleViewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory: MainViewModelFactory = InjectorUtils.provideMainViewModelFactory()
-        mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
-        val binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater, R.layout.main_fragment, container, false).apply {
-            viewModel = mainFragmentViewModel
-            setLifecycleOwner(this@MainFragment)
+        val factory: HomeViewModelFactory = InjectorUtils.provideMainViewModelFactory()
+        homeFragmentViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+        val binding: FragmentHomeBinding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false).apply {
+            viewModel = homeFragmentViewModel
+            setLifecycleOwner(this@HomeFragment)
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainFragmentViewModel.staticHouseData.observe(this, Observer {
+        homeFragmentViewModel.staticHouseData.observe(this, Observer {
             //Sorority Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 sororitySchedulePagerAdapter = SororitySchedulePagerAdapter(activity?.supportFragmentManager)
@@ -46,14 +46,14 @@ class MainFragment : androidx.fragment.app.Fragment() {
     override fun onResume() {
         super.onResume()
         if ((activity as MainActivity).validateUser()) { //they are logged in
-            mainFragmentViewModel.areValuesSet().observe(this, Observer {
+            homeFragmentViewModel.areValuesSet().observe(this, Observer {
                 if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_chooseValuesFragment, null)
-                    mainFragmentViewModel.setBottomNavVisibility(false)
-                    mainFragmentViewModel.setAppBarVisibility(false)
+                    (activity as MainActivity).navController.navigate(R.id.action_homeFragment_to_chooseValuesFragment, null)
+                    homeFragmentViewModel.setBottomNavVisibility(false)
+                    homeFragmentViewModel.setAppBarVisibility(false)
                 } else {
-                    mainFragmentViewModel.setBottomNavVisibility(true)
-                    mainFragmentViewModel.setAppBarVisibility(true)
+                    homeFragmentViewModel.setBottomNavVisibility(true)
+                    homeFragmentViewModel.setAppBarVisibility(true)
                 }
             })
         }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -15,8 +15,8 @@
             app:destination="@id/signUpFragment"
             app:popUpTo="@+id/loginFragment" />
         <action
-            android:id="@+id/action_login_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_login_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -31,12 +31,12 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="example.com.project306.ui.main.MainFragment"
+        android:id="@+id/homeFragment"
+        android:name="example.com.project306.ui.main.HomeFragment"
         android:label=""
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
+            android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@+id/loginFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -44,16 +44,16 @@
             app:popExitAnim="@anim/nav_default_exit_anim"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_mainFragment_to_settingsFragment"
+            android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_chooseValuesFragment"
+            android:id="@+id/action_homeFragment_to_chooseValuesFragment"
             app:destination="@id/chooseValuesFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_loginStartFragment"
+            android:id="@+id/action_homeFragment_to_loginStartFragment"
             app:destination="@id/loginStartFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_editHouseFragment"
+            android:id="@+id/action_homeFragment_to_editHouseFragment"
             app:destination="@id/editHouseFragment" />
     </fragment>
     <fragment
@@ -62,8 +62,8 @@
         android:label="Set Up"
         tools:layout="@layout/fragment_choose_values">
         <action
-            android:id="@+id/action_chooseValuesFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_chooseValuesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/editHouseFragment"

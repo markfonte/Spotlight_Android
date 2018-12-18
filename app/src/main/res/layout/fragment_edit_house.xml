@@ -162,7 +162,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
-                android:background="@drawable/edit_house_comments_background"
+                android:background="@drawable/background_edit_house_comments"
                 android:gravity="top|start"
                 android:hint="@string/edit_house_enter_comments_hint"
                 android:inputType="textMultiLine"

@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#FFAA62E9</color>
     <color name="colorAccent">#FFAA62E9</color>
     <color name="colorBackgroundDefault">#FFF9F8FB</color>
-    <color name="colorbackgroundMediumPurple">#FFF3EEF9</color>
+    <color name="colorBackgroundMediumPurple">#FFF3EEF9</color>
     <color name="colorBackgroundLoginScreen">#FFD1B3F4</color>
     <color name="colorHint">#9FAA62E9</color>
     <color name="colorTextDefault">#FFAA62E9</color>

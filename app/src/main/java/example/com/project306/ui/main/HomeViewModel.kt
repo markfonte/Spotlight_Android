@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
-class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
 
     fun areValuesSet(): LiveData<Boolean> {

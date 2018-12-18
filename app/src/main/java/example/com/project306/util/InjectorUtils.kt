@@ -9,9 +9,9 @@ object InjectorUtils {
         return MainRepository.getInstance()
     }
 
-    fun provideMainViewModelFactory(): MainViewModelFactory {
+    fun provideMainViewModelFactory(): HomeViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
-        return MainViewModelFactory(repository)
+        return HomeViewModelFactory(repository)
     }
 
     fun provideLoginViewModelFactory(): LoginViewModelFactory {

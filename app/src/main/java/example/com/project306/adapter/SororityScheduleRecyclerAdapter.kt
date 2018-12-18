@@ -24,7 +24,7 @@ class SororityScheduleRecyclerAdapter(private val sororityTimeSlots: ArrayList<S
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.sorority_schedule_recycler_row, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_sorority_schedule, parent, false))
     }
 
     override fun getItemCount(): Int = sororityTimeSlots.size

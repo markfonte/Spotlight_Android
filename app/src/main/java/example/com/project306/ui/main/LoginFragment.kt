@@ -22,7 +22,7 @@ import example.com.project306.R
 import example.com.project306.databinding.FragmentLoginBinding
 import example.com.project306.util.InjectorUtils
 import example.com.project306.util.SystemUtils
-import kotlinx.android.synthetic.main.enter_email_dialog.*
+import kotlinx.android.synthetic.main.dialog_enter_email.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
         forgot_password_button.setOnClickListener {
             val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Send Password Reset Email")
-                    .setView(activity?.layoutInflater?.inflate(R.layout.enter_email_dialog, null))
+                    .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_email, null))
                     .setPositiveButton("Send", null)
                     .setNegativeButton("Cancel", null)
                     .create()
@@ -107,8 +107,8 @@ class LoginFragment : Fragment() {
                 run {
                     when (authResultError) {
                         "" -> {
-                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFragment, true).build()
-                            Navigation.findNavController(view).navigate(R.id.action_login_to_mainFragment, null, navOptions)
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
+                            Navigation.findNavController(view).navigate(R.id.action_login_to_homeFragment, null, navOptions)
                         }
                         "email not verified" -> {
                             Log.i(LOG_TAG, "Email not verified")
