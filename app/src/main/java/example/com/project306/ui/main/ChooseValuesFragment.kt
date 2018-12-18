@@ -1,6 +1,8 @@
 package example.com.project306.ui.main
 
 import android.app.AlertDialog
+import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.core.content.ContextCompat
+import androidx.core.widget.CompoundButtonCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -75,11 +80,11 @@ class ChooseValuesFragment : Fragment() {
     }
 
     private fun sendErrorAlertDialog() {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Invalid Submission")
                 .setMessage("Please select exactly 3 values")
                 .setPositiveButton(android.R.string.ok, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_warning_purple_24dp)
                 .create()
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
@@ -92,7 +97,7 @@ class ChooseValuesFragment : Fragment() {
     private fun sendConfirmationAlertDialog() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Confirm Your Selections")
-                .setMessage("Select ${submittedCheckboxes[0]}, ${submittedCheckboxes[1]}, and ${submittedCheckboxes[2]}?")
+                .setMessage("Select ${submittedCheckboxes[0]}, ${submittedCheckboxes[1]}, and ${submittedCheckboxes[2]}?\n\nYou will NOT be able to change them later!")
                 .setPositiveButton(android.R.string.yes, null)
                 .setNegativeButton(android.R.string.no, null)
                 .create()
@@ -121,7 +126,22 @@ class ChooseValuesFragment : Fragment() {
         val checkboxHolder = LinearLayout(context)
         checkboxHolder.orientation = LinearLayout.VERTICAL
         for ((counter, i) in panhelValues.withIndex()) {
-            val newCheckbox = CheckBox(context)
+            val newCheckbox = AppCompatCheckBox(context)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                newCheckbox.setTextAppearance(R.style.TextAppearance_AppCompat_Medium)
+            }
+            val paddingInPx = (4 * resources.displayMetrics.density + 0.5f).toInt()
+            newCheckbox.setPadding(paddingInPx, 0, paddingInPx, 0)
+            newCheckbox.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+            val colorStateList = ColorStateList(
+                    arrayOf(intArrayOf(-android.R.attr.state_checked), // unchecked
+                            intArrayOf(android.R.attr.state_checked)  // checked
+                    ),
+                    intArrayOf(ContextCompat.getColor(context!!, R.color.colorPrimary), ContextCompat.getColor(context!!, R.color.colorPrimary))
+            )
+            CompoundButtonCompat.setButtonTintList(newCheckbox, colorStateList)
+
             newCheckbox.id = counter
             newCheckbox.text = i.toString()
             newCheckbox.setOnClickListener {
