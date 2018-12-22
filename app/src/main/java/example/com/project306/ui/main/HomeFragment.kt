@@ -39,7 +39,6 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                     scheduleViewPager.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
                     scheduleViewPager.currentItem = result.first?.toInt()!!
                     scheduleViewPager.offscreenPageLimit = 4
-                    //scheduleViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
                     tab_layout.setupWithViewPager(scheduleViewPager, true)
                 })
 

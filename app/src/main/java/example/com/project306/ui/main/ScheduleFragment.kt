@@ -86,27 +86,7 @@ class ScheduleFragment : Fragment() {
             scheduleFragmentViewModel.isDataLoading.value = false
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
+    
     companion object {
         private val LOG_TAG: String = ScheduleFragment::class.java.name
     }
