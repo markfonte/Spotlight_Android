@@ -94,9 +94,9 @@ class FirebaseService {
     private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["areValuesSet"] = false
-        newUserMap["isRecruitmentComplete"] = false
-        newUserMap["bidHouse"] = ""
-        newUserMap["currentRound"] = 0 //Don't forget this is zero-indexed!
+        newUserMap["is_recruitment_complete"] = false
+        newUserMap["bid_house"] = ""
+        newUserMap["current_round"] = 0
         overwriteUserInformation(newUserMap)
         changeDisplayName(displayName)
     }
