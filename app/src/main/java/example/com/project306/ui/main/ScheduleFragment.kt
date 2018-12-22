@@ -13,6 +13,7 @@ import example.com.project306.R
 import example.com.project306.adapter.ScheduleRecyclerAdapter
 import example.com.project306.databinding.FragmentScheduleBinding
 import example.com.project306.util.InjectorUtils
+import example.com.project306.util.ScheduleDisplayMode
 import example.com.project306.util.TimeSlot
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
@@ -21,7 +22,7 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var scheduleFragmentViewModel: ScheduleViewModel
     private var position: Int = -1
-    private var isCurrentSchedule: Boolean = false
+    private var displayMode: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: ScheduleViewModelFactory = InjectorUtils.provideScheduleViewModelFactory()
@@ -31,8 +32,8 @@ class ScheduleFragment : Fragment() {
             setLifecycleOwner(this@ScheduleFragment)
         }
         arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
-            position = getInt(activity?.getString(R.string.SCHEDULE_PAGE_POSITION))
-            isCurrentSchedule = getBoolean(activity?.getString(R.string.SCHEDULE_IS_CURRENT_SCHEDULE))
+            position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))
+            displayMode = getInt(getString(R.string.SCHEDULE_DISPLAY_MODE))
         }
         return binding.root
     }
@@ -44,8 +45,8 @@ class ScheduleFragment : Fragment() {
 
     private fun buildScheduleView() {
         if (scheduleFragmentViewModel.staticHouseData.value != null) {
-            if (isCurrentSchedule) {
-                scheduleFragmentViewModel.getSchedule("current_schedule").observe(this, Observer {
+            when (displayMode) {
+                ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> scheduleFragmentViewModel.getSchedule("current_schedule").observe(this, Observer {
                     val houses: ArrayList<HashMap<String, String>> = it
                     val timeSlots: ArrayList<TimeSlot> = arrayListOf()
                     val staticHouseData = scheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
@@ -65,8 +66,17 @@ class ScheduleFragment : Fragment() {
                     schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
                     schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
                 })
-            } else {
-                //TODO: display other information
+                ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
+                    //TODO: display other information
+                }
+                ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
+                    //TODO: behind schedule
+                }
+                ScheduleDisplayMode().DISPLAY_BID -> {
+                    //TODO: bid
+                }
+                else -> assert(displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
+                //TODO: No schedules
             }
         }
     }

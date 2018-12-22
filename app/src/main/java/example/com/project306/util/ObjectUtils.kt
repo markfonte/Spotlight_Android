@@ -20,5 +20,6 @@ data class ScheduleDisplayMode(
         val DISPLAY_CURRENT_SCHEDULE: Int = 0,
         val DISPLAY_AHEAD_OF_SCHEDULE: Int = 1,
         val DISPLAY_BEHIND_SCHEDULE: Int = 2,
-        val DISPLAY_BID: Int = 3
+        val DISPLAY_BID: Int = 3,
+        val DISPLAY_NO_SCHEDULES: Int = 4
 )

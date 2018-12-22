@@ -85,7 +85,7 @@ class MainRepository {
         return firebaseService.getStaticHouseImageReference(fileName)
     }
 
-    fun getCurrentRound(): MutableLiveData<Long?> {
+    fun getCurrentRound(): MutableLiveData<Pair<Long?, Boolean>> {
         return firebaseService.getCurrentRound()
     }
 
