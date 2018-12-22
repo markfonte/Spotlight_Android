@@ -85,8 +85,8 @@ class MainRepository {
         return firebaseService.getStaticHouseImageReference(fileName)
     }
 
-    fun getCurrentRound(): MutableLiveData<Triple<Long?, Boolean, String?>> {
-        return firebaseService.getCurrentRound()
+    fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+        return firebaseService.getScheduleData()
     }
 
     companion object {

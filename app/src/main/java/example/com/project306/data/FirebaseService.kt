@@ -144,7 +144,7 @@ class FirebaseService {
         return result
     }
 
-    fun getCurrentRound(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+    fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         val result: MutableLiveData<Triple<Long?, Boolean, String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
