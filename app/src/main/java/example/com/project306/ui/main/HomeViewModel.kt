@@ -19,4 +19,8 @@ class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
+
+    fun getCurrentRound() : MutableLiveData<Long?> {
+        return mainRepository.getCurrentRound()
+    }
 }

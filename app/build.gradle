@@ -37,7 +37,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
     implementation "com.google.firebase:firebase-auth:$rootProject.firebaseAuthVersion"
     implementation "com.google.firebase:firebase-firestore:$rootProject.firebaseFirestoreVersion"
-    implementation 'com.firebaseui:firebase-ui-storage:4.1.0'
+    implementation "com.firebaseui:firebase-ui-storage:$rootProject.firebaseUIVersion"
     implementation "com.google.android.gms:play-services-auth:$rootProject.playServicesAuthVersion"
     implementation "android.arch.navigation:navigation-fragment:$rootProject.navigationVersion"
     implementation "android.arch.navigation:navigation-ui:$rootProject.navigationVersion"

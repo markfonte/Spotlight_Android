@@ -21,6 +21,8 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var scheduleFragmentViewModel: ScheduleViewModel
     private var position: Int = -1
+    private var isCurrentSchedule: Boolean = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: ScheduleViewModelFactory = InjectorUtils.provideScheduleViewModelFactory()
         scheduleFragmentViewModel = ViewModelProviders.of(this, factory).get(ScheduleViewModel::class.java)
@@ -30,6 +32,7 @@ class ScheduleFragment : Fragment() {
         }
         arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
             position = getInt(activity?.getString(R.string.SCHEDULE_PAGE_POSITION))
+            isCurrentSchedule = getBoolean(activity?.getString(R.string.SCHEDULE_IS_CURRENT_SCHEDULE))
         }
         return binding.root
     }
@@ -41,33 +44,30 @@ class ScheduleFragment : Fragment() {
 
     private fun buildScheduleView() {
         if (scheduleFragmentViewModel.staticHouseData.value != null) {
-            val scheduleName: String = when (position) {
-                0 -> "first_round"
-                1 -> "second_round"
-                2 -> "third_round"
-                else -> "fourth_round"
+            if (isCurrentSchedule) {
+                scheduleFragmentViewModel.getSchedule("current_schedule").observe(this, Observer {
+                    val houses: ArrayList<HashMap<String, String>> = it
+                    val timeSlots: ArrayList<TimeSlot> = arrayListOf()
+                    val staticHouseData = scheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
+                    for (house in houses) {
+                        val currentStaticHouseData = staticHouseData[house["house_id"]]
+                        val currentTimeSlot = TimeSlot("", "", "", "", "", "")
+                        currentTimeSlot.Time = house["time"]
+                        currentTimeSlot.Date = house["date"]
+                        currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
+                        currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
+                        currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
+                        currentTimeSlot.HouseId = house["house_id"]
+                        timeSlots.add(currentTimeSlot)
+                        scheduleFragmentViewModel.isDataToDisplay.value = true
+                    }
+                    scheduleFragmentViewModel.isDataLoading.value = false
+                    schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
+                    schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
+                })
+            } else {
+                //TODO: display other information
             }
-            scheduleFragmentViewModel.getSchedule(scheduleName).observe(this, Observer {
-                val houses: ArrayList<HashMap<String, String>> = it
-                val timeSlots: ArrayList<TimeSlot> = arrayListOf()
-                val staticHouseData = scheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
-                for (house in houses) {
-                    val currentStaticHouseData = staticHouseData[house["house_id"]]
-                    val currentTimeSlot = TimeSlot("", "", "", "", "", "")
-                    currentTimeSlot.Time = house["time"]
-                    currentTimeSlot.Date = house["date"]
-                    currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
-                    currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
-                    currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
-                    currentTimeSlot.HouseId = house["house_id"]
-                    timeSlots.add(currentTimeSlot)
-                    scheduleFragmentViewModel.isDataToDisplay.value = true
-                }
-                scheduleFragmentViewModel.isDataLoading.value = false
-                schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
-                schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
-            })
-
         }
     }
 

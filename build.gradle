@@ -6,6 +6,7 @@ buildscript {
         firebaseAuthVersion = '16.1.0'
         firebaseCoreVersion = '16.0.6'
         firebaseFirestoreVersion = '17.1.5'
+        firebaseUIVersion = '4.1.0'
         glideVersion = '4.8.0'
         googleServicesVersion = '4.2.0'
         gradleVersion = '3.2.1'

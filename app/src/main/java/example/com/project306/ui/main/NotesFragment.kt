@@ -45,10 +45,10 @@ class NotesFragment : Fragment() {
             }
         })
         with(notesFragmentViewModel) {
-            displayName.value = NotesFragmentArgs.fromBundle(arguments).displayName
-            greekLetters.value = NotesFragmentArgs.fromBundle(arguments).greekLetters
-            streetAddress.value = NotesFragmentArgs.fromBundle(arguments).streetAddress
-            houseId.value = NotesFragmentArgs.fromBundle(arguments).houseId
+            displayName.value = NotesFragmentArgs.fromBundle(arguments!!).displayName
+            greekLetters.value = NotesFragmentArgs.fromBundle(arguments!!).greekLetters
+            streetAddress.value = NotesFragmentArgs.fromBundle(arguments!!).streetAddress
+            houseId.value = NotesFragmentArgs.fromBundle(arguments!!).houseId
             GlideApp.with(context!!)
                     .load(getStaticHouseImageReference(houseId.value!!))
                     .into(notes_house_image)

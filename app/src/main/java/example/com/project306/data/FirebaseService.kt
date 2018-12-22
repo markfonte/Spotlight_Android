@@ -144,14 +144,17 @@ class FirebaseService {
         return result
     }
 
-    fun getCurrentRound(): MutableLiveData<Int> {
-        val result: MutableLiveData<Int> = MutableLiveData()
+    fun getCurrentRound(): MutableLiveData<Long?> {
+        val result: MutableLiveData<Long?> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
-                    result.value = userData?.get("currentRound") as? Int
+                    result.value = userData?.get("current_round") as? Long?
+                } else {
+                    Log.e(LOG_TAG, "Error retrieving current round.", task.exception)
+                    result.value = -1
                 }
             }
         }

@@ -85,6 +85,10 @@ class MainRepository {
         return firebaseService.getStaticHouseImageReference(fileName)
     }
 
+    fun getCurrentRound(): MutableLiveData<Long?> {
+        return firebaseService.getCurrentRound()
+    }
+
     companion object {
 
         // For Singleton instantiation

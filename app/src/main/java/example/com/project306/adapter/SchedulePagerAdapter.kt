@@ -7,11 +7,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import example.com.project306.ui.main.ScheduleFragment
 import example.com.project306.util.RoundTitles
 
-class SchedulePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long?) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = ScheduleFragment()
+        val isCurrentSchedule = position == currentRound?.toInt()
         fragment.arguments = Bundle().apply {
-            putInt( "SCHEDULE_PAGE_POSITION", position)
+            putInt("SCHEDULE_PAGE_POSITION", position)
+            putBoolean("SCHEDULE_IS_CURRENT_SCHEDULE", isCurrentSchedule)
         }
         return fragment
     }

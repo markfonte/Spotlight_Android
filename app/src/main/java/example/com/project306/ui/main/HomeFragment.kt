@@ -35,12 +35,17 @@ class HomeFragment : androidx.fragment.app.Fragment() {
         homeFragmentViewModel.staticHouseData.observe(this, Observer {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
-                schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager)
-                scheduleViewPager = schedule_view_pager
-                scheduleViewPager.adapter = schedulePagerAdapter
-                tabLayout.setupWithViewPager(scheduleViewPager)
+                homeFragmentViewModel.getCurrentRound().observe(this, Observer { result ->
+                    schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager, result)
+                    scheduleViewPager = schedule_view_pager
+                    scheduleViewPager.adapter = schedulePagerAdapter
+                    tabLayout.setupWithViewPager(scheduleViewPager)
+                })
+
             }
         })
+
+
     }
 
     override fun onResume() {
