@@ -7,7 +7,6 @@
 
     <data>
 
-
         <import type="android.view.View" />
 
         <variable
@@ -20,13 +19,13 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/schedule_no_data"
+            android:id="@+id/schedule_no_schedule_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/schedule_no_data_text_default"
+            android:text="@{viewModel.noScheduleMessage}"
             android:textSize="@dimen/medium_font_size"
-            android:visibility="@{safeUnbox(!viewModel.isDataToDisplay()) &amp;&amp; safeUnbox(!viewModel.isDataLoading()) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{safeUnbox(!viewModel.isScheduleToDisplay()) &amp;&amp; safeUnbox(!viewModel.isDataLoading()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"
-            android:visibility="@{safeUnbox(viewModel.isDataToDisplay()) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{safeUnbox(viewModel.isScheduleToDisplay()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

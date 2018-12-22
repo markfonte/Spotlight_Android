@@ -23,6 +23,7 @@ class ScheduleFragment : Fragment() {
     private lateinit var scheduleFragmentViewModel: ScheduleViewModel
     private var position: Int = -1
     private var displayMode: Int = -1
+    private var bidHouse: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: ScheduleViewModelFactory = InjectorUtils.provideScheduleViewModelFactory()
@@ -34,6 +35,7 @@ class ScheduleFragment : Fragment() {
         arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
             position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))
             displayMode = getInt(getString(R.string.SCHEDULE_DISPLAY_MODE))
+            bidHouse = getString(getString(R.string.SCHEDULE_BID_HOUSE))
         }
         return binding.root
     }
@@ -60,24 +62,28 @@ class ScheduleFragment : Fragment() {
                         currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
                         currentTimeSlot.HouseId = house["house_id"]
                         timeSlots.add(currentTimeSlot)
-                        scheduleFragmentViewModel.isDataToDisplay.value = true
+                        scheduleFragmentViewModel.isScheduleToDisplay.value = true
                     }
-                    scheduleFragmentViewModel.isDataLoading.value = false
                     schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
                     schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
                 })
                 ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
-                    //TODO: display other information
+                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_ahead)
                 }
                 ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
-                    //TODO: behind schedule
+                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_behind)
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {
-                    //TODO: bid
+                    scheduleFragmentViewModel.noScheduleMessage.value = "Congratulations! You got a bid from $bidHouse!"
                 }
-                else -> assert(displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
-                //TODO: No schedules
+                else -> {
+                    assert(displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
+                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
+                }
+
             }
+
+            scheduleFragmentViewModel.isDataLoading.value = false
         }
     }
 

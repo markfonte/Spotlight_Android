@@ -35,11 +35,15 @@
     <string name="SCHEDULE_PAGE_POSITION">SCHEDULE_PAGE_POSITION</string>
     <string name="SCHEDULE_IS_CURRENT_SCHEDULE">SCHEDULE_IS_CURRENT_SCHEDULE</string>
     <string name="SCHEDULE_DISPLAY_MODE">SCHEDULE_DISPLAY_MODE</string>
+    <string name="SCHEDULE_BID_HOUSE">SCHEDULE_BID_HOUSE</string>
     <string name="onboarding_title_text">Please select 3 values!</string>
     <string name="onboarding_submit_button_text">Submit</string>
     <string name="schedule_row_date_text_default">Date</string>
     <string name="schedule_row_greek_letters_text_default">Greek Letters</string>
     <string name="schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
+    <string name="no_schedule_message_ahead">You are currently on a previous round. This round\'s schedule will appear after you complete all previous rounds!</string>
+    <string name="no_schedule_message_behind">You have already completed this round! Swipe to advance to the current round.</string>
+    <string name="no_schedule_message_no_schedules">You currently have no schedules for any rounds. Please check that you have the correct email address and check back later - your schedule will be imported automatically!</string>
     <string name="display_values_title_default_text">My Values</string>
     <string name="display_user_data_title_default_text">My Info</string>
     <string name="display_user_data_display_name_prompt_default_text">Name</string>

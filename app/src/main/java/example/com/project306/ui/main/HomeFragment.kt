@@ -36,7 +36,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 homeFragmentViewModel.getCurrentRound().observe(this, Observer { result ->
-                    schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager, result.first, result.second)
+                    schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager, result.first, result.second, result.third)
                     scheduleViewPager = schedule_view_pager
                     scheduleViewPager.adapter = schedulePagerAdapter
                     tabLayout.setupWithViewPager(scheduleViewPager)

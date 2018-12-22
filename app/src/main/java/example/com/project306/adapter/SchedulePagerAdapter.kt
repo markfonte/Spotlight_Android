@@ -8,23 +8,24 @@ import example.com.project306.ui.main.ScheduleFragment
 import example.com.project306.util.RoundTitles
 import example.com.project306.util.ScheduleDisplayMode
 
-class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long?, private val scheduleExists: Boolean) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long?, private val scheduleExists: Boolean, private val bidHouse: String?) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = ScheduleFragment()
-        val displayMode: Int = if (currentRound?.toInt() == position) {
-            ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
-        } else if (!scheduleExists) {
-            ScheduleDisplayMode().DISPLAY_NO_SCHEDULES
-        } else if (currentRound?.toInt()!! < position && scheduleExists) {
-            ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE
-        } else if (currentRound.toInt() > position && scheduleExists) {
-            ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE
-        } else {
+        val displayMode: Int = if (bidHouse != "" && position == 3) {
             ScheduleDisplayMode().DISPLAY_BID
+        } else if (currentRound?.toInt() == position) {
+            ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
+        } else if (!scheduleExists && bidHouse == "") { //displays the behind text if bid is present and are currently behind position 3
+            ScheduleDisplayMode().DISPLAY_NO_SCHEDULES
+        } else if (currentRound?.toInt()!! < position) {
+            ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE
+        } else {
+            ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE
         }
         fragment.arguments = Bundle().apply {
             putInt("SCHEDULE_PAGE_POSITION", position)
             putInt("SCHEDULE_DISPLAY_MODE", displayMode)
+            putString("SCHEDULE_BID_HOUSE", bidHouse)
         }
         return fragment
     }
