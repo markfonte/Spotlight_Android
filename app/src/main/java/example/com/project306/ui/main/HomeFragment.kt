@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var homeFragmentViewModel: HomeViewModel
-    private lateinit var schedulePagerAdapter: SchedulePagerAdapter
     private lateinit var scheduleViewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,11 +35,12 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 homeFragmentViewModel.getScheduleData().observe(this, Observer { result ->
-                    schedulePagerAdapter = SchedulePagerAdapter(activity?.supportFragmentManager, result.first, result.second, result.third)
                     scheduleViewPager = schedule_view_pager
-                    scheduleViewPager.adapter = schedulePagerAdapter
+                    scheduleViewPager.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
                     scheduleViewPager.currentItem = result.first?.toInt()!!
-                    tabLayout.setupWithViewPager(scheduleViewPager)
+                    scheduleViewPager.offscreenPageLimit = 4
+                    //scheduleViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
+                    tab_layout.setupWithViewPager(scheduleViewPager, true)
                 })
 
             }
