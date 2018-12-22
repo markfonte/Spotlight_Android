@@ -13,10 +13,10 @@ class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long?
         val fragment = ScheduleFragment()
         val displayMode: Int = if (bidHouse != "" && position == 3) {
             ScheduleDisplayMode().DISPLAY_BID
-        } else if (currentRound?.toInt() == position) {
-            ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
         } else if (!scheduleExists && bidHouse == "") { //displays the behind text if bid is present and are currently behind position 3
             ScheduleDisplayMode().DISPLAY_NO_SCHEDULES
+        } else if (currentRound?.toInt() == position) {
+            ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
         } else if (currentRound?.toInt()!! < position) {
             ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE
         } else {

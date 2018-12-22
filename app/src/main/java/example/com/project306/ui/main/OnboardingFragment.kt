@@ -104,8 +104,7 @@ class OnboardingFragment : Fragment() {
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 val newValuesMap: MutableMap<String, Any> = HashMap()
-                newValuesMap["areValuesSet"] = true
-                newValuesMap["is_recruitment_complete"] = false
+                newValuesMap["are_values_set"] = true
                 newValuesMap["bid_house"] = ""
                 newValuesMap["current_round"] = 0
                 newValuesMap["values"] = Arrays.asList(submittedCheckboxes[0], submittedCheckboxes[1], submittedCheckboxes[2])
