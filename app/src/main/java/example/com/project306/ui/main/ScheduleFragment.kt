@@ -86,7 +86,7 @@ class ScheduleFragment : Fragment() {
             scheduleFragmentViewModel.isDataLoading.value = false
         }
     }
-    
+
     companion object {
         private val LOG_TAG: String = ScheduleFragment::class.java.name
     }

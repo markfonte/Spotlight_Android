@@ -96,6 +96,7 @@ class FirebaseService {
         newUserMap["are_values_set"] = false
         newUserMap["bid_house"] = ""
         newUserMap["current_round"] = 0
+        //newUserMap["currently_unranked"] =
         overwriteUserInformation(newUserMap)
         changeDisplayName(displayName)
     }
@@ -169,6 +170,20 @@ class FirebaseService {
                 }
                 .addOnFailureListener {
                     Log.e(LOG_TAG, "Error writing to document", it)
+                    result.value = it.toString()
+                }
+        return result
+    }
+
+    fun updateUserInformation(values: MutableMap<String, Any>): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(values)
+                .addOnSuccessListener {
+                    Log.d(LOG_TAG, "Successfully updated user document")
+                    result.value = ""
+                }
+                .addOnFailureListener {
+                    Log.e(LOG_TAG, "Error updating user document", it)
                     result.value = it.toString()
                 }
         return result

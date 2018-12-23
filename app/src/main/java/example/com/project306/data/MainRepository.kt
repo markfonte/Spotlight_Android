@@ -49,6 +49,10 @@ class MainRepository {
         return firebaseService.overwriteUserInformation(values)
     }
 
+    fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+        return firebaseService.updateUserInformation(values)
+    }
+
     fun getSchedule(scheduleName: String): LiveData<ArrayList<HashMap<String, String>>> {
         return firebaseService.getSchedule(scheduleName)
     }

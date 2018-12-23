@@ -8,6 +8,6 @@ class OnboardingViewModel(private val mainRepository: MainRepository) : ViewMode
     var panhelValues: LiveData<ArrayList<*>> = mainRepository.getPanhelValues()
 
     fun submitChosenValues(values: MutableMap<String, Any>): LiveData<String> {
-        return mainRepository.overwriteUserInformation(values)
+        return mainRepository.updateUserInformation(values)
     }
 }
