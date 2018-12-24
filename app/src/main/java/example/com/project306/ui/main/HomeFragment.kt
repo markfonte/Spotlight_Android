@@ -31,6 +31,9 @@ class HomeFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sandbox_button.setOnClickListener {
+            homeFragmentViewModel.triggerSandboxFunction()
+        }
         homeFragmentViewModel.staticHouseData.observe(this, Observer {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {

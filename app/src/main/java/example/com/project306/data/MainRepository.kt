@@ -93,6 +93,10 @@ class MainRepository {
         return firebaseService.getScheduleData()
     }
 
+    fun sandboxFunction(): MutableLiveData<String> {
+        return firebaseService.sandboxFunction()
+    }
+
     companion object {
 
         // For Singleton instantiation

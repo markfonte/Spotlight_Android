@@ -302,6 +302,21 @@ class FirebaseService {
         return result
     }
 
+    fun sandboxFunction(): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+//        val updatesMap: MutableMap<String, Any> = HashMap()
+//        updatesMap["fake_array.1"] = "dummy_temp_value"
+//        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(updatesMap)
+//        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update("fake_array", FieldValue.arrayRemove("fake_value"))
+//                .addOnSuccessListener {
+//                    result.value = ""
+//                }
+//                .addOnFailureListener {
+//                    result.value = it.toString()
+//                }
+        return result
+    }
+
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
 
