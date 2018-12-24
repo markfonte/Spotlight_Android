@@ -17,9 +17,10 @@
 
         <Button
             android:id="@+id/sandbox_button"
-            android:text="clickme"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="clickme"
+            android:visibility="gone" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -28,12 +29,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:tabMode="scrollable"
-            app:tabTextColor="@color/colorTextDefault"
-            app:tabTextAppearance="@style/NoTextAllCaps"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/NoTextAllCaps"
+            app:tabTextColor="@color/colorTextDefault">
 
         </com.google.android.material.tabs.TabLayout>
 

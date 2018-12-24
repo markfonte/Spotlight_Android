@@ -67,9 +67,9 @@
             android:layout_marginStart="@dimen/margin_standard"
             android:layout_marginEnd="@dimen/margin_standard"
             android:layout_marginBottom="@dimen/margin_standard"
-            android:textColor="@color/colorGreekLetters"
             android:fontFamily="@font/lucida_grande_regular"
             android:text="@string/schedule_row_greek_letters_text_default"
+            android:textColor="@color/colorGreekLetters"
             android:textSize="@dimen/medium_font_size" />
 
     </LinearLayout>
@@ -96,6 +96,12 @@
 
     <TextView
         android:id="@+id/schedule_row_house_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/schedule_row_house_index"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />

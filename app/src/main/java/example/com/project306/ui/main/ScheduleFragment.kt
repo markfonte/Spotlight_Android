@@ -48,19 +48,21 @@ class ScheduleFragment : Fragment() {
     private fun buildScheduleView() {
         if (scheduleFragmentViewModel.staticHouseData.value != null) {
             when (displayMode) {
-                ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> scheduleFragmentViewModel.getSchedule("current_schedule").observe(this, Observer {
-                    val houses: ArrayList<HashMap<String, String>> = it
+                ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> scheduleFragmentViewModel.getCurrentSchedule().observe(this, Observer {
+                    val houses: HashMap<String, HashMap<String, String>> = it
                     val timeSlots: ArrayList<TimeSlot> = arrayListOf()
                     val staticHouseData = scheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
-                    for (house in houses) {
-                        val currentStaticHouseData = staticHouseData[house["house_id"]]
-                        val currentTimeSlot = TimeSlot("", "", "", "", "", "")
-                        currentTimeSlot.Time = house["time"]
-                        currentTimeSlot.Date = house["date"]
+
+                    for ((houseKey, houseValue) in houses) {
+                        val currentStaticHouseData = staticHouseData[houseValue["house_id"]]
+                        val currentTimeSlot = TimeSlot("", "", "", "", "", "", "")
+                        currentTimeSlot.Time = houseValue["time"]
+                        currentTimeSlot.Date = houseValue["date"]
                         currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
                         currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
                         currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
-                        currentTimeSlot.HouseId = house["house_id"]
+                        currentTimeSlot.HouseId = houseValue["house_id"]
+                        currentTimeSlot.HouseIndex = houseKey
                         timeSlots.add(currentTimeSlot)
                         scheduleFragmentViewModel.isScheduleToDisplay.value = true
                     }
@@ -80,9 +82,7 @@ class ScheduleFragment : Fragment() {
                     assert(displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
                     scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
                 }
-
             }
-
             scheduleFragmentViewModel.isDataLoading.value = false
         }
     }

@@ -44,7 +44,6 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                     scheduleViewPager.offscreenPageLimit = 4
                     tab_layout.setupWithViewPager(scheduleViewPager, true)
                 })
-
             }
         })
     }

@@ -21,6 +21,7 @@ class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : andr
         val streetAddress: TextView = v.findViewById(R.id.schedule_row_street_address)
         val houseId: TextView = v.findViewById(R.id.schedule_row_house_id)
         val rowContainer: ConstraintLayout = v.findViewById(R.id.schedule_row_container)
+        val houseIndex: TextView = v.findViewById(R.id.schedule_row_house_index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,12 +37,14 @@ class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : andr
         viewHolder.greekLetters.text = timeSlots[position].GreekLetters
         viewHolder.streetAddress.text = timeSlots[position].StreetAddress
         viewHolder.houseId.text = timeSlots[position].HouseId
+        viewHolder.houseIndex.text = timeSlots[position].HouseIndex
         viewHolder.rowContainer.setOnClickListener {
             val displayName: String = it.findViewById<TextView>(R.id.schedule_row_display_name).text.toString()
             val greekLetters: String = it.findViewById<TextView>(R.id.schedule_row_greek_letters).text.toString()
             val streetAddress: String = it.findViewById<TextView>(R.id.schedule_row_street_address).text.toString()
             val houseId: String = it.findViewById<TextView>(R.id.schedule_row_house_id).text.toString()
-            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId)
+            val houseIndex: String = it.findViewById<TextView>(R.id.schedule_row_house_index).text.toString()
+            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex)
             Navigation.findNavController(it).navigate(R.id.notesFragment, bundle)
         }
     }

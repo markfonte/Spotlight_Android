@@ -6,7 +6,8 @@ data class TimeSlot(
         var DisplayName: String?,
         var GreekLetters: String?,
         var StreetAddress: String?,
-        var HouseId: String?
+        var HouseId: String?,
+        var HouseIndex: String?
 )
 
 data class RoundTitles(

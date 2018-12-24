@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.*
+import kotlin.collections.HashMap
 
 class FirebaseService {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
@@ -42,7 +43,6 @@ class FirebaseService {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userData = document.data
-
                     result.value = userData?.get("values") as? ArrayList<String?>
                 }
             } else {
@@ -214,23 +214,23 @@ class FirebaseService {
         return result
     }
 
-    fun getSchedule(scheduleName: String): LiveData<ArrayList<HashMap<String, String>>> {
-        val result: MutableLiveData<ArrayList<HashMap<String, String>>> = MutableLiveData()
+    fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
+        val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     val userDocument = document.data
-                    if (userDocument?.get(scheduleName) != null) {
+                    if (userDocument?.get("current_schedule") != null) {
                         @Suppress("UNCHECKED_CAST")
-                        result.value = userDocument[scheduleName] as? ArrayList<HashMap<String, String>>
+                        result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
                     } else {
-                        result.value = arrayListOf()
+                        result.value = hashMapOf()
                     }
                 }
             } else {
-                Log.e(LOG_TAG, "getSchedule task failed", task.exception)
-                result.value = arrayListOf()
+                Log.e(LOG_TAG, "getCurrentSchedule task failed", task.exception)
+                result.value = hashMapOf()
             }
         }
         return result

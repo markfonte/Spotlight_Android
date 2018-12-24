@@ -53,8 +53,8 @@ class MainRepository {
         return firebaseService.updateUserInformation(values)
     }
 
-    fun getSchedule(scheduleName: String): LiveData<ArrayList<HashMap<String, String>>> {
-        return firebaseService.getSchedule(scheduleName)
+    fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
+        return firebaseService.getSchedule()
     }
 
     fun getDisplayName(): MutableLiveData<String> {

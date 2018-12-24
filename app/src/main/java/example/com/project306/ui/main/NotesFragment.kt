@@ -48,6 +48,7 @@ class NotesFragment : Fragment() {
             displayName.value = NotesFragmentArgs.fromBundle(arguments!!).displayName
             greekLetters.value = NotesFragmentArgs.fromBundle(arguments!!).greekLetters
             streetAddress.value = NotesFragmentArgs.fromBundle(arguments!!).streetAddress
+            houseIndex.value = NotesFragmentArgs.fromBundle(arguments!!).houseIndex
             houseId.value = NotesFragmentArgs.fromBundle(arguments!!).houseId
             GlideApp.with(context!!)
                     .load(getStaticHouseImageReference(houseId.value!!))
@@ -55,6 +56,7 @@ class NotesFragment : Fragment() {
         }
         notes_submit_button.setOnClickListener {
             Log.d(LOG_TAG, "Save button clicked")
+            //TODO: Popup: start actions here
         }
         notes_street_address.setOnClickListener {
             //documentation: https://developers.google.com/maps/documentation/urls/android-intents

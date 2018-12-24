@@ -9,6 +9,7 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val displayName: MutableLiveData<String> = MutableLiveData()
     val greekLetters: MutableLiveData<String> = MutableLiveData()
     val streetAddress: MutableLiveData<String> = MutableLiveData()
+    val houseIndex: MutableLiveData<String> = MutableLiveData()
     val houseId: MutableLiveData<String> = MutableLiveData()
     val valueOne: MutableLiveData<String> = MutableLiveData()
     val valueTwo: MutableLiveData<String> = MutableLiveData()

@@ -65,6 +65,9 @@
         <argument
             android:name="house_id"
             app:argType="string" />
+        <argument
+            android:name="house_index"
+            app:argType="string" />
 
     </fragment>
     <fragment
