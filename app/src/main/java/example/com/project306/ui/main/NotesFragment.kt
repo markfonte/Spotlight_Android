@@ -1,5 +1,6 @@
 package example.com.project306.ui.main
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -56,7 +58,7 @@ class NotesFragment : Fragment() {
         }
         notes_submit_button.setOnClickListener {
             Log.d(LOG_TAG, "Save button clicked")
-            //TODO: Popup: start actions here
+            showConfirmPopup()
         }
         notes_street_address.setOnClickListener {
             //documentation: https://developers.google.com/maps/documentation/urls/android-intents
@@ -69,6 +71,28 @@ class NotesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showConfirmPopup() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Are you sure you want to save your comments?")
+                .setPositiveButton("Yes", null)
+                .setNegativeButton("No", null)
+                .create()
+        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                notesFragmentViewModel.performDatabaseChangesForNoteSubmission().observe(this, Observer { error ->
+                    if (error == "") {
+                        alertDialog.dismiss()
+                    } else {
+                        Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
+                    }
+                })
+
+            }
+        }
+        alertDialog.show()
     }
 
     companion object {

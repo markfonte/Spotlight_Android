@@ -97,6 +97,10 @@ class MainRepository {
         return firebaseService.sandboxFunction()
     }
 
+    fun performDatabaseChangesForNoteSubmission(): MutableLiveData<String> {
+        return firebaseService.submitNotes()
+    }
+
     companion object {
 
         // For Singleton instantiation

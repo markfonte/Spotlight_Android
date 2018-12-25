@@ -297,11 +297,6 @@ class FirebaseService {
         return storage.reference.child("house_images").child("$fileName.jpg")
     }
 
-    fun performSubmitCommentsAction(): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        return result
-    }
-
     fun sandboxFunction(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
 //        val updatesMap: MutableMap<String, Any> = HashMap()
@@ -314,6 +309,11 @@ class FirebaseService {
 //                .addOnFailureListener {
 //                    result.value = it.toString()
 //                }
+        return result
+    }
+
+    fun submitNotes(): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
         return result
     }
 
