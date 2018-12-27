@@ -84,6 +84,7 @@ class NotesFragment : Fragment() {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 notesFragmentViewModel.performDatabaseChangesForNoteSubmission().observe(this, Observer { error ->
                     if (error == "") {
+                        //TODO: Exit to Ranking Fragment
                         alertDialog.dismiss()
                     } else {
                         Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
