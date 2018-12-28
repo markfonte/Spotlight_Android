@@ -162,3 +162,4 @@ class OnboardingFragment : Fragment() {
         private val LOG_TAG: String = OnboardingFragment::class.java.name
     }
 }
+
