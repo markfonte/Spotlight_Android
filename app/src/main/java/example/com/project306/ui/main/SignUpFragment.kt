@@ -24,13 +24,13 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
 
-    private lateinit var signUpFragmentViewModel: SignUpViewModel
+    private lateinit var vm: SignUpViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: SignUpViewModelFactory = InjectorUtils.provideSignUpViewModelFactory()
-        signUpFragmentViewModel = ViewModelProviders.of(this, factory).get(SignUpViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(SignUpViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(inflater, R.layout.fragment_sign_up, container, false).apply {
-            viewModel = signUpFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@SignUpFragment)
         }
         return binding.root
@@ -59,8 +59,8 @@ class SignUpFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (signUpFragmentViewModel.showConfirmPassword.value == false) {
-                    signUpFragmentViewModel.showConfirmPassword.value = true
+                if (vm.showConfirmPassword.value == false) {
+                    vm.showConfirmPassword.value = true
                 }
             }
         })
@@ -72,8 +72,8 @@ class SignUpFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (signUpFragmentViewModel.showCreateAccountButton.value == false) {
-                    signUpFragmentViewModel.showCreateAccountButton.value = true
+                if (vm.showCreateAccountButton.value == false) {
+                    vm.showCreateAccountButton.value = true
                 }
             }
         })
@@ -99,7 +99,7 @@ class SignUpFragment : Fragment() {
         val currentPassword: String? = sign_up_enter_password.text.toString()
         val currentConfirmPassword: String? = sign_up_enter_confirm_password.text.toString()
         if (isValidInput(currentDisplayName, currentEmail, currentPassword, currentConfirmPassword)) {
-            signUpFragmentViewModel.attemptCreateAccount(currentEmail!!, currentPassword!!, currentDisplayName!!).observe(this, Observer { error ->
+            vm.attemptCreateAccount(currentEmail!!, currentPassword!!, currentDisplayName!!).observe(this, Observer { error ->
                 run {
                     if (error == "") {
                         sendEmailVerification(currentEmail, view)
@@ -122,7 +122,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun sendEmailVerification(email: String, view: View) {
-        signUpFragmentViewModel.attemptEmailVerification().observe(this, Observer { error ->
+        vm.attemptEmailVerification().observe(this, Observer { error ->
             run {
                 toggleCreateAccountProgressBar(false)
                 if (error == "") {
@@ -152,8 +152,8 @@ class SignUpFragment : Fragment() {
     }
 
     private fun toggleCreateAccountProgressBar(showProgress: Boolean) {
-        signUpFragmentViewModel.isCreatingAccount.value = showProgress
-        signUpFragmentViewModel.showCreateAccountButton.value = !showProgress
+        vm.isCreatingAccount.value = showProgress
+        vm.showCreateAccountButton.value = !showProgress
     }
 
     companion object {

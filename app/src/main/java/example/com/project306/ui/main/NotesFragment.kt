@@ -22,13 +22,13 @@ import kotlinx.android.synthetic.main.fragment_notes.*
 
 class NotesFragment : Fragment() {
 
-    private lateinit var notesFragmentViewModel: NotesViewModel
+    private lateinit var vm: NotesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: NotesViewModelFactory = InjectorUtils.provideNotesViewModelFactory()
-        notesFragmentViewModel = ViewModelProviders.of(this, factory).get(NotesViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(NotesViewModel::class.java)
         val binding: FragmentNotesBinding = DataBindingUtil.inflate<FragmentNotesBinding>(inflater, R.layout.fragment_notes, container, false).apply {
-            viewModel = notesFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@NotesFragment)
         }
         return binding.root
@@ -36,17 +36,17 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        notesFragmentViewModel.setBottomNavVisibility(false)
-        notesFragmentViewModel.getUserValues().observe(this, Observer {
+        vm.setBottomNavVisibility(false)
+        vm.getUserValues().observe(this, Observer {
             if (it?.size == 3) {
-                with(notesFragmentViewModel) {
+                with(vm) {
                     valueOne.value = it[0]
                     valueTwo.value = it[1]
                     valueThree.value = it[2]
                 }
             }
         })
-        with(notesFragmentViewModel) {
+        with(vm) {
             displayName.value = NotesFragmentArgs.fromBundle(arguments!!).displayName
             greekLetters.value = NotesFragmentArgs.fromBundle(arguments!!).greekLetters
             streetAddress.value = NotesFragmentArgs.fromBundle(arguments!!).streetAddress
@@ -62,8 +62,8 @@ class NotesFragment : Fragment() {
         }
         notes_street_address.setOnClickListener {
             //documentation: https://developers.google.com/maps/documentation/urls/android-intents
-            if (!notesFragmentViewModel.streetAddress.value.isNullOrEmpty()) {
-                val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(notesFragmentViewModel.streetAddress.value))
+            if (!vm.streetAddress.value.isNullOrEmpty()) {
+                val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(vm.streetAddress.value))
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
@@ -82,7 +82,7 @@ class NotesFragment : Fragment() {
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                notesFragmentViewModel.performDatabaseChangesForNoteSubmission().observe(this, Observer { error ->
+                vm.performDatabaseChangesForNoteSubmission().observe(this, Observer { error ->
                     if (error == "") {
                         //TODO: Exit to Ranking Fragment
                         alertDialog.dismiss()

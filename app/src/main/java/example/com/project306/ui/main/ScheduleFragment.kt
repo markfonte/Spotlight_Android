@@ -20,22 +20,19 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 
 class ScheduleFragment : Fragment() {
 
-    private lateinit var scheduleFragmentViewModel: ScheduleViewModel
-    private var position: Int = -1
-    private var displayMode: Int = -1
-    private var bidHouse: String? = ""
+    private lateinit var vm: ScheduleViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: ScheduleViewModelFactory = InjectorUtils.provideScheduleViewModelFactory()
-        scheduleFragmentViewModel = ViewModelProviders.of(this, factory).get(ScheduleViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(ScheduleViewModel::class.java)
         val binding: FragmentScheduleBinding = DataBindingUtil.inflate<FragmentScheduleBinding>(inflater, R.layout.fragment_schedule, container, false).apply {
-            viewModel = scheduleFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@ScheduleFragment)
         }
         arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
-            position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))
-            displayMode = getInt(getString(R.string.SCHEDULE_DISPLAY_MODE))
-            bidHouse = getString(getString(R.string.SCHEDULE_BID_HOUSE))
+            vm.position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))
+            vm.displayMode = getInt(getString(R.string.SCHEDULE_DISPLAY_MODE))
+            vm.bidHouse = getString(getString(R.string.SCHEDULE_BID_HOUSE))
         }
         return binding.root
     }
@@ -46,12 +43,12 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun buildScheduleView() {
-        if (scheduleFragmentViewModel.staticHouseData.value != null) {
-            when (displayMode) {
-                ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> scheduleFragmentViewModel.getCurrentSchedule().observe(this, Observer {
+        if (vm.staticHouseData.value != null) {
+            when (vm.displayMode) {
+                ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> vm.getCurrentSchedule().observe(this, Observer {
                     val houses: HashMap<String, HashMap<String, String>> = it
                     val timeSlots: ArrayList<TimeSlot> = arrayListOf()
-                    val staticHouseData = scheduleFragmentViewModel.staticHouseData.value as HashMap<String, HashMap<String, String>>
+                    val staticHouseData = vm.staticHouseData.value as HashMap<String, HashMap<String, String>>
 
                     for ((houseKey, houseValue) in houses) {
                         val currentStaticHouseData = staticHouseData[houseValue["house_id"]]
@@ -64,26 +61,26 @@ class ScheduleFragment : Fragment() {
                         currentTimeSlot.HouseId = houseValue["house_id"]
                         currentTimeSlot.HouseIndex = houseKey
                         timeSlots.add(currentTimeSlot)
-                        scheduleFragmentViewModel.isScheduleToDisplay.value = true
+                        vm.isScheduleToDisplay.value = true
                     }
                     schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
                     schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
                 })
                 ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
-                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_ahead)
+                    vm.noScheduleMessage.value = getString(R.string.no_schedule_message_ahead)
                 }
                 ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
-                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_behind)
+                    vm.noScheduleMessage.value = getString(R.string.no_schedule_message_behind)
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {
-                    scheduleFragmentViewModel.noScheduleMessage.value = "Congratulations! You got a bid from $bidHouse!"
+                    vm.noScheduleMessage.value = "Congratulations! You got a bid from $vm.bidHouse!"
                 }
                 else -> {
-                    assert(displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
-                    scheduleFragmentViewModel.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
+                    assert(vm.displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
+                    vm.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
                 }
             }
-            scheduleFragmentViewModel.isDataLoading.value = false
+            vm.isDataLoading.value = false
         }
     }
 

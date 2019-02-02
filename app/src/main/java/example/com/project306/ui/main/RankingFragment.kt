@@ -14,13 +14,13 @@ import example.com.project306.util.InjectorUtils
 
 class RankingFragment : Fragment() {
 
-    private lateinit var rankingFragmentViewModel: RankingViewModel
+    private lateinit var vm: RankingViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: RankingViewModelFactory = InjectorUtils.provideRankingViewModelFactory()
-        rankingFragmentViewModel = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
         val binding: FragmentRankingBinding = DataBindingUtil.inflate<FragmentRankingBinding>(inflater, R.layout.fragment_ranking, container, false).apply {
-            viewModel = rankingFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@RankingFragment)
         }
         return binding.root
@@ -29,14 +29,14 @@ class RankingFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if ((activity as MainActivity).validateUser()) { //they are logged in
-            rankingFragmentViewModel.areValuesSet().observe(this, Observer {
+            vm.areValuesSet().observe(this, Observer {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_rankingFragment_to_onboardingFragment, null)
-                    rankingFragmentViewModel.setBottomNavVisibility(false)
-                    rankingFragmentViewModel.setAppBarVisibility(false)
+                    vm.setBottomNavVisibility(false)
+                    vm.setAppBarVisibility(false)
                 } else {
-                    rankingFragmentViewModel.setBottomNavVisibility(true)
-                    rankingFragmentViewModel.setAppBarVisibility(true)
+                    vm.setBottomNavVisibility(true)
+                    vm.setAppBarVisibility(true)
                 }
             })
         }

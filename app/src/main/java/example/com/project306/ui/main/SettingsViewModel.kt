@@ -6,6 +6,13 @@ import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
 class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel() {
+    val valueOne: MutableLiveData<String> = MutableLiveData()
+    val valueTwo: MutableLiveData<String> = MutableLiveData()
+    val valueThree: MutableLiveData<String> = MutableLiveData()
+    val displayName: MutableLiveData<String> = mainRepository.getDisplayName()
+    val email: MutableLiveData<String> = mainRepository.getEmail()
+    var tempDisplayName: String = ""
+
     fun logout(): MutableLiveData<String> {
         return mainRepository.accountsLogout()
     }
@@ -37,10 +44,4 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
-
-    val valueOne: MutableLiveData<String> = MutableLiveData()
-    val valueTwo: MutableLiveData<String> = MutableLiveData()
-    val valueThree: MutableLiveData<String> = MutableLiveData()
-    val displayName: MutableLiveData<String> = mainRepository.getDisplayName()
-    val email: MutableLiveData<String> = mainRepository.getEmail()
 }

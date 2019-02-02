@@ -25,14 +25,13 @@ import kotlinx.android.synthetic.main.dialog_enter_password.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
-    private lateinit var settingsFragmentViewModel: SettingsViewModel
-    private lateinit var temporaryDisplayName: String
+    private lateinit var vm: SettingsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: SettingsViewModelFactory = InjectorUtils.provideSettingsViewModelFactory()
-        settingsFragmentViewModel = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentSettingsBinding>(inflater, R.layout.fragment_settings, container, false).apply {
-            viewModel = settingsFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@SettingsFragment)
         }
         return binding.root
@@ -42,7 +41,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settings_logout_button.setOnClickListener {
-            settingsFragmentViewModel.logout().observe(this, Observer { logoutResult ->
+            vm.logout().observe(this, Observer { logoutResult ->
                 run {
                     if (logoutResult == "success") {
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
@@ -54,9 +53,9 @@ class SettingsFragment : Fragment() {
                 }
             })
         }
-        settingsFragmentViewModel.getUserValues().observe(this, Observer {
+        vm.getUserValues().observe(this, Observer {
             if (it?.size == 3) {
-                with(settingsFragmentViewModel) {
+                with(vm) {
                     valueOne.value = it[0]
                     valueTwo.value = it[1]
                     valueThree.value = it[2]
@@ -73,12 +72,12 @@ class SettingsFragment : Fragment() {
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    temporaryDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
-                    if (isValidDisplayName(temporaryDisplayName)) {
-                        settingsFragmentViewModel.changeDisplayName(temporaryDisplayName).observe(this, Observer { error ->
+                    vm.tempDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
+                    if (isValidDisplayName(vm.tempDisplayName)) {
+                        vm.changeDisplayName(vm.tempDisplayName).observe(this, Observer { error ->
                             if (error == "") {
-                                settingsFragmentViewModel.displayName.value = temporaryDisplayName
-                                val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Name changed to ${settingsFragmentViewModel.displayName.value}", Snackbar.LENGTH_LONG)
+                                vm.displayName.value = vm.tempDisplayName
+                                val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Name changed to ${vm.displayName.value}", Snackbar.LENGTH_LONG)
                                 SystemUtils.setSnackbarDefaultOptions(s)
                                 s?.show()
                             } else {
@@ -94,8 +93,8 @@ class SettingsFragment : Fragment() {
                     }
                 }
                 alertDialog.enter_name_dialog_enter_name.requestFocus()
-                alertDialog.enter_name_dialog_enter_name.setText(settingsFragmentViewModel.displayName.value)
-                settingsFragmentViewModel.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
+                alertDialog.enter_name_dialog_enter_name.setText(vm.displayName.value)
+                vm.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
             }
             alertDialog.show()
         }
@@ -116,7 +115,7 @@ class SettingsFragment : Fragment() {
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (isValidPassword(alertDialog.enter_password_dialog_enter_password.text.toString())) {
-                    settingsFragmentViewModel.reauthenticateUser(alertDialog.enter_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
+                    vm.reauthenticateUser(alertDialog.enter_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
                         if (error == "") {
                             showUpdatePasswordDialog()
                         } else {
@@ -145,7 +144,7 @@ class SettingsFragment : Fragment() {
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (areValidPasswordCombo(alertDialog.enter_confirm_password_dialog_enter_password.text.toString(), alertDialog.enter_confirm_password_dialog_enter_confirm_password.text.toString())) {
-                    settingsFragmentViewModel.updatePassword(alertDialog.enter_confirm_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
+                    vm.updatePassword(alertDialog.enter_confirm_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
                         if (error == "") {
                             val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Your password has been updated.", Snackbar.LENGTH_LONG)
                             SystemUtils.setSnackbarDefaultOptions(s)
@@ -172,7 +171,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun isValidDisplayName(displayName: String?): Boolean {
-        return !displayName.isNullOrEmpty() && displayName.length < 30 && displayName != settingsFragmentViewModel.displayName.value
+        return !displayName.isNullOrEmpty() && displayName.length < 30 && displayName != vm.displayName.value
     }
 
     private fun isValidPassword(password: String?): Boolean {
@@ -182,14 +181,14 @@ class SettingsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if ((activity as MainActivity).validateUser()) { //they are logged in
-            settingsFragmentViewModel.areValuesSet().observe(this, Observer {
+            vm.areValuesSet().observe(this, Observer {
                 if (it == false) {
                     (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_onboardingFragment, null)
-                    settingsFragmentViewModel.setBottomNavVisibility(false)
-                    settingsFragmentViewModel.setAppBarVisibility(false)
+                    vm.setBottomNavVisibility(false)
+                    vm.setAppBarVisibility(false)
                 } else {
-                    settingsFragmentViewModel.setBottomNavVisibility(true)
-                    settingsFragmentViewModel.setAppBarVisibility(true)
+                    vm.setBottomNavVisibility(true)
+                    vm.setAppBarVisibility(true)
                 }
             })
         }

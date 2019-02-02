@@ -16,16 +16,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var vm: MainActivityViewModel
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
-        mainActivityViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
-            viewModel = mainActivityViewModel
+            viewModel = vm
             setLifecycleOwner(this@MainActivity)
         }
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment?
@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun validateUser(): Boolean {
-        if (mainActivityViewModel.currentUser.value == null || !mainActivityViewModel.currentUser.value?.isEmailVerified!!) {
-            with(mainActivityViewModel) {
+        if (vm.currentUser.value == null || !vm.currentUser.value?.isEmailVerified!!) {
+            with(vm) {
                 setBottomNavVisibility(false)
                 setAppBarVisibility(false)
             }
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.landingFragment, null, navOptions)
             return false
         } else {
-            with(mainActivityViewModel) {
+            with(vm) {
                 setBottomNavVisibility(true)
                 setAppBarVisibility(true)
             }

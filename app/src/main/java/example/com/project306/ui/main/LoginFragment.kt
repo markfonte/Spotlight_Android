@@ -24,13 +24,13 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
-    private lateinit var loginFragmentViewModel: LoginViewModel
+    private lateinit var vm: LoginViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: LoginViewModelFactory = InjectorUtils.provideLoginViewModelFactory()
-        loginFragmentViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false).apply {
-            viewModel = loginFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@LoginFragment)
         }
         return binding.root
@@ -60,8 +60,8 @@ class LoginFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (loginFragmentViewModel.showLoginButton.value == false) {
-                    loginFragmentViewModel.showLoginButton.value = true
+                if (vm.showLoginButton.value == false) {
+                    vm.showLoginButton.value = true
                 }
             }
         })
@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    loginFragmentViewModel.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
+                    vm.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
                     val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, "Check your email for password reset information!", Snackbar.LENGTH_INDEFINITE)
                     SystemUtils.setSnackbarDefaultOptions(s)
                     s?.setAction("OK") {
@@ -100,7 +100,7 @@ class LoginFragment : Fragment() {
         val currentPassword: String? = login_enter_password.text.toString()
         if (isValidInput(currentEmail, currentPassword)) {
             toggleLoginProgressBar(true)
-            loginFragmentViewModel.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
+            vm.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
                 run {
                     when (authResultError) {
                         "" -> {
@@ -142,7 +142,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun attemptEmailVerification(email: String, view: View) {
-        loginFragmentViewModel.attemptEmailVerification().observe(this, Observer { error ->
+        vm.attemptEmailVerification().observe(this, Observer { error ->
             run {
                 if (error == "") {
                     val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, getString(R.string.login_email_verification_success_confirmation), Snackbar.LENGTH_INDEFINITE)

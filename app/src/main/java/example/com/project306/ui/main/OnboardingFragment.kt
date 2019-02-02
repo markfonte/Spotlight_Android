@@ -28,21 +28,12 @@ import kotlin.collections.HashMap
 
 
 class OnboardingFragment : Fragment() {
-    private lateinit var onboardingFragmentViewModel: OnboardingViewModel
-    private lateinit var panhelValues: ArrayList<*>
-    private lateinit var currentlyCheckedBoxes: HashMap<Int, String>
-    private lateinit var submittedCheckboxes: ArrayList<String>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        submittedCheckboxes = ArrayList()
-    }
-
+    private lateinit var vm: OnboardingViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: OnboardingViewModelFactory = InjectorUtils.provideOnboardingViewModelFactory()
-        onboardingFragmentViewModel = ViewModelProviders.of(this, factory).get(OnboardingViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(OnboardingViewModel::class.java)
         val binding: FragmentOnboardingBinding = DataBindingUtil.inflate<FragmentOnboardingBinding>(inflater, R.layout.fragment_onboarding, container, false).apply {
-            viewModel = onboardingFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@OnboardingFragment)
         }
         return binding.root
@@ -50,26 +41,27 @@ class OnboardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onboardingFragmentViewModel.panhelValues.observe(this, Observer {
-            panhelValues = it
-            currentlyCheckedBoxes = HashMap()
+        vm.panhelValues.observe(this, Observer { result ->
+            vm.currentlyCheckedBoxes = HashMap()
             var i = 0
-            while (i < panhelValues.size) {
-                currentlyCheckedBoxes[i] = ""
+            while (i < result.size) {
+                vm.currentlyCheckedBoxes?.let{it[i] = ""}
                 ++i
             }
             buildRadioButtons()
         })
-        onboarding_submit_button.setOnClickListener {
+        onboarding_submit_button.setOnClickListener { _ ->
             var count = 0
             var i = 0
-            submittedCheckboxes = ArrayList()
-            while (i < panhelValues.size) {
-                if (currentlyCheckedBoxes[i] != "") {
-                    ++count
-                    submittedCheckboxes.add(currentlyCheckedBoxes[i]!!)
+            vm.submittedCheckboxes = ArrayList()
+            while (i < vm.panhelValues.value!!.size) {
+                vm.currentlyCheckedBoxes?.let { checked ->
+                    if (checked[i] != "") {
+                        ++count
+                        checked[i]?.let { it1 -> vm.submittedCheckboxes?.add(it1) }
+                    }
+                    ++i
                 }
-                ++i
             }
             if (count == 3) {
                 sendConfirmationAlertDialog()
@@ -97,7 +89,7 @@ class OnboardingFragment : Fragment() {
     private fun sendConfirmationAlertDialog() {
         val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
                 .setTitle("Confirm Your Selections")
-                .setMessage("Select ${submittedCheckboxes[0]}, ${submittedCheckboxes[1]}, and ${submittedCheckboxes[2]}?\n\nYou will NOT be able to change them later!")
+                .setMessage("Select ${vm.submittedCheckboxes?.get(0)}, ${vm.submittedCheckboxes?.get(1)}, and ${vm.submittedCheckboxes?.get(2)}?\n\nYou will NOT be able to change them later!")
                 .setPositiveButton(android.R.string.yes, null)
                 .setNegativeButton(android.R.string.no, null)
                 .create()
@@ -107,8 +99,8 @@ class OnboardingFragment : Fragment() {
                 newValuesMap["are_values_set"] = true
                 newValuesMap["bid_house"] = ""
                 newValuesMap["current_round"] = 0
-                newValuesMap["values"] = Arrays.asList(submittedCheckboxes[0], submittedCheckboxes[1], submittedCheckboxes[2])
-                onboardingFragmentViewModel.submitChosenValues(newValuesMap).observe(this, Observer { error ->
+                newValuesMap["values"] = Arrays.asList(vm.submittedCheckboxes?.get(0), vm.submittedCheckboxes?.get(1), vm.submittedCheckboxes?.get(2))
+                vm.submitChosenValues(newValuesMap).observe(this, Observer { error ->
                     run {
                         if (error == "") {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
@@ -127,7 +119,7 @@ class OnboardingFragment : Fragment() {
     private fun buildRadioButtons() {
         val checkboxHolder = LinearLayout(context)
         checkboxHolder.orientation = LinearLayout.VERTICAL
-        for ((counter, i) in panhelValues.withIndex()) {
+        for ((counter, i) in vm.panhelValues.value!!.withIndex()) {
             val newCheckbox = AppCompatCheckBox(context)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -146,11 +138,11 @@ class OnboardingFragment : Fragment() {
 
             newCheckbox.id = counter
             newCheckbox.text = i.toString()
-            newCheckbox.setOnClickListener {
-                if ((it as CheckBox).isChecked) {
-                    currentlyCheckedBoxes[it.id] = it.text.toString().trim()
+            newCheckbox.setOnClickListener {view ->
+                if ((view as CheckBox).isChecked) {
+                    vm.currentlyCheckedBoxes?.let{it[view.id] = view.text.toString().trim()}
                 } else {
-                    currentlyCheckedBoxes[it.id] = ""
+                    vm.currentlyCheckedBoxes?.let{it[view.id] = ""}
                 }
             }
             checkboxHolder.addView(newCheckbox)

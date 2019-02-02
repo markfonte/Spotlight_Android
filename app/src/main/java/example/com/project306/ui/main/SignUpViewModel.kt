@@ -6,6 +6,10 @@ import androidx.lifecycle.ViewModel
 import example.com.project306.data.MainRepository
 
 class SignUpViewModel(private val mainRepository: MainRepository) : ViewModel() {
+    val showConfirmPassword: MutableLiveData<Boolean> = MutableLiveData()
+    val showCreateAccountButton: MutableLiveData<Boolean> = MutableLiveData()
+    val isCreatingAccount: MutableLiveData<Boolean> = MutableLiveData()
+
     fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
         return mainRepository.attemptCreateAccount(email, password, displayName)
     }
@@ -13,10 +17,6 @@ class SignUpViewModel(private val mainRepository: MainRepository) : ViewModel() 
     fun attemptEmailVerification(): LiveData<String> {
         return mainRepository.attemptEmailVerification()
     }
-
-    val showConfirmPassword: MutableLiveData<Boolean> = MutableLiveData()
-    val showCreateAccountButton: MutableLiveData<Boolean> = MutableLiveData()
-    val isCreatingAccount: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         showConfirmPassword.value = false

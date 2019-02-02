@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.fragment_landing.*
 
 class LandingFragment : Fragment() {
 
-    private lateinit var landingFragmentViewModel: LandingViewModel
+    private lateinit var vm: LandingViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: LandingViewModelFactory = InjectorUtils.provideLandingViewModelFactory()
-        landingFragmentViewModel = ViewModelProviders.of(this, factory).get(LandingViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(LandingViewModel::class.java)
         val binding: FragmentLandingBinding = DataBindingUtil.inflate<FragmentLandingBinding>(inflater, R.layout.fragment_landing, container, false).apply {
-            viewModel = landingFragmentViewModel
+            viewModel = vm
             setLifecycleOwner(this@LandingFragment)
         }
         return binding.root

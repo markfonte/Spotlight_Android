@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
 import example.com.project306.R
 import example.com.project306.adapter.SchedulePagerAdapter
 import example.com.project306.databinding.FragmentHomeBinding
@@ -17,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var homeFragmentViewModel: HomeViewModel
-    private lateinit var scheduleViewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: HomeViewModelFactory = InjectorUtils.provideHomeViewModelFactory()
@@ -38,11 +36,11 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 homeFragmentViewModel.getScheduleData().observe(this, Observer { result ->
-                    scheduleViewPager = schedule_view_pager
-                    scheduleViewPager.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
-                    scheduleViewPager.currentItem = result.first?.toInt()!!
-                    scheduleViewPager.offscreenPageLimit = 4
-                    tab_layout.setupWithViewPager(scheduleViewPager, true)
+                    homeFragmentViewModel.scheduleViewPager = schedule_view_pager
+                    homeFragmentViewModel.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
+                    homeFragmentViewModel.scheduleViewPager?.currentItem = result.first?.toInt()!!
+                    homeFragmentViewModel.scheduleViewPager?.offscreenPageLimit = 4
+                    tab_layout.setupWithViewPager(homeFragmentViewModel.scheduleViewPager, true)
                 })
             }
         })
