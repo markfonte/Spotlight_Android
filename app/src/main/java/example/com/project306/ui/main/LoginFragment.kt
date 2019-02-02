@@ -6,12 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -50,10 +45,10 @@ class LoginFragment : Fragment() {
         create_account_button.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_login_to_signUpFragment, null)
         }
-        login_enter_password.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
+        login_enter_password.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 attemptLogin(view)
-                return@OnEditorActionListener true
+                return@OnKeyListener true
             }
             false
         })
