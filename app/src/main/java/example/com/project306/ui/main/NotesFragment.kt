@@ -82,7 +82,7 @@ class NotesFragment : Fragment() {
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                vm.performDatabaseChangesForNoteSubmission().observe(this, Observer { error ->
+                vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!).observe(this, Observer { error ->
                     if (error == "") {
                         //TODO: Exit to Ranking Fragment
                         alertDialog.dismiss()

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -312,8 +313,13 @@ class FirebaseService {
         return result
     }
 
-    fun submitNotes(): MutableLiveData<String> {
+    fun submitNotes(houseIndex: String, houseId: String): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
+        val updatesMap = HashMap<String, Any>()
+        updatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(updatesMap).addOnCompleteListener {
+            Log.d(LOG_TAG, it.isSuccessful.toString())
+        }
         return result
     }
 
