@@ -27,7 +27,7 @@ class ScheduleFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(ScheduleViewModel::class.java)
         val binding: FragmentScheduleBinding = DataBindingUtil.inflate<FragmentScheduleBinding>(inflater, R.layout.fragment_schedule, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@ScheduleFragment)
+            lifecycleOwner = this@ScheduleFragment
         }
         arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
             vm.position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))

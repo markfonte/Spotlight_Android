@@ -31,7 +31,7 @@ class SignUpFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(SignUpViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(inflater, R.layout.fragment_sign_up, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@SignUpFragment)
+            lifecycleOwner = this@SignUpFragment
         }
         return binding.root
     }

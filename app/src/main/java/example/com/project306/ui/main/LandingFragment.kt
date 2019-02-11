@@ -22,7 +22,7 @@ class LandingFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(LandingViewModel::class.java)
         val binding: FragmentLandingBinding = DataBindingUtil.inflate<FragmentLandingBinding>(inflater, R.layout.fragment_landing, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@LandingFragment)
+            lifecycleOwner = this@LandingFragment
         }
         return binding.root
     }

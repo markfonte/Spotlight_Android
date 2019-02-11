@@ -22,7 +22,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
         homeFragmentViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
         val binding: FragmentHomeBinding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false).apply {
             viewModel = homeFragmentViewModel
-            setLifecycleOwner(this@HomeFragment)
+            lifecycleOwner = this@HomeFragment
         }
         return binding.root
     }

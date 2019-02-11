@@ -32,7 +32,7 @@ class SettingsFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentSettingsBinding>(inflater, R.layout.fragment_settings, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@SettingsFragment)
+            lifecycleOwner = this@SettingsFragment
         }
         return binding.root
     }

@@ -31,7 +31,7 @@ class LoginFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@LoginFragment)
+            lifecycleOwner = this@LoginFragment
         }
         return binding.root
     }

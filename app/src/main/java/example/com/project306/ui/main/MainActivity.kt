@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         vm = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             viewModel = vm
-            setLifecycleOwner(this@MainActivity)
+            lifecycleOwner = this@MainActivity
         }
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment?
                 ?: return

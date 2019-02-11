@@ -21,7 +21,7 @@ class RankingFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
         val binding: FragmentRankingBinding = DataBindingUtil.inflate<FragmentRankingBinding>(inflater, R.layout.fragment_ranking, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@RankingFragment)
+            lifecycleOwner = this@RankingFragment
         }
         return binding.root
     }

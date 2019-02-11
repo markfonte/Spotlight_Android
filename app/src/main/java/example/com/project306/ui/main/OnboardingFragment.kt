@@ -34,7 +34,7 @@ class OnboardingFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(OnboardingViewModel::class.java)
         val binding: FragmentOnboardingBinding = DataBindingUtil.inflate<FragmentOnboardingBinding>(inflater, R.layout.fragment_onboarding, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@OnboardingFragment)
+            lifecycleOwner = this@OnboardingFragment
         }
         return binding.root
     }
