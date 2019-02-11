@@ -315,12 +315,40 @@ class FirebaseService {
         return result
     }
 
-    fun submitNotes(houseIndex: String, houseId: String): MutableLiveData<String> {
+    fun submitNotes(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        val updatesMap = HashMap<String, Any>()
-        updatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(updatesMap).addOnCompleteListener {
-            Log.d(LOG_TAG, it.isSuccessful.toString())
+        val saveNoteUpdatesMap = HashMap<String, Any>()
+        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
+        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
+        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
+        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
+        val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
+        userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { result1 ->
+            if (result1.isSuccessful) {
+                val unrankedHousesUpdatesMap = HashMap<String, Any>()
+                unrankedHousesUpdatesMap["unranked.$houseIndex"] = houseId
+                userDoc.update(unrankedHousesUpdatesMap).addOnCompleteListener { result2 ->
+                    if (result2.isSuccessful) {
+                        val removeIndexUpdatesMap = HashMap<String, Any>()
+                        removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
+                        userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { result3 ->
+                            if (result3.isSuccessful) {
+                                Log.d(LOG_TAG, "Successfully submitted note.")
+                                result.value = ""
+                            } else {
+                                Log.e(LOG_TAG, result3.exception.toString(), result3.exception)
+                                result.value = result3.exception.toString()
+                            }
+                        }
+                    } else {
+                        Log.e(LOG_TAG, result2.exception.toString(), result2.exception)
+                        result.value = result2.exception.toString()
+                    }
+                }
+            } else {
+                Log.e(LOG_TAG, result1.exception.toString(), result1.exception)
+                result.value = result1.exception.toString()
+            }
         }
         return result
     }

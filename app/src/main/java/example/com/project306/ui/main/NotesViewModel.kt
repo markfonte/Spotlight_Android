@@ -27,7 +27,7 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
         return mainRepository.getStaticHouseImageReference(fileName)
     }
 
-    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String) : MutableLiveData<String> {
-        return mainRepository.performDatabaseChangesForNoteSubmission(houseIndex, houseId)
+    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) : MutableLiveData<String> {
+        return mainRepository.performDatabaseChangesForNoteSubmission(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
     }
 }

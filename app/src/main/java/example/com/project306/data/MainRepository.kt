@@ -97,8 +97,8 @@ class MainRepository {
         return firebaseService.sandboxFunction()
     }
 
-    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String): MutableLiveData<String> {
-        return firebaseService.submitNotes(houseIndex, houseId)
+    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
+        return firebaseService.submitNotes(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
     }
 
     companion object {
