@@ -68,6 +68,10 @@
         <argument
             android:name="house_index"
             app:argType="string" />
+        <action
+            android:id="@+id/action_notesFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment"
+            app:popUpTo="@+id/rankingFragment" />
 
     </fragment>
     <fragment

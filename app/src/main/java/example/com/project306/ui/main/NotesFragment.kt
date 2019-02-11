@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import example.com.project306.R
 import example.com.project306.databinding.FragmentNotesBinding
 import example.com.project306.util.GlideApp
@@ -29,7 +30,7 @@ class NotesFragment : Fragment() {
         vm = ViewModelProviders.of(this, factory).get(NotesViewModel::class.java)
         val binding: FragmentNotesBinding = DataBindingUtil.inflate<FragmentNotesBinding>(inflater, R.layout.fragment_notes, container, false).apply {
             viewModel = vm
-            setLifecycleOwner(this@NotesFragment)
+            lifecycleOwner = this@NotesFragment
         }
         return binding.root
     }
@@ -82,9 +83,10 @@ class NotesFragment : Fragment() {
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!, "Hardcoded comment", valueOne = true, valueTwo = false, valueThree = true).observe(this, Observer { error ->
+                vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked).observe(this, Observer { error ->
                     if (error == "") {
-                        //TODO: Exit to Ranking Fragment
+                        val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
+                        (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions)
                         alertDialog.dismiss()
                     } else {
                         Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
