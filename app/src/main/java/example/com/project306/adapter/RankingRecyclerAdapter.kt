@@ -37,6 +37,4 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>)  
             Log.d("RankingRecyclerAdapter", "row clicked!")
         }
     }
-
-    
 }

@@ -8,9 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import example.com.project306.R
 import example.com.project306.databinding.FragmentRankingBinding
 import example.com.project306.util.InjectorUtils
+import kotlinx.android.synthetic.main.fragment_ranking.*
 
 class RankingFragment : Fragment() {
 
@@ -26,6 +28,11 @@ class RankingFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        buildRankingView()
+    }
+
     override fun onResume() {
         super.onResume()
         if ((activity as MainActivity).validateUser()) { //they are logged in
@@ -39,6 +46,13 @@ class RankingFragment : Fragment() {
                     vm.setAppBarVisibility(true)
                 }
             })
+        }
+    }
+
+    private fun buildRankingView() {
+        ranking_recycler_view.layoutManager = LinearLayoutManager(activity)
+        if (vm.staticHouseData.value != null) {
+            //TODO: implement firebase function to get ranking from db and use that result here
         }
     }
 
