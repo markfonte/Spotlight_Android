@@ -325,9 +325,7 @@ class FirebaseService {
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { result1 ->
             if (result1.isSuccessful) {
-                val unrankedHousesUpdatesMap = HashMap<String, Any>()
-                unrankedHousesUpdatesMap["unranked.$houseIndex"] = houseId
-                userDoc.update(unrankedHousesUpdatesMap).addOnCompleteListener { result2 ->
+                userDoc.update("unranked", FieldValue.arrayUnion(houseId)).addOnCompleteListener { result2 ->
                     if (result2.isSuccessful) {
                         val removeIndexUpdatesMap = HashMap<String, Any>()
                         removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
