@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="android.text.InputType" />
+
         <variable
             name="viewModel"
             type="example.com.project306.ui.main.NotesViewModel" />
@@ -164,6 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:background="@drawable/background_notes_comments"
+                android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
+                android:focusable="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="top|start"
                 android:hint="@string/notes_enter_comments_hint"
                 android:inputType="textMultiLine"
