@@ -3,7 +3,7 @@
     <string name="menu_title_home">Home</string>
     <string name="menu_title_ranking">Ranking</string>
     <string name="schedule_time_text_default">Time</string>
-    <string name="schedule_display_name_text_default">House Display Name</string>
+    <string name="recycler_display_name_text_default">House Display Name</string>
     <string name="login_enter_email_hint">Email</string>
     <string name="login_enter_password_hint">Password</string>
     <string name="login_main_prompt">Log in</string>
@@ -39,7 +39,7 @@
     <string name="onboarding_title_text">Please select 3 values!</string>
     <string name="onboarding_submit_button_text">Submit</string>
     <string name="schedule_row_date_text_default">Date</string>
-    <string name="schedule_row_greek_letters_text_default">Greek Letters</string>
+    <string name="recycler_row_greek_letters_text_default">Greek Letters</string>
     <string name="schedule_no_data_text_default">No schedule to display right now. Please check back later!</string>
     <string name="no_schedule_message_ahead">You are currently on a previous round. This round\'s schedule will appear after you complete all previous rounds!</string>
     <string name="no_schedule_message_behind">You have already completed this round! Swipe to advance to the current round.</string>

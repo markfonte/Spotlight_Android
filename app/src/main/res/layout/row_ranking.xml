@@ -1,45 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/schedule_row_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="@dimen/margin_standard"
+    android:id="@+id/ranking_row_container"
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
-        android:id="@+id/date_and_time_wrapper"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/schedule_row_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:fontFamily="@font/savoye_let_plain"
-            android:text="@string/schedule_row_date_text_default"
-            android:textSize="@dimen/large_font_size" />
-
-        <TextView
-            android:id="@+id/schedule_row_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_standard"
-            android:fontFamily="@font/savoye_let_plain"
-            android:text="@string/schedule_time_text_default"
-            android:textSize="@dimen/large_font_size" />
-
-    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/schedule_button_container"
+        android:id="@+id/ranking_button_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_recycler_row"
@@ -48,10 +19,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
         app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-        app:layout_constraintTop_toBottomOf="@+id/date_and_time_wrapper">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/schedule_row_display_name"
+            android:id="@+id/ranking_row_display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
@@ -61,7 +32,7 @@
             android:textSize="@dimen/extra_large_font_size" />
 
         <TextView
-            android:id="@+id/schedule_row_greek_letters"
+            android:id="@+id/ranking_row_greek_letters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
@@ -89,19 +60,25 @@
         app:layout_constraintGuide_percent=".9" />
 
     <TextView
-        android:id="@+id/schedule_row_street_address"
+        android:id="@+id/ranking_row_street_address"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/schedule_row_house_id"
+        android:id="@+id/ranking_row_house_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/schedule_row_house_index"
+        android:id="@+id/ranking_row_house_index"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/ranking_row_current_ranking"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone" />

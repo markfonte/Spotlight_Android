@@ -10,6 +10,15 @@ data class TimeSlot(
         var HouseIndex: String?
 )
 
+data class RankingDatum(
+        var DisplayName: String?,
+        var GreekLetters: String?,
+        var HouseIndex: String?,
+        var HouseId: String?,
+        var CurrentRank: String?,
+        var StreetAddress: String?
+)
+
 data class RoundTitles(
         val FIRST_ROUND_DISPLAY_TITLE: String = "Open House Round",
         val SECOND_ROUND_DISPLAY_TITLE: String = "Philanthropy Round",
