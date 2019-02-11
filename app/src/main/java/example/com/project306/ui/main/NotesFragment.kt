@@ -70,12 +70,25 @@ class NotesFragment : Fragment() {
             }
         }
         if (vm.isNoteLocked.value!!) {
-            //notes_enter_comments.isEnabled = false
-            //TODO: Do this straight from XML
+            getNoteInfo()
         } else {
             notes_submit_button.setOnClickListener {
                 showConfirmPopup()
             }
+        }
+
+    }
+
+    private fun getNoteInfo() {
+        if(vm.houseId.value != null) {
+            vm.getNote(vm.houseId.value!!).observe(this, Observer { taskResult ->
+                if(taskResult != null) {
+                    vm.comments.value = taskResult["comments"] as? String
+                    vm.isValueOneChecked.value = taskResult["value1"] as? Boolean
+                    vm.isValueTwoChecked.value = taskResult["value2"] as? Boolean
+                    vm.isValueThreeChecked.value = taskResult["value3"] as? Boolean
+                }
+            })
         }
     }
 

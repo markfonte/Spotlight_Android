@@ -111,6 +111,7 @@
                 android:text="@{viewModel.valueOne}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
+                android:checked="@{safeUnbox(viewModel.isValueOneChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_my_values_title" />
@@ -128,6 +129,7 @@
                 android:text="@{viewModel.valueTwo}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
+                android:checked="@{safeUnbox(viewModel.isValueTwoChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_value_one" />
@@ -145,6 +147,7 @@
                 android:text="@{viewModel.valueThree}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
+                android:checked="@{safeUnbox(viewModel.isValueThreeChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_value_two" />
@@ -169,9 +172,8 @@
                 android:id="@+id/notes_enter_comments"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_standard"
+                android:layout_margin="@dimen/margin_large"
                 android:background="@drawable/background_notes_comments"
-                android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:focusable="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="top|start"
                 android:hint="@string/notes_enter_comments_hint"
@@ -180,6 +182,7 @@
                 android:minLines="4"
                 android:padding="@dimen/padding_standard"
                 android:singleLine="false"
+                android:text="@{viewModel.comments}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_comment_prompt"

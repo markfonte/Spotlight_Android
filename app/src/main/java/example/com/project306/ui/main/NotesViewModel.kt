@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.storage.StorageReference
 import example.com.project306.data.MainRepository
+import java.util.*
 
 class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val displayName: MutableLiveData<String> = MutableLiveData()
@@ -15,6 +16,10 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val valueTwo: MutableLiveData<String> = MutableLiveData()
     val valueThree: MutableLiveData<String> = MutableLiveData()
     val isNoteLocked: MutableLiveData<Boolean> = MutableLiveData()
+    val comments: MutableLiveData<String> = MutableLiveData()
+    val isValueOneChecked: MutableLiveData<Boolean> = MutableLiveData()
+    val isValueTwoChecked: MutableLiveData<Boolean> = MutableLiveData()
+    val isValueThreeChecked: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         isNoteLocked.value = true
@@ -34,5 +39,9 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) : MutableLiveData<String> {
         return mainRepository.performDatabaseChangesForNoteSubmission(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
+    }
+
+    fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
+        return mainRepository.getNote(houseId)
     }
 }
