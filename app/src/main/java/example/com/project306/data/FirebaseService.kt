@@ -23,6 +23,9 @@ class FirebaseService {
         mCurrentUser.value = mAuth?.currentUser
     }
 
+    /**
+     *  Auth functions
+     */
     fun getDisplayName(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         result.value = mAuth?.currentUser?.displayName
@@ -32,26 +35,6 @@ class FirebaseService {
     fun getEmail(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         result.value = mAuth?.currentUser?.email
-        return result
-    }
-
-
-    @Suppress("UNCHECKED_CAST")
-    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
-        val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val document: DocumentSnapshot = task.result!!
-                if (document.exists()) {
-                    val userData = document.data
-                    result.value = userData?.get("values") as? ArrayList<String?>
-                }
-            } else {
-                Log.e(LOG_TAG, "task failed", task.exception)
-                result.value = arrayListOf()
-            }
-
-        }
         return result
     }
 
@@ -86,12 +69,12 @@ class FirebaseService {
     }
 
     /* createAccountWithEmailAndPassword automatically logs user in. While this
-     is not the end functionality we want, we can leverage this to do the first-time
-     login work - such as creating the user-specific document in the database and
-     setting "are_values_set" to false so we know to start the on-boarding process
-     when they first log in. Then this function logs them out and we continue
-     with our expected functionality.
-     */
+    is not the end functionality we want, we can leverage this to do the first-time
+    login work - such as creating the user-specific document in the database and
+    setting "are_values_set" to false so we know to start the on-boarding process
+    when they first log in. Then this function logs them out and we continue
+    with our expected functionality.
+    */
     private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["are_values_set"] = false
@@ -127,6 +110,77 @@ class FirebaseService {
             } else {
                 result.value = it.exception.toString()
             }
+        }
+        return result
+    }
+
+    fun firebaseLogout(): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mCurrentUser.value = null
+        mAuth?.signOut()
+        result.value = "success"
+        return result
+    }
+
+    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun reauthenticateUser(password: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
+        mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun updatePassword(newPassword: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    /**
+     * Firestore functions
+     */
+
+    @Suppress("UNCHECKED_CAST")
+    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
+        val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    val userData = document.data
+                    result.value = userData?.get("values") as? ArrayList<String?>
+                }
+            } else {
+                Log.e(LOG_TAG, "task failed", task.exception)
+                result.value = arrayListOf()
+            }
+
         }
         return result
     }
@@ -190,14 +244,6 @@ class FirebaseService {
         return result
     }
 
-    fun firebaseLogout(): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        mCurrentUser.value = null
-        mAuth?.signOut()
-        result.value = "success"
-        return result
-    }
-
     fun getPanhelValues(): LiveData<ArrayList<*>> {
         val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
         fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
@@ -254,50 +300,6 @@ class FirebaseService {
         return result
     }
 
-    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                result.value = ""
-            } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
-                result.value = task.exception.toString()
-            }
-        }
-        return result
-    }
-
-    fun reauthenticateUser(password: String): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
-        mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                result.value = ""
-            } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
-                result.value = task.exception.toString()
-            }
-        }
-        return result
-    }
-
-    fun updatePassword(newPassword: String): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                result.value = ""
-            } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
-                result.value = task.exception.toString()
-            }
-        }
-        return result
-    }
-
-    fun getStaticHouseImageReference(fileName: String): StorageReference {
-        return storage.reference.child("house_images").child("$fileName.jpg")
-    }
-
     fun sandboxFunction(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
 //        val updatesMap: MutableMap<String, Any> = HashMap()
@@ -321,6 +323,14 @@ class FirebaseService {
             Log.d(LOG_TAG, it.isSuccessful.toString())
         }
         return result
+    }
+
+    /**
+     *   Storage functions
+     */
+
+    fun getStaticHouseImageReference(fileName: String): StorageReference {
+        return storage.reference.child("house_images").child("$fileName.jpg")
     }
 
     companion object {
