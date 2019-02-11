@@ -369,6 +369,40 @@ class FirebaseService {
         return result
     }
 
+    fun updateNote(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val saveNoteUpdatesMap = HashMap<String, Any>()
+        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
+        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
+        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
+        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(saveNoteUpdatesMap).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.value = ""
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
+        val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d(LOG_TAG, "Get note task successful. ${task.result?.data}")
+                @Suppress("UNCHECKED_CAST")
+                val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
+                result.value = notes?.get(houseId)
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = null
+            }
+        }
+        return result
+    }
+
     /**
      *   Storage functions
      */
