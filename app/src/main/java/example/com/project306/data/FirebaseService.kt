@@ -323,31 +323,31 @@ class FirebaseService {
         saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
         saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
-        userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { result1 ->
-            if (result1.isSuccessful) {
+        userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task1 ->
+            if (task1.isSuccessful) {
                 val rankingUpdatesMap = HashMap<String, Any>()
                 rankingUpdatesMap["current_ranking.$houseId"] = -1
-                userDoc.update(rankingUpdatesMap).addOnCompleteListener { result2 ->
-                    if (result2.isSuccessful) {
+                userDoc.update(rankingUpdatesMap).addOnCompleteListener { task2 ->
+                    if (task2.isSuccessful) {
                         val removeIndexUpdatesMap = HashMap<String, Any>()
                         removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
-                        userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { result3 ->
-                            if (result3.isSuccessful) {
+                        userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { task3 ->
+                            if (task3.isSuccessful) {
                                 Log.d(LOG_TAG, "Successfully submitted note.")
                                 result.value = ""
                             } else {
-                                Log.e(LOG_TAG, result3.exception.toString(), result3.exception)
-                                result.value = result3.exception.toString()
+                                Log.e(LOG_TAG, task3.exception.toString(), task3.exception)
+                                result.value = task3.exception.toString()
                             }
                         }
                     } else {
-                        Log.e(LOG_TAG, result2.exception.toString(), result2.exception)
-                        result.value = result2.exception.toString()
+                        Log.e(LOG_TAG, task2.exception.toString(), task2.exception)
+                        result.value = task2.exception.toString()
                     }
                 }
             } else {
-                Log.e(LOG_TAG, result1.exception.toString(), result1.exception)
-                result.value = result1.exception.toString()
+                Log.e(LOG_TAG, task1.exception.toString(), task1.exception)
+                result.value = task1.exception.toString()
             }
         }
         return result
