@@ -104,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
                 android:paddingEnd="@dimen/padding_small"
@@ -120,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
                 android:paddingEnd="@dimen/padding_small"
@@ -136,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
                 android:paddingEnd="@dimen/padding_small"
@@ -180,6 +183,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_comment_prompt"
+                app:layout_constraintBottom_toTopOf="@id/notes_submit_button"
                 tools:ignore="Autofill" />
 
             <Button
@@ -193,10 +197,11 @@
                 android:text="@string/notes_submit_button_text"
                 android:textAllCaps="false"
                 android:textSize="@dimen/medium_font_size"
+                android:visibility="@{safeUnbox(viewModel.isNoteLocked()) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/notes_enter_comments"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/notes_enter_comments" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/notes_house_image"
