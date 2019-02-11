@@ -14,6 +14,7 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val valueOne: MutableLiveData<String> = MutableLiveData()
     val valueTwo: MutableLiveData<String> = MutableLiveData()
     val valueThree: MutableLiveData<String> = MutableLiveData()
+    var isNoteLocked: Boolean = true
 
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         return mainRepository.getUserValues()

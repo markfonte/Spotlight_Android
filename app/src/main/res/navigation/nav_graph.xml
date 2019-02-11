@@ -68,6 +68,9 @@
         <argument
             android:name="house_index"
             app:argType="string" />
+        <argument
+            android:name="is_note_locked"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_notesFragment_to_rankingFragment"
             app:destination="@id/rankingFragment"

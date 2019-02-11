@@ -44,7 +44,8 @@ class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : andr
             val streetAddress: String = it.findViewById<TextView>(R.id.schedule_row_street_address).text.toString()
             val houseId: String = it.findViewById<TextView>(R.id.schedule_row_house_id).text.toString()
             val houseIndex: String = it.findViewById<TextView>(R.id.schedule_row_house_index).text.toString()
-            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex)
+            val isNoteLocked = false
+            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex, "is_note_locked" to isNoteLocked)
             Navigation.findNavController(it).navigate(R.id.notesFragment, bundle)
         }
     }

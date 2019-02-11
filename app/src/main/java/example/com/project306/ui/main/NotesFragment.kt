@@ -53,13 +53,10 @@ class NotesFragment : Fragment() {
             streetAddress.value = NotesFragmentArgs.fromBundle(arguments!!).streetAddress
             houseIndex.value = NotesFragmentArgs.fromBundle(arguments!!).houseIndex
             houseId.value = NotesFragmentArgs.fromBundle(arguments!!).houseId
+            isNoteLocked = NotesFragmentArgs.fromBundle(arguments!!).isNoteLocked
             GlideApp.with(context!!)
                     .load(getStaticHouseImageReference(houseId.value!!))
                     .into(notes_house_image)
-        }
-        notes_submit_button.setOnClickListener {
-            Log.d(LOG_TAG, "Save button clicked")
-            showConfirmPopup()
         }
         notes_street_address.setOnClickListener {
             //documentation: https://developers.google.com/maps/documentation/urls/android-intents
@@ -70,6 +67,14 @@ class NotesFragment : Fragment() {
                 if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
                     (activity as MainActivity).startActivity(mapIntent)
                 }
+            }
+        }
+        if (vm.isNoteLocked) {
+            notes_enter_comments.isEnabled = false
+            //TODO: Do this straight from XML
+        } else {
+            notes_submit_button.setOnClickListener {
+                showConfirmPopup()
             }
         }
     }
@@ -83,16 +88,17 @@ class NotesFragment : Fragment() {
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked).observe(this, Observer { error ->
-                    if (error == "") {
-                        val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
-                        (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions)
-                        alertDialog.dismiss()
-                    } else {
-                        Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
-                    }
-                })
-
+                if (!vm.isNoteLocked) { // Sanity check at worst
+                    vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked).observe(this, Observer { error ->
+                        if (error == "") {
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
+                            (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions)
+                            alertDialog.dismiss()
+                        } else {
+                            Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
+                        }
+                    })
+                }
             }
         }
         alertDialog.show()
