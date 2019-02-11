@@ -357,7 +357,9 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val temp = task.result
+                Log.d(LOG_TAG, "Get current ranking task successful. ${task.result?.data}")
+                @Suppress("UNCHECKED_CAST")
+                result.value = task.result?.data?.get("current_ranking") as? HashMap<String, Int>
             } else {
                 Log.e(LOG_TAG, task.exception.toString(), task.exception)
                 result.value = null

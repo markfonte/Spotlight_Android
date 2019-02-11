@@ -29,7 +29,7 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>)  
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.displayName.text = rankingData[position].DisplayName
         viewHolder.greekLetters.text = rankingData[position].GreekLetters
-        viewHolder.currentRanking.text = rankingData[position].CurrentRank
+        viewHolder.currentRanking.text = rankingData[position].CurrentRank.toString()
         viewHolder.houseId.text = rankingData[position].HouseId
         viewHolder.houseIndex.text = rankingData[position].HouseIndex
         viewHolder.streetAddress.text = rankingData[position].StreetAddress

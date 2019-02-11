@@ -15,7 +15,7 @@ data class RankingDatum(
         var GreekLetters: String?,
         var HouseIndex: String?,
         var HouseId: String?,
-        var CurrentRank: String?,
+        var CurrentRank: Int?,
         var StreetAddress: String?
 )
 

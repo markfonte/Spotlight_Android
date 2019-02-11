@@ -51,13 +51,13 @@ class ScheduleFragment : Fragment() {
                     val staticHouseData = vm.staticHouseData.value as HashMap<String, HashMap<String, String>>
 
                     for ((houseKey, houseValue) in houses) {
-                        val currentStaticHouseData = staticHouseData[houseValue["house_id"]]
+                        val currentStaticHouseDatum = staticHouseData[houseValue["house_id"]]
                         val currentTimeSlot = TimeSlot("", "", "", "", "", "", "")
                         currentTimeSlot.Time = houseValue["time"]
                         currentTimeSlot.Date = houseValue["date"]
-                        currentTimeSlot.DisplayName = currentStaticHouseData?.get("display_name")
-                        currentTimeSlot.GreekLetters = currentStaticHouseData?.get("greek_letters")
-                        currentTimeSlot.StreetAddress = currentStaticHouseData?.get("street_address")
+                        currentTimeSlot.DisplayName = currentStaticHouseDatum?.get("display_name")
+                        currentTimeSlot.GreekLetters = currentStaticHouseDatum?.get("greek_letters")
+                        currentTimeSlot.StreetAddress = currentStaticHouseDatum?.get("street_address")
                         currentTimeSlot.HouseId = houseValue["house_id"]
                         currentTimeSlot.HouseIndex = houseKey
                         timeSlots.add(currentTimeSlot)
