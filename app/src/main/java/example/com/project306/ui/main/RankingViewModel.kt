@@ -19,4 +19,8 @@ class RankingViewModel(private val mainRepository: MainRepository) : ViewModel()
     fun setAppBarVisibility(makeVisible: Boolean) {
         mainRepository.isAppBarVisible.value = makeVisible
     }
+
+    fun getCurrentRanking() : MutableLiveData<HashMap<String, Int>> {
+        return mainRepository.getCurrentRanking()
+    }
 }

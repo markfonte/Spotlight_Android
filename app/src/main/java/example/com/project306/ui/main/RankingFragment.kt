@@ -52,7 +52,12 @@ class RankingFragment : Fragment() {
     private fun buildRankingView() {
         ranking_recycler_view.layoutManager = LinearLayoutManager(activity)
         if (vm.staticHouseData.value != null) {
-            //TODO: implement firebase function to get ranking from db and use that result here
+            vm.getCurrentRanking().observe(this, Observer { currentRankingMap ->
+                if (currentRankingMap != null) {
+                    //TODO: implement firebase function to get ranking from db and use that result here
+                }
+            })
+
         }
     }
 

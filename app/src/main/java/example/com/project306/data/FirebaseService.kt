@@ -325,7 +325,9 @@ class FirebaseService {
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { result1 ->
             if (result1.isSuccessful) {
-                userDoc.update("unranked", FieldValue.arrayUnion(houseId)).addOnCompleteListener { result2 ->
+                val rankingUpdatesMap = HashMap<String, Any>()
+                rankingUpdatesMap["current_ranking.$houseId"] = -1
+                userDoc.update(rankingUpdatesMap).addOnCompleteListener { result2 ->
                     if (result2.isSuccessful) {
                         val removeIndexUpdatesMap = HashMap<String, Any>()
                         removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
@@ -347,6 +349,20 @@ class FirebaseService {
                 Log.e(LOG_TAG, result1.exception.toString(), result1.exception)
                 result.value = result1.exception.toString()
             }
+        }
+        return result
+    }
+
+    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
+        val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val temp = task.result
+            } else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = null
+            }
+
         }
         return result
     }
