@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_large"
+            android:layout_margin="@dimen/margin_extra_large"
             android:background="@drawable/background_recycler_row">
 
             <TextView
@@ -30,9 +30,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/ranking_title_text"
+                android:textSize="@dimen/title_font_size"
+                android:layout_margin="@dimen/margin_large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/ranking_recycler_view"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ranking_recycler_view"
