@@ -70,12 +70,16 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
             }
         }
         recalculateRanking()
+        saveToDatabase()
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    private fun saveToDatabase() {
         val updatedRanking = HashMap<String, Int>()
         for (i in rankingData) {
             updatedRanking[i.HouseId!!] = i.CurrentRank!!
         }
         vm.updateRanking(updatedRanking)
-        notifyItemMoved(fromPosition, toPosition)
     }
 
     private fun recalculateRanking() {
