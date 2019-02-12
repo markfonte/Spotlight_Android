@@ -67,6 +67,6 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
             updatedRanking[i.HouseId!!] = i.CurrentRank!!
         }
         vm.updateRanking(updatedRanking)
-        notifyItemMoved(fromPosition, toPosition)
+        notifyDataSetChanged()
     }
 }
