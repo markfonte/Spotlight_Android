@@ -43,8 +43,7 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
         if (rankingData[position].CurrentRank!! < 0) {
             viewHolder.currentRanking.visibility = View.INVISIBLE
             viewHolder.buttonContainer.background = ContextCompat.getDrawable(context, R.drawable.background_recycler_row_tinted)
-        }
-        else {
+        } else {
             viewHolder.currentRanking.visibility = View.VISIBLE
             viewHolder.buttonContainer.background = ContextCompat.getDrawable(context, R.drawable.background_recycler_row)
         }
@@ -79,6 +78,10 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
             updatedRanking[i.HouseId!!] = i.CurrentRank!!
         }
         vm.updateRanking(updatedRanking)
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    fun draggingFinished() {
         notifyDataSetChanged()
     }
 }

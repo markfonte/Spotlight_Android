@@ -95,6 +95,11 @@ class RankingFragment : Fragment() {
             return true
         }
 
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            adapter.draggingFinished()
+        }
+
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
     }
 
