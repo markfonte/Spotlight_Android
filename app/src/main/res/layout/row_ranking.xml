@@ -81,14 +81,15 @@
         android:id="@+id/ranking_row_current_ranking"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
-        android:textSize="@dimen/title_font_size"
-        android:gravity="center_vertical|start"
         android:layout_margin="@dimen/margin_standard"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:textSize="@dimen/title_font_size"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ten_percent_vertical_guide"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

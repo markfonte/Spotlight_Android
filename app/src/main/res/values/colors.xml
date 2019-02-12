@@ -11,4 +11,5 @@
     <color name="colorMutedPurple">#FFD1B3F4</color>
     <color name="colorGreekLetters">#9AAA62E9</color>
     <color name="colorSignUpButtonBackground">#FFBB81ED</color>
+    <color name="lightGray">#FFE3E3E3</color>
 </resources>
