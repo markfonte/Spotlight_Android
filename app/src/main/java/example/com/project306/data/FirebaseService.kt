@@ -403,6 +403,24 @@ class FirebaseService {
         return result
     }
 
+    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val rankingUpdatesMap = HashMap<String, Any>()
+        for((rankingKey, rankingValue) in updatedRanking) {
+            rankingUpdatesMap["current_ranking.$rankingKey"] = rankingValue
+        }
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+                result.value = ""
+            }
+            else {
+                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
     /**
      *   Storage functions
      */

@@ -109,6 +109,10 @@ class MainRepository {
         return firebaseService.getNote(houseId)
     }
 
+    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+        return firebaseService.updateRanking(updatedRanking)
+    }
+
     companion object {
 
         // For Singleton instantiation

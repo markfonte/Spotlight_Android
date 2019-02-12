@@ -23,4 +23,8 @@ class RankingViewModel(private val mainRepository: MainRepository) : ViewModel()
     fun getCurrentRanking() : MutableLiveData<HashMap<String, Int>> {
         return mainRepository.getCurrentRanking()
     }
+
+    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+        return mainRepository.updateRanking(updatedRanking)
+    }
 }

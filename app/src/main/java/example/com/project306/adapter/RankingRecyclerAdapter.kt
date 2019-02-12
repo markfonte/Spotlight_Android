@@ -9,15 +9,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import example.com.project306.R
+import example.com.project306.ui.main.RankingViewModel
 import example.com.project306.util.RankingDatum
 
-class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>)  : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>(){
+class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, private val vm: RankingViewModel) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
     class ViewHolder(v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
-        val displayName : TextView = v.findViewById(R.id.ranking_row_display_name)
-        val greekLetters : TextView = v.findViewById(R.id.ranking_row_greek_letters)
-        val houseId : TextView = v.findViewById(R.id.ranking_row_house_id)
-        val houseIndex : TextView = v.findViewById(R.id.ranking_row_house_index)
-        val currentRanking : TextView = v.findViewById(R.id.ranking_row_current_ranking)
+        val displayName: TextView = v.findViewById(R.id.ranking_row_display_name)
+        val greekLetters: TextView = v.findViewById(R.id.ranking_row_greek_letters)
+        val houseId: TextView = v.findViewById(R.id.ranking_row_house_id)
+        val houseIndex: TextView = v.findViewById(R.id.ranking_row_house_index)
+        val currentRanking: TextView = v.findViewById(R.id.ranking_row_current_ranking)
         val streetAddress: TextView = v.findViewById(R.id.ranking_row_street_address)
         val rowContainer: ConstraintLayout = v.findViewById(R.id.ranking_row_container)
     }
@@ -50,13 +51,22 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>)  
     fun swapItems(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
-                rankingData[i] = rankingData.set(i+1, rankingData[i])
+                rankingData[i] = rankingData.set(i + 1, rankingData[i])
+                rankingData[i].CurrentRank = rankingData[i].CurrentRank!! - 1
+                rankingData[i + 1].CurrentRank = rankingData[i + 1].CurrentRank!! + 1
             }
         } else {
             for (i in fromPosition..toPosition + 1) {
-                rankingData[i] = rankingData.set(i-1, rankingData[i])
+                rankingData[i] = rankingData.set(i - 1, rankingData[i])
+                rankingData[i].CurrentRank = rankingData[i].CurrentRank!! + 1
+                rankingData[i - 1].CurrentRank = rankingData[i - 1].CurrentRank!! - 1
             }
         }
+        val updatedRanking = HashMap<String, Int>()
+        for (i in rankingData) {
+            updatedRanking[i.HouseId!!] = i.CurrentRank!!
+        }
+        vm.updateRanking(updatedRanking)
         notifyItemMoved(fromPosition, toPosition)
     }
 }
