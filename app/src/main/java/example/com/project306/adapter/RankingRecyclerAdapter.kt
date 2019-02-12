@@ -46,4 +46,17 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>)  
             Navigation.findNavController(it).navigate(R.id.notesFragment, bundle)
         }
     }
+
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                rankingData[i] = rankingData.set(i+1, rankingData[i])
+            }
+        } else {
+            for (i in fromPosition..toPosition + 1) {
+                rankingData[i] = rankingData.set(i-1, rankingData[i])
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
 }
