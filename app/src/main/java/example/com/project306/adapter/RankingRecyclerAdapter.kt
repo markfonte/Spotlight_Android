@@ -60,25 +60,35 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
     }
 
     fun swapItems(fromPosition: Int, toPosition: Int) {
-        if (fromPosition < toPosition) {
+        if (fromPosition < toPosition) { //going down
             for (i in fromPosition until toPosition) {
                 rankingData[i] = rankingData.set(i + 1, rankingData[i])
-                rankingData[i].CurrentRank = rankingData[i].CurrentRank!! - 1
-                rankingData[i + 1].CurrentRank = rankingData[i + 1].CurrentRank!! + 1
             }
-        } else {
-            for (i in fromPosition..toPosition + 1) {
+        } else { //going up
+            for (i in fromPosition until toPosition + 1) {
                 rankingData[i] = rankingData.set(i - 1, rankingData[i])
-                rankingData[i].CurrentRank = rankingData[i].CurrentRank!! + 1
-                rankingData[i - 1].CurrentRank = rankingData[i - 1].CurrentRank!! - 1
             }
         }
+        recalculateRanking()
         val updatedRanking = HashMap<String, Int>()
         for (i in rankingData) {
             updatedRanking[i.HouseId!!] = i.CurrentRank!!
         }
         vm.updateRanking(updatedRanking)
         notifyItemMoved(fromPosition, toPosition)
+    }
+
+    private fun recalculateRanking() {
+        var index = 1
+        var isInRankedSection = false
+        for (i in rankingData) {
+            if (i.CurrentRank!! < 0 && !isInRankedSection) {
+                continue
+            }
+            isInRankedSection = true
+            i.CurrentRank = index
+            ++index
+        }
     }
 
     fun draggingFinished() {
