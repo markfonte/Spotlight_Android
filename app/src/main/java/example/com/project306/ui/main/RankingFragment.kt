@@ -75,6 +75,7 @@ class RankingFragment : Fragment() {
                         rankingData.add(currentRankingDatum)
                         ++i
                     }
+                    rankingData.sortBy { rankingDatum -> rankingDatum.CurrentRank }
                     val rankingAdapter = RankingRecyclerAdapter(rankingData, vm)
                     ranking_recycler_view.adapter = rankingAdapter
                     // For drag animation
