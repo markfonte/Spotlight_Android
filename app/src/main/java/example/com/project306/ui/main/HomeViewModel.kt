@@ -25,8 +25,4 @@ class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         return mainRepository.getScheduleData()
     }
-
-    fun triggerSandboxFunction(): MutableLiveData<String> {
-        return mainRepository.sandboxFunction()
-    }
 }

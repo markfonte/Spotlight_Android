@@ -3,6 +3,8 @@ package example.com.project306.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.crashlytics.android.Crashlytics
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -40,8 +42,9 @@ class FirebaseService {
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
-            if (it.isSuccessful) {
+        mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebugTask(task, "attemptLogin()")
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
                     result.value = "email not verified"
                 } else {
@@ -49,7 +52,7 @@ class FirebaseService {
                     result.value = ""
                 }
             } else {
-                result.value = it.exception.toString()
+                result.value = task.exception.toString()
             }
         }
         return result
@@ -57,12 +60,12 @@ class FirebaseService {
 
     fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
-            if (it.isSuccessful) { //do not sign them in yet
+        mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) { //do not sign them in yet
                 setupNewAccount(displayName)
                 result.value = ""
             } else {
-                result.value = it.exception.toString()
+                result.value = task.exception.toString()
             }
         }
         return result
@@ -104,11 +107,11 @@ class FirebaseService {
 
     fun sendEmailVerification(): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-            if (it.isSuccessful) {
+        mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
                 result.value = ""
             } else {
-                result.value = it.exception.toString()
+                result.value = task.exception.toString()
             }
         }
         return result
@@ -223,9 +226,9 @@ class FirebaseService {
                     Log.d(LOG_TAG, "Successfully overwrote user document")
                     result.value = ""
                 }
-                .addOnFailureListener {
-                    Log.e(LOG_TAG, "Error writing to document", it)
-                    result.value = it.toString()
+                .addOnFailureListener { exception ->
+                    Log.e(LOG_TAG, "Error writing to document", exception)
+                    result.value = exception.toString()
                 }
         return result
     }
@@ -297,21 +300,6 @@ class FirebaseService {
                 result.value = null
             }
         }
-        return result
-    }
-
-    fun sandboxFunction(): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-//        val updatesMap: MutableMap<String, Any> = HashMap()
-//        updatesMap["fake_array.1"] = "dummy_temp_value"
-//        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(updatesMap)
-//        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update("fake_array", FieldValue.arrayRemove("fake_value"))
-//                .addOnSuccessListener {
-//                    result.value = ""
-//                }
-//                .addOnFailureListener {
-//                    result.value = it.toString()
-//                }
         return result
     }
 
@@ -396,25 +384,24 @@ class FirebaseService {
                 val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
                 result.value = notes?.get(houseId)
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                Crashlytics.log(Log.ERROR, LOG_TAG, "Exception thrown: ${task.exception.toString()}")
                 result.value = null
             }
         }
         return result
     }
 
-    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+    fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val rankingUpdatesMap = HashMap<String, Any>()
-        for((rankingKey, rankingValue) in updatedRanking) {
+        for ((rankingKey, rankingValue) in updatedRanking) {
             rankingUpdatesMap["current_ranking.$rankingKey"] = rankingValue
         }
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
+            if (task.isSuccessful) {
                 result.value = ""
-            }
-            else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+            } else {
+                logErrorTask(task, "updateRanking()")
                 result.value = task.exception.toString()
             }
         }
@@ -431,6 +418,18 @@ class FirebaseService {
 
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
+
+        fun logErrorTask(task: Task<*>, message: String = "", functionName: String = "") {
+            Crashlytics.log(Log.ERROR, LOG_TAG, "FirebaseService.kt::$functionName: Error in task - Message: $message; Result: ${task.result.toString()}; Exception: ${task.exception.toString()}.")
+        }
+
+        fun logDebugTask(task: Task<*>, message: String = "", functionName: String = "") {
+            Crashlytics.log(Log.DEBUG, LOG_TAG, "FirebaseService.kt::$functionName: Task result - Message: $message; Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
+        }
+
+        fun logDebugMessage(message: String, functionName: String = "") {
+            Crashlytics.log(Log.DEBUG, LOG_TAG, "FirebaseService.kt::$functionName: Message: $message.")
+        }
 
         // For Singleton instantiation
         @Volatile

@@ -93,10 +93,6 @@ class MainRepository {
         return firebaseService.getScheduleData()
     }
 
-    fun sandboxFunction(): MutableLiveData<String> {
-        return firebaseService.sandboxFunction()
-    }
-
     fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
         return firebaseService.submitNotes(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
     }

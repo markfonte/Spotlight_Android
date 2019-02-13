@@ -25,6 +25,9 @@ buildscript {
         jcenter()
         mavenCentral()
         google()
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
 
     dependencies {
@@ -32,6 +35,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.gms:google-services:$googleServicesVersion"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath 'io.fabric.tools:gradle:1.26.1'
     }
 }
 
@@ -40,6 +44,9 @@ allprojects {
         jcenter()
         mavenCentral()
         google()
+        maven {
+            url 'https://maven.google.com/'
+        }
     }
 }
 
