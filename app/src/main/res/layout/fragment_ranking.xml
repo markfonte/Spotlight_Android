@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_extra_large"
-            android:background="@drawable/background_recycler_row">
+            android:background="@drawable/background_ranking_group">
 
             <TextView
                 android:id="@+id/ranking_title"
