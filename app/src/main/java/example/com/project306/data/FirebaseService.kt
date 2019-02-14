@@ -65,7 +65,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
             if (task.isSuccessful) { //do not sign them in yet
-                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "account successfully created. account setup required.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "successfully created user account. setup required.")
                 setupNewAccount(displayName)
                 result.value = ""
             } else {
@@ -99,7 +99,7 @@ class FirebaseService {
                 .build()
         mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "display name successfully changed.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "successfully changed user display name.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing user display name.")
@@ -113,7 +113,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "email verification sent.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "successfully sent verification email.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "error sending email verification.")
@@ -135,7 +135,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "password reset email sent.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "successfully sent password reset email.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "error sending password reset email.")
@@ -150,7 +150,7 @@ class FirebaseService {
         val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
         mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "user reauthenticated.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "successfully reauthenticated user.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "error reauthenticating user.")
@@ -164,7 +164,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "password successfully updated.")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "successfully updated password.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "error updating user password")
@@ -214,11 +214,8 @@ class FirebaseService {
         val result: MutableLiveData<Boolean> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val document: DocumentSnapshot = task.result!!
-                if (document.exists()) {
-                    val userData = document.data
-                    result.value = userData?.get("are_values_set") != false
-                }
+                
+                result.value = task.result?.data?.get("are_values_set") != false
             }
         }
         return result
