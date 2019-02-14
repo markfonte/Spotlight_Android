@@ -4,13 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.crashlytics.android.Crashlytics
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import example.com.project306.util.CrashlyticsHelper.Companion.logDebugTask
+import example.com.project306.util.CrashlyticsHelper.Companion.logErrorTask
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -44,14 +45,17 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, "attemptLogin()")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "login credentials valid.")
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
+                    logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email not verified.")
                     result.value = "email not verified"
                 } else {
+                    logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email verified, login successful.")
                     mCurrentUser.value = mAuth?.currentUser
                     result.value = ""
                 }
             } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "sign in attempt failed.")
                 result.value = task.exception.toString()
             }
         }
@@ -62,9 +66,11 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
             if (task.isSuccessful) { //do not sign them in yet
+                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "account successfully created. account setup required.")
                 setupNewAccount(displayName)
                 result.value = ""
             } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "unable to create account.")
                 result.value = task.exception.toString()
             }
         }
@@ -83,7 +89,6 @@ class FirebaseService {
         newUserMap["are_values_set"] = false
         newUserMap["bid_house"] = ""
         newUserMap["current_round"] = 0
-        //newUserMap["currently_unranked"] =
         overwriteUserInformation(newUserMap)
         changeDisplayName(displayName)
     }
@@ -95,10 +100,10 @@ class FirebaseService {
                 .build()
         mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.d(LOG_TAG, "Display name set")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "display name successfully changed.")
                 result.value = ""
             } else {
-                Log.e(LOG_TAG, task.exception.toString())
+                logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing display name.")
                 result.value = task.exception.toString()
             }
         }
@@ -109,8 +114,10 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "email verification sent.")
                 result.value = ""
             } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "email verification failed.")
                 result.value = task.exception.toString()
             }
         }
@@ -125,13 +132,14 @@ class FirebaseService {
         return result
     }
 
-    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
+    fun sendPasswordResetEmail(email: String): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "password reset email sent.")
                 result.value = ""
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "error sending password reset email.")
                 result.value = task.exception.toString()
             }
         }
@@ -168,6 +176,20 @@ class FirebaseService {
     /**
      * Firestore functions
      */
+
+    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
+                .addOnSuccessListener {
+                    Log.d(LOG_TAG, "Successfully overwrote user document")
+                    result.value = ""
+                }
+                .addOnFailureListener { exception ->
+                    Log.e(LOG_TAG, "Error writing to document", exception)
+                    result.value = exception.toString()
+                }
+        return result
+    }
 
     @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
@@ -216,20 +238,6 @@ class FirebaseService {
                 }
             }
         }
-        return result
-    }
-
-    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
-                .addOnSuccessListener {
-                    Log.d(LOG_TAG, "Successfully overwrote user document")
-                    result.value = ""
-                }
-                .addOnFailureListener { exception ->
-                    Log.e(LOG_TAG, "Error writing to document", exception)
-                    result.value = exception.toString()
-                }
         return result
     }
 
@@ -401,7 +409,7 @@ class FirebaseService {
             if (task.isSuccessful) {
                 result.value = ""
             } else {
-                logErrorTask(task, "updateRanking()")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()")
                 result.value = task.exception.toString()
             }
         }
@@ -418,18 +426,6 @@ class FirebaseService {
 
     companion object {
         private val LOG_TAG: String = FirebaseService::class.java.name
-
-        fun logErrorTask(task: Task<*>, message: String = "", functionName: String = "") {
-            Crashlytics.log(Log.ERROR, LOG_TAG, "FirebaseService.kt::$functionName: Error in task - Message: $message; Result: ${task.result.toString()}; Exception: ${task.exception.toString()}.")
-        }
-
-        fun logDebugTask(task: Task<*>, message: String = "", functionName: String = "") {
-            Crashlytics.log(Log.DEBUG, LOG_TAG, "FirebaseService.kt::$functionName: Task result - Message: $message; Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
-        }
-
-        fun logDebugMessage(message: String, functionName: String = "") {
-            Crashlytics.log(Log.DEBUG, LOG_TAG, "FirebaseService.kt::$functionName: Message: $message.")
-        }
 
         // For Singleton instantiation
         @Volatile

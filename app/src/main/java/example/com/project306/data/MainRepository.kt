@@ -69,8 +69,8 @@ class MainRepository {
         return firebaseService.getUserValues()
     }
 
-    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
-        return firebaseService.sendForgotPasswordEmail(email)
+    fun sendPasswordResetEmail(email: String): MutableLiveData<String> {
+        return firebaseService.sendPasswordResetEmail(email)
     }
 
     fun changeDisplayName(name: String): MutableLiveData<String> {

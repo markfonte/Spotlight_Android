@@ -14,8 +14,8 @@ class LoginViewModel(private val mainRepository: MainRepository) : ViewModel() {
         return mainRepository.attemptEmailVerification()
     }
 
-    fun sendForgotPasswordEmail(email: String): MutableLiveData<String> {
-        return mainRepository.sendForgotPasswordEmail(email)
+    fun sendPasswordResetEmail(email: String): MutableLiveData<String> {
+        return mainRepository.sendPasswordResetEmail(email)
     }
 
     val showLoginButton: MutableLiveData<Boolean> = MutableLiveData()

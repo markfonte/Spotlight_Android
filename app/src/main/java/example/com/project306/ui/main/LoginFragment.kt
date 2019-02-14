@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    vm.sendForgotPasswordEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
+                    vm.sendPasswordResetEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
                     val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, "Check your email for password reset information!", Snackbar.LENGTH_INDEFINITE)
                     SystemUtils.setSnackbarDefaultOptions(s)
                     s?.setAction("OK") {
