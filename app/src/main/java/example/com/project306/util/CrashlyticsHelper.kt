@@ -29,7 +29,7 @@ class CrashlyticsHelper {
             Crashlytics.setUserIdentifier(identifier)
         }
 
-        fun resetUserIdentifier() {
+        fun resetCrashlyticsUserIdentifier() {
             Crashlytics.setUserIdentifier("")
         }
     }

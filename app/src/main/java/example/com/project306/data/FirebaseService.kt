@@ -12,7 +12,7 @@ import example.com.project306.util.CrashlyticsHelper.Companion.logDebug
 import example.com.project306.util.CrashlyticsHelper.Companion.logDebugTask
 import example.com.project306.util.CrashlyticsHelper.Companion.logError
 import example.com.project306.util.CrashlyticsHelper.Companion.logErrorTask
-import example.com.project306.util.CrashlyticsHelper.Companion.resetUserIdentifier
+import example.com.project306.util.CrashlyticsHelper.Companion.resetCrashlyticsUserIdentifier
 import example.com.project306.util.CrashlyticsHelper.Companion.setCrashlyticsUserIdentifier
 import java.util.*
 import kotlin.collections.HashMap
@@ -28,6 +28,8 @@ class FirebaseService {
         mCurrentUser.value = mAuth?.currentUser
         if (mAuth?.currentUser != null) {
             setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
+        } else {
+            resetCrashlyticsUserIdentifier()
         }
     }
 
@@ -136,7 +138,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mCurrentUser.value = null
         mAuth?.signOut()
-        resetUserIdentifier()
+        resetCrashlyticsUserIdentifier()
         result.value = ""
         return result
     }
