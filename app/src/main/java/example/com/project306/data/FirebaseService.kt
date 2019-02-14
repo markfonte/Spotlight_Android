@@ -3,7 +3,6 @@ package example.com.project306.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.crashlytics.android.Crashlytics
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -55,7 +54,7 @@ class FirebaseService {
                     result.value = ""
                 }
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "sign in attempt failed.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "error signing in user.")
                 result.value = task.exception.toString()
             }
         }
@@ -70,20 +69,20 @@ class FirebaseService {
                 setupNewAccount(displayName)
                 result.value = ""
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "unable to create account.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "error creating account.")
                 result.value = task.exception.toString()
             }
         }
         return result
     }
 
-    /* createAccountWithEmailAndPassword automatically logs user in. While this
-    is not the end functionality we want, we can leverage this to do the first-time
-    login work - such as creating the user-specific document in the database and
-    setting "are_values_set" to false so we know to start the on-boarding process
-    when they first log in. Then this function logs them out and we continue
-    with our expected functionality.
-    */
+    /**
+     *  createAccountWithEmailAndPassword automatically logs user in. While this is not the end
+     *  functionality we want, we can leverage this to do the first-time login work - such as
+     *  creating the user-specific document in the database and setting "are_values_set" to false
+     *  so we know to start the on-boarding process when they first log in. Then this function logs
+     *  them out and we continue with our expected functionality.
+     */
     private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
         newUserMap["are_values_set"] = false
@@ -103,7 +102,7 @@ class FirebaseService {
                 logDebugTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "display name successfully changed.")
                 result.value = ""
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing display name.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing user display name.")
                 result.value = task.exception.toString()
             }
         }
@@ -117,7 +116,7 @@ class FirebaseService {
                 logDebugTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "email verification sent.")
                 result.value = ""
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "email verification failed.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "error sending email verification.")
                 result.value = task.exception.toString()
             }
         }
@@ -128,7 +127,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mCurrentUser.value = null
         mAuth?.signOut()
-        result.value = "success"
+        result.value = ""
         return result
     }
 
@@ -151,9 +150,10 @@ class FirebaseService {
         val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
         mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "user reauthenticated.")
                 result.value = ""
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "error reauthenticating user.")
                 result.value = task.exception.toString()
             }
         }
@@ -164,9 +164,10 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "password successfully updated.")
                 result.value = ""
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "error updating user password")
                 result.value = task.exception.toString()
             }
         }
@@ -191,18 +192,17 @@ class FirebaseService {
         return result
     }
 
+
     @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val document: DocumentSnapshot = task.result!!
-                if (document.exists()) {
-                    val userData = document.data
-                    result.value = userData?.get("values") as? ArrayList<String?>
-                }
+                logDebugTask(task, logTag = LOG_TAG, functionName = "getUserValues()", message = "successfully retrieved user document for user values.")
+                result.value = task.result?.data?.get("values") as? ArrayList<String?>
+
             } else {
-                Log.e(LOG_TAG, "task failed", task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getUserValues()", message = "error retrieving user document for user values.")
                 result.value = arrayListOf()
             }
 
@@ -272,6 +272,7 @@ class FirebaseService {
         return result
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
@@ -280,7 +281,6 @@ class FirebaseService {
                 if (document.exists()) {
                     val userDocument = document.data
                     if (userDocument?.get("current_schedule") != null) {
-                        @Suppress("UNCHECKED_CAST")
                         result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
                     } else {
                         result.value = hashMapOf()
@@ -294,13 +294,13 @@ class FirebaseService {
         return result
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getStaticHouseData(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("panhel_data").document("house_information").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
-                    @Suppress("UNCHECKED_CAST")
                     result.value = document.data as? HashMap<String, HashMap<String, String>>
                 }
             } else {
@@ -349,15 +349,15 @@ class FirebaseService {
         return result
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
         val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.d(LOG_TAG, "Get current ranking task successful. ${task.result?.data}")
-                @Suppress("UNCHECKED_CAST")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
                 result.value = task.result?.data?.get("current_ranking") as? HashMap<String, Int>
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document for current ranking.")
                 result.value = null
             }
 
@@ -374,25 +374,27 @@ class FirebaseService {
         saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(saveNoteUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note $houseId")
                 result.value = ""
             } else {
-                Log.e(LOG_TAG, task.exception.toString(), task.exception)
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "error updating note $houseId")
+
                 result.value = task.exception.toString()
             }
         }
         return result
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.d(LOG_TAG, "Get note task successful. ${task.result?.data}")
-                @Suppress("UNCHECKED_CAST")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "getNote()", message = "successfully retrieved note $houseId")
                 val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
                 result.value = notes?.get(houseId)
             } else {
-                Crashlytics.log(Log.ERROR, LOG_TAG, "Exception thrown: ${task.exception.toString()}")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getNote()", message = "error retrieving note at $houseId")
                 result.value = null
             }
         }
@@ -407,9 +409,10 @@ class FirebaseService {
         }
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated current_ranking.")
                 result.value = ""
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "error updating current_ranking.")
                 result.value = task.exception.toString()
             }
         }

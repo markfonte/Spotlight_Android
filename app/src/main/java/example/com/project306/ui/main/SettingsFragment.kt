@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
         settings_logout_button.setOnClickListener {
             vm.logout().observe(this, Observer { logoutResult ->
                 run {
-                    if (logoutResult == "success") {
+                    if (logoutResult == "") {
                         val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
                         Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_landingFragment, null, navOptions)
                     } else {
