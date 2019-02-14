@@ -12,6 +12,8 @@ import example.com.project306.util.CrashlyticsHelper.Companion.logDebug
 import example.com.project306.util.CrashlyticsHelper.Companion.logDebugTask
 import example.com.project306.util.CrashlyticsHelper.Companion.logError
 import example.com.project306.util.CrashlyticsHelper.Companion.logErrorTask
+import example.com.project306.util.CrashlyticsHelper.Companion.resetUserIdentifier
+import example.com.project306.util.CrashlyticsHelper.Companion.setCrashlyticsUserIdentifier
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -24,6 +26,9 @@ class FirebaseService {
 
     init {
         mCurrentUser.value = mAuth?.currentUser
+        if (mAuth?.currentUser != null) {
+            setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
+        }
     }
 
     /**
@@ -52,6 +57,9 @@ class FirebaseService {
                 } else {
                     logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email verified, login successful.")
                     mCurrentUser.value = mAuth?.currentUser
+                    if (mAuth?.currentUser != null) {
+                        setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
+                    }
                     result.value = ""
                 }
             } else {
@@ -128,6 +136,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mCurrentUser.value = null
         mAuth?.signOut()
+        resetUserIdentifier()
         result.value = ""
         return result
     }

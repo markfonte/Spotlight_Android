@@ -24,5 +24,13 @@ class CrashlyticsHelper {
             Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message Result: ${task.result.toString()}; Exception: ${task.exception.toString()}.")
             Crashlytics.logException(task.exception)
         }
+
+        fun setCrashlyticsUserIdentifier(identifier: String?) {
+            Crashlytics.setUserIdentifier(identifier)
+        }
+
+        fun resetUserIdentifier() {
+            Crashlytics.setUserIdentifier("")
+        }
     }
 }
