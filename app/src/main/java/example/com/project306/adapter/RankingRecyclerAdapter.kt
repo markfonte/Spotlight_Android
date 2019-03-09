@@ -65,8 +65,8 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
                 rankingData[i] = rankingData.set(i + 1, rankingData[i])
             }
         } else { //going up
-            for (i in fromPosition until toPosition + 1) {
-                rankingData[i] = rankingData.set(i - 1, rankingData[i])
+            for (i in toPosition until fromPosition) {
+                rankingData[i] = rankingData.set(i + 1, rankingData[i])
             }
         }
         recalculateRanking()

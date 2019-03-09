@@ -37,7 +37,6 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.setBottomNavVisibility(false)
         vm.getUserValues().observe(this, Observer {
             if (it?.size == 3) {
                 with(vm) {
