@@ -53,6 +53,21 @@ class RankingFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        saveRankingToDatabase()
+    }
+
+    private fun saveRankingToDatabase() {
+        vm.rankingAdapter?.let { rankingAdapter ->
+            val updatedRanking = HashMap<String, Int>()
+            for (i in rankingAdapter.rankingData) {
+                updatedRanking[i.HouseId!!] = i.CurrentRank!!
+            }
+            vm.updateRanking(updatedRanking)
+        }
+    }
+
     private fun buildRankingView() {
         ranking_recycler_view.layoutManager = LinearLayoutManager(activity)
         if (vm.staticHouseData.value != null) {
@@ -76,13 +91,15 @@ class RankingFragment : Fragment() {
                         ++i
                     }
                     rankingData.sortBy { rankingDatum -> rankingDatum.CurrentRank }
-                    val rankingAdapter = RankingRecyclerAdapter(rankingData, vm, context!!)
-                    ranking_recycler_view.adapter = rankingAdapter
-                    // For drag animation
-                    val touchHelper = ItemTouchHelper(DragManageAdapter(rankingAdapter,
-                            ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),
-                            ItemTouchHelper.ACTION_STATE_DRAG))
-                    touchHelper.attachToRecyclerView(ranking_recycler_view)
+                    vm.rankingAdapter = RankingRecyclerAdapter(rankingData, vm, context!!)
+                    vm.rankingAdapter?.let { rankingAdapter ->
+                        ranking_recycler_view.adapter = vm.rankingAdapter
+                        // For drag animation
+                        val touchHelper = ItemTouchHelper(DragManageAdapter(rankingAdapter,
+                                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),
+                                ItemTouchHelper.ACTION_STATE_DRAG))
+                        touchHelper.attachToRecyclerView(ranking_recycler_view)
+                    }
                 }
             })
 

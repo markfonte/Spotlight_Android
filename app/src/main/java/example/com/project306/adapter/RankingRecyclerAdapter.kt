@@ -15,7 +15,7 @@ import example.com.project306.R
 import example.com.project306.ui.main.RankingViewModel
 import example.com.project306.util.RankingDatum
 
-class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, private val vm: RankingViewModel, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
+class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private val vm: RankingViewModel, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
     class ViewHolder(v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
         val displayName: TextView = v.findViewById(R.id.ranking_row_display_name)
         val greekLetters: TextView = v.findViewById(R.id.ranking_row_greek_letters)
@@ -70,16 +70,7 @@ class RankingRecyclerAdapter(private val rankingData: ArrayList<RankingDatum>, p
             }
         }
         recalculateRanking()
-        saveToDatabase()
         notifyItemMoved(fromPosition, toPosition)
-    }
-
-    private fun saveToDatabase() {
-        val updatedRanking = HashMap<String, Int>()
-        for (i in rankingData) {
-            updatedRanking[i.HouseId!!] = i.CurrentRank!!
-        }
-        vm.updateRanking(updatedRanking)
     }
 
     private fun recalculateRanking() {

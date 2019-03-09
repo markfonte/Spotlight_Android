@@ -3,10 +3,12 @@ package example.com.project306.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import example.com.project306.adapter.RankingRecyclerAdapter
 import example.com.project306.data.MainRepository
 
 class RankingViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
+    var rankingAdapter: RankingRecyclerAdapter? = null
 
     fun areValuesSet(): LiveData<Boolean> {
         return mainRepository.areValuesSet()
@@ -20,11 +22,11 @@ class RankingViewModel(private val mainRepository: MainRepository) : ViewModel()
         mainRepository.isAppBarVisible.value = makeVisible
     }
 
-    fun getCurrentRanking() : MutableLiveData<HashMap<String, Int>> {
+    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
         return mainRepository.getCurrentRanking()
     }
 
-    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+    fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
         return mainRepository.updateRanking(updatedRanking)
     }
 }
