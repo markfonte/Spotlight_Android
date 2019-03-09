@@ -9,7 +9,10 @@ class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
     var isBottomNavVisible: MutableLiveData<Boolean> = MutableLiveData()
     var isAppBarVisible: MutableLiveData<Boolean> = MutableLiveData()
+
+    // Static data
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = firebaseService.getStaticHouseData()
+    var panhelValues: LiveData<ArrayList<*>> = firebaseService.getPanhelValues()
 
     fun refreshStaticHouseData() {
         staticHouseData.value = firebaseService.getStaticHouseData().value
@@ -35,10 +38,6 @@ class MainRepository {
 
     fun attemptEmailVerification(): LiveData<String> {
         return firebaseService.sendEmailVerification()
-    }
-
-    fun getPanhelValues(): LiveData<ArrayList<*>> {
-        return firebaseService.getPanhelValues()
     }
 
     fun areValuesSet(): LiveData<Boolean> {
