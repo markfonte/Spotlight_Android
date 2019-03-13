@@ -28,12 +28,12 @@ class CrashlyticsHelper {
         }
 
         fun logErrorTask(task: Task<*>, logTag: String = "", functionName: String = "", message: String = "") {
-            Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message Result: ${task.result.toString()}; Exception: ${task.exception.toString()}.")
+            Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message Exception: ${task.exception.toString()}.")
             Crashlytics.logException(task.exception)
         }
 
         fun logErrorSnapshot(exception: FirebaseFirestoreException?, snapshot: DocumentSnapshot?, logTag: String = "", functionName: String = "", message: String = "") {
-            Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message Result: ${snapshot?.data?.toString()}; Exception: ${exception?.toString()}.")
+            Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message Exception: ${exception?.toString()}.")
             Crashlytics.logException(exception)
         }
 
