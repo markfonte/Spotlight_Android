@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.util.TimeSlot
@@ -46,7 +47,12 @@ class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : andr
             val houseIndex: String = it.findViewById<TextView>(R.id.schedule_row_house_index).text.toString()
             val isNoteLocked = false
             val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex, "is_note_locked" to isNoteLocked)
-            Navigation.findNavController(it).navigate(R.id.notesFragment, bundle)
+            val navOptions = NavOptions.Builder()
+            navOptions.setEnterAnim(android.R.anim.fade_in)
+            navOptions.setExitAnim(android.R.anim.fade_out)
+            navOptions.setPopEnterAnim(android.R.anim.fade_in)
+            navOptions.setPopExitAnim(android.R.anim.fade_out)
+            Navigation.findNavController(it).navigate(R.id.notesFragment, bundle, navOptions.build())
         }
     }
 }

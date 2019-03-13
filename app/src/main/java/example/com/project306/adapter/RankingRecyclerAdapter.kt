@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import example.com.project306.R
 import example.com.project306.ui.main.RankingViewModel
@@ -55,7 +56,12 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
             val houseIndex: String = it.findViewById<TextView>(R.id.ranking_row_house_index).text.toString()
             val isNoteLocked = true
             val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex, "is_note_locked" to isNoteLocked)
-            Navigation.findNavController(it).navigate(R.id.notesFragment, bundle)
+            val navOptions = NavOptions.Builder()
+            navOptions.setEnterAnim(android.R.anim.fade_in)
+            navOptions.setExitAnim(android.R.anim.fade_out)
+            navOptions.setPopEnterAnim(android.R.anim.fade_in)
+            navOptions.setPopExitAnim(android.R.anim.fade_out)
+            Navigation.findNavController(it).navigate(R.id.notesFragment, bundle, navOptions.build())
         }
     }
 
