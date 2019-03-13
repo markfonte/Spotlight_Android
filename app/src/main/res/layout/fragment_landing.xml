@@ -80,7 +80,7 @@
 
             </LinearLayout>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/landing_spotlight_logo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

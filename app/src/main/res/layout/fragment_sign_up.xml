@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/sign_up_main_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
