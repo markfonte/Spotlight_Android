@@ -9,11 +9,11 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "example.com.project306"
+        applicationId "com.spotlightapp.project306"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.0-canary02"
+        versionName "1.0.0-canary03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary true
     }
