@@ -5,6 +5,7 @@ apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 28
@@ -53,7 +54,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     implementation "com.google.android.material:material:$rootProject.supportLibraryVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.firebaseCrashlyticsVersion"
+    implementation "com.google.firebase:firebase-perf:$rootProject.firebasePerformanceVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 }

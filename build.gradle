@@ -3,9 +3,13 @@ buildscript {
     ext {
         androidXSupportLibraryVersion = '1.0.2'
         constraintLayoutVersion = '2.0.0-alpha3'
+        fabricVersion = '1.26.1'
         firebaseAuthVersion = '16.1.0'
         firebaseCoreVersion = '16.0.7'
+        firebaseCrashlyticsVersion = '2.9.9'
         firebaseFirestoreVersion = '18.1.0'
+        firebasePerformanceVersion = '16.2.3'
+        firebasePluginsVersion = '1.1.5'
         firebaseUIVersion = '4.1.0'
         glideVersion = '4.8.0'
         googleServicesVersion = '4.2.0'
@@ -35,7 +39,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.gms:google-services:$googleServicesVersion"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath 'io.fabric.tools:gradle:1.26.1'
+        classpath "io.fabric.tools:gradle:$fabricVersion"
+        classpath "com.google.firebase:firebase-plugins:$firebasePluginsVersion"
     }
 }
 
