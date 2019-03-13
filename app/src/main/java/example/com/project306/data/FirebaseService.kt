@@ -318,7 +318,23 @@ class FirebaseService {
         return result
     }
 
-    fun submitNotes(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
+    fun updateNote(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
+        val saveNoteUpdatesMap = HashMap<String, Any>()
+        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
+        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
+        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
+        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
+        val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
+        userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebugTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note for house $houseId in user notes.")
+            } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "submitNote()", message = "error updating note for house $houseId in user notes.")
+            }
+        }
+    }
+
+    fun submitNote(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val saveNoteUpdatesMap = HashMap<String, Any>()
         saveNoteUpdatesMap["notes.$houseId.comments"] = comments
@@ -328,30 +344,30 @@ class FirebaseService {
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task1 ->
             if (task1.isSuccessful) {
-                logDebugTask(task1, logTag = LOG_TAG, functionName = "submitNotes()", message = "successfully saved notes for house $houseId to user notes.")
+                logDebugTask(task1, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully saved notes for house $houseId to user notes.")
                 val rankingUpdatesMap = HashMap<String, Any>()
                 rankingUpdatesMap["current_ranking.$houseId"] = -1
                 userDoc.update(rankingUpdatesMap).addOnCompleteListener { task2 ->
                     if (task2.isSuccessful) {
-                        logDebugTask(task2, logTag = LOG_TAG, functionName = "submitNotes()", message = "successfully added house $houseId to user ranking.")
+                        logDebugTask(task2, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully added house $houseId to user ranking.")
                         val removeIndexUpdatesMap = HashMap<String, Any>()
                         removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
                         userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { task3 ->
                             if (task3.isSuccessful) {
-                                logDebugTask(task3, logTag = LOG_TAG, functionName = "submitNotes()", message = "successfully removed house $houseId from user schedule.")
+                                logDebugTask(task3, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully removed house $houseId from user schedule.")
                                 result.value = ""
                             } else {
-                                logErrorTask(task3, logTag = LOG_TAG, functionName = "submitNotes()", message = "error removing house $houseId from user schedule.")
+                                logErrorTask(task3, logTag = LOG_TAG, functionName = "submitNote()", message = "error removing house $houseId from user schedule.")
                                 result.value = task3.exception.toString()
                             }
                         }
                     } else {
-                        logErrorTask(task2, logTag = LOG_TAG, functionName = "submitNotes()", message = "error adding house $houseId to user ranking.")
+                        logErrorTask(task2, logTag = LOG_TAG, functionName = "submitNote()", message = "error adding house $houseId to user ranking.")
                         result.value = task2.exception.toString()
                     }
                 }
             } else {
-                logErrorTask(task1, logTag = LOG_TAG, functionName = "submitNotes()", message = "error saving notes for house $houseId to user notes.")
+                logErrorTask(task1, logTag = LOG_TAG, functionName = "submitNote()", message = "error saving notes for house $houseId to user notes.")
                 result.value = task1.exception.toString()
             }
         }

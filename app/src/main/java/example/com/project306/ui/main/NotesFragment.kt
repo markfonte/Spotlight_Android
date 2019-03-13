@@ -68,8 +68,9 @@ class NotesFragment : Fragment() {
                 }
             }
         }
+        getNoteInfo()
         if (vm.isNoteLocked.value!!) {
-            getNoteInfo()
+
         } else {
             notes_submit_button.setOnClickListener {
                 showConfirmPopup()
@@ -78,14 +79,24 @@ class NotesFragment : Fragment() {
 
     }
 
+    // So their progress is saved if they accidentally navigate away
+    override fun onPause() {
+        super.onPause()
+        if (!vm.isNoteLocked.value!!) {
+            vm.updateNoteInfo(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked)
+        }
+    }
+
     private fun getNoteInfo() {
-        if(vm.houseId.value != null) {
+        if (vm.houseId.value != null) {
             vm.getNote(vm.houseId.value!!).observe(this, Observer { taskResult ->
-                if(taskResult != null) {
-                    vm.comments.value = taskResult["comments"] as? String
-                    vm.isValueOneChecked.value = taskResult["value1"] as? Boolean
-                    vm.isValueTwoChecked.value = taskResult["value2"] as? Boolean
-                    vm.isValueThreeChecked.value = taskResult["value3"] as? Boolean
+                if (taskResult != null) {
+                    with(vm) {
+                        comments.value = taskResult["comments"] as? String
+                        isValueOneChecked.value = taskResult["value1"] as? Boolean
+                        isValueTwoChecked.value = taskResult["value2"] as? Boolean
+                        isValueThreeChecked.value = taskResult["value3"] as? Boolean
+                    }
                 }
             })
         }

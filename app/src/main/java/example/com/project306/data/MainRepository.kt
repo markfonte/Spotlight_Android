@@ -92,8 +92,12 @@ class MainRepository {
         return firebaseService.getScheduleData()
     }
 
+    fun updateNoteInfo(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
+        return firebaseService.updateNote(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
+    }
+
     fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
-        return firebaseService.submitNotes(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
+        return firebaseService.submitNote(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
     }
 
     fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
@@ -104,7 +108,7 @@ class MainRepository {
         return firebaseService.getNote(houseId)
     }
 
-    fun updateRanking(updatedRanking: HashMap<String, Int>) : MutableLiveData<String> {
+    fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
         return firebaseService.updateRanking(updatedRanking)
     }
 
