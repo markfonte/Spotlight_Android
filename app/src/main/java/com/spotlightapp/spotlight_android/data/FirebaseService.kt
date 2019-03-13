@@ -10,8 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebug
+import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebugSnapshot
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebugTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logError
+import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorSnapshot
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.resetCrashlyticsUserIdentifier
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.setCrashlyticsUserIdentifier
@@ -283,18 +285,15 @@ class FirebaseService {
     fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
-            if (e != null) {
-                // error
+            if (e != null || snapshot == null || !snapshot.exists()) {
+                logErrorSnapshot(e, snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving document snapshot for schedule.")
                 result.value = hashMapOf()
                 return@EventListener
             }
-            if (snapshot != null && snapshot.exists()) {
-                val userDocument = snapshot.data
-                if (userDocument?.get("current_schedule") != null) {
-                    result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
-                } else {
-                    result.value = hashMapOf()
-                }
+            logDebugSnapshot(snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved document snapshot for schedule.")
+            val userDocument = snapshot.data
+            if (userDocument?.get("current_schedule") != null) {
+                result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
             } else {
                 result.value = hashMapOf()
             }
