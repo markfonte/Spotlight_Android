@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -281,20 +282,23 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved user document for user schedule.")
-                val userDocument = task.result?.data
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+            if (e != null) {
+                // error
+                result.value = hashMapOf()
+                return@EventListener
+            }
+            if (snapshot != null && snapshot.exists()) {
+                val userDocument = snapshot.data
                 if (userDocument?.get("current_schedule") != null) {
                     result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
                 } else {
                     result.value = hashMapOf()
                 }
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving user document for user schedule.")
                 result.value = hashMapOf()
             }
-        }
+        })
         return result
     }
 
