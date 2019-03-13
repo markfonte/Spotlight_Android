@@ -92,8 +92,8 @@ class MainRepository {
         return firebaseService.getScheduleData()
     }
 
-    fun updateNoteInfo(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
-        return firebaseService.updateNote(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
+    fun updateNoteInfo(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
+        return firebaseService.updateNote(houseId, comments, valueOne, valueTwo, valueThree)
     }
 
     fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {

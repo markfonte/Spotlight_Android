@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.spotlightapp.spotlight_android.R
+import com.spotlightapp.spotlight_android.ui.main.MainActivity
+
 
 object SystemUtils {
 
@@ -19,6 +21,7 @@ object SystemUtils {
     fun hideKeyboard(context: Context?, view: View) {
         val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+        (context as? MainActivity)?.currentFocus?.clearFocus()
     }
 
     fun setSnackbarDefaultOptions(snackbar: Snackbar?) {

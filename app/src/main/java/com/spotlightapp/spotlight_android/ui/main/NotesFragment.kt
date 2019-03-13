@@ -83,7 +83,7 @@ class NotesFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         if (!vm.isNoteLocked.value!!) {
-            vm.updateNoteInfo(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked)
+            vm.updateNoteInfo(vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked)
         }
     }
 

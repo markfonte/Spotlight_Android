@@ -318,7 +318,7 @@ class FirebaseService {
         return result
     }
 
-    fun updateNote(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
+    fun updateNote(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
         val saveNoteUpdatesMap = HashMap<String, Any>()
         saveNoteUpdatesMap["notes.$houseId.comments"] = comments
         saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
@@ -384,25 +384,6 @@ class FirebaseService {
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document for current ranking.")
                 result.value = null
-            }
-        }
-        return result
-    }
-
-    fun updateNote(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        val saveNoteUpdatesMap = HashMap<String, Any>()
-        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
-        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
-        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
-        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(saveNoteUpdatesMap).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note $houseId")
-                result.value = ""
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "error updating note $houseId")
-                result.value = task.exception.toString()
             }
         }
         return result
