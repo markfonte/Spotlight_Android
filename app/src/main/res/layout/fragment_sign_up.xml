@@ -29,8 +29,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/login_main_title_content_description"
                 android:gravity="center"
+                android:padding="@dimen/padding_small"
                 android:src="@drawable/spotlight_logo_white"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="@dimen/main_title_font_size"
@@ -62,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".3" />
+                app:layout_constraintGuide_percent=".3333" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/fifteen_percent_vertical_guide"
