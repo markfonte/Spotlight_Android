@@ -18,6 +18,7 @@ import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentNotesBinding
 import com.spotlightapp.spotlight_android.util.GlideApp
 import com.spotlightapp.spotlight_android.util.InjectorUtils
+import com.spotlightapp.spotlight_android.util.SystemUtils
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 
@@ -116,6 +117,7 @@ class NotesFragment : Fragment() {
                         if (error == "") {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
                             (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions)
+                            SystemUtils.hideKeyboard(context, it)
                             alertDialog.dismiss()
                         } else {
                             Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")

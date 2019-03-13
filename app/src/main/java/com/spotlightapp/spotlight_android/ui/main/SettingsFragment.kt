@@ -72,6 +72,7 @@ class SettingsFragment : Fragment() {
                     .create()
             alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
+                SystemUtils.showKeyboard(activity)
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     vm.tempDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
                     if (isValidDisplayName(vm.tempDisplayName)) {
@@ -90,6 +91,7 @@ class SettingsFragment : Fragment() {
                                 s?.show()
                             }
                         })
+                        SystemUtils.hideKeyboard(activity, it)
                         alertDialog.dismiss()
                     }
                 }
