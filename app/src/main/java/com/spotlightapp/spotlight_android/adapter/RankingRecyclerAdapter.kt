@@ -29,6 +29,7 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        initializeRanking()
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_ranking, parent, false))
     }
 
@@ -77,6 +78,12 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
         }
         recalculateRanking()
         notifyItemMoved(fromPosition, toPosition)
+    }
+
+    private fun initializeRanking() {
+        if (rankingData.size == 1) {
+            rankingData[0].CurrentRank = 1
+        }
     }
 
     private fun recalculateRanking() {
