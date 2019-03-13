@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.spotlightapp.project306.ui.main.OnboardingViewModel" />
+            type="com.spotlightapp.spotlight_android.ui.main.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

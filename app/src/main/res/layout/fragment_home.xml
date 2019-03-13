@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.spotlightapp.project306.ui.main.HomeViewModel" />
+            type="com.spotlightapp.spotlight_android.ui.main.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.spotlightapp.project306.ui.main.MainActivityViewModel" />
+            type="com.spotlightapp.spotlight_android.ui.main.MainActivityViewModel" />
     </data>
 
     <LinearLayout

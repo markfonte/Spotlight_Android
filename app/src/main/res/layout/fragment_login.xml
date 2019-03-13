@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.spotlightapp.project306.ui.main.LoginViewModel" />
+            type="com.spotlightapp.spotlight_android.ui.main.LoginViewModel" />
     </data>
 
     <ScrollView

@@ -9,7 +9,7 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.spotlightapp.project306"
+        applicationId "com.spotlightapp.spotlight_android"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
