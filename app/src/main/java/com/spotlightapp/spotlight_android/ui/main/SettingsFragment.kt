@@ -59,6 +59,7 @@ class SettingsFragment : Fragment() {
                     valueOne.value = it[0]
                     valueTwo.value = it[1]
                     valueThree.value = it[2]
+                    areUserValuesLoading.value = false
                 }
             }
         })
