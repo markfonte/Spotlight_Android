@@ -64,4 +64,5 @@
     <string name="sign_up_info_message">Welcome to Spotlight!\n\n- Please sign up using your school email address\n- Your password must be at least 6 characters\n- You will be able to change your name and password at any time\n\nQuestions? Contact tlansey@umich.edu!</string>
     <string name="content_desc_landing_spotlight_logo">Landing Fragment Spotlight Logo</string>
     <string name="ranking_title_text">Current Ranking</string>
+    <string name="ranking_no_data_prompt_text">You currently do not have any houses submitted to be ranked. Your ranked houses will appear here.</string>
 </resources>

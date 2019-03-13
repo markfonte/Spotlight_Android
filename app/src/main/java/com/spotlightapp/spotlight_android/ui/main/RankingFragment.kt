@@ -100,7 +100,11 @@ class RankingFragment : Fragment() {
                                 ItemTouchHelper.ACTION_STATE_DRAG))
                         touchHelper.attachToRecyclerView(ranking_recycler_view)
                     }
+                    vm.isRankingToDisplay.value = !currentRanking.isNullOrEmpty()
+                } else {
+                    vm.isRankingToDisplay.value = false
                 }
+                vm.isDataLoading.value = false
             })
 
         }

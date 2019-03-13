@@ -7,8 +7,15 @@ import com.spotlightapp.spotlight_android.adapter.RankingRecyclerAdapter
 import com.spotlightapp.spotlight_android.data.MainRepository
 
 class RankingViewModel(private val mainRepository: MainRepository) : ViewModel() {
+    var isDataLoading: MutableLiveData<Boolean> = MutableLiveData()
+    var isRankingToDisplay: MutableLiveData<Boolean> = MutableLiveData()
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
     var rankingAdapter: RankingRecyclerAdapter? = null
+
+    init {
+        isDataLoading.value = true
+        isRankingToDisplay.value = false
+    }
 
     fun areValuesSet(): LiveData<Boolean> {
         return mainRepository.areValuesSet()
