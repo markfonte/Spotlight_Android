@@ -44,6 +44,7 @@ class ScheduleFragment : Fragment() {
 
     private fun buildScheduleView() {
         if (vm.staticHouseData.value != null) {
+            var scheduleExists = false
             when (vm.displayMode) {
                 ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE -> vm.getCurrentSchedule().observe(this, Observer {
                     val houses: HashMap<String, HashMap<String, String>> = it
@@ -61,26 +62,31 @@ class ScheduleFragment : Fragment() {
                         currentTimeSlot.HouseId = houseValue["house_id"]
                         currentTimeSlot.HouseIndex = houseKey
                         timeSlots.add(currentTimeSlot)
-                        vm.isScheduleToDisplay.value = true
+                        scheduleExists = true
                     }
                     schedule_recycler_view.layoutManager = LinearLayoutManager(activity)
                     schedule_recycler_view.adapter = ScheduleRecyclerAdapter(timeSlots)
+                    vm.isScheduleToDisplay.value = scheduleExists
+                    vm.isDataLoading.value = false
                 })
                 ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
                     vm.noScheduleMessage.value = getString(R.string.no_schedule_message_ahead)
+                    vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
                     vm.noScheduleMessage.value = getString(R.string.no_schedule_message_behind)
+                    vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {
                     vm.noScheduleMessage.value = "Congratulations! You got a bid from $vm.bidHouse!"
+                    vm.isDataLoading.value = false
                 }
                 else -> {
                     assert(vm.displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
                     vm.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
+                    vm.isDataLoading.value = false
                 }
             }
-            vm.isDataLoading.value = false
         }
     }
 
