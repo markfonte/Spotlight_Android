@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var vm: MainActivityViewModel
     lateinit var navController: NavController
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
