@@ -11,7 +11,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.ActivityMainBinding
 import com.spotlightapp.spotlight_android.util.InjectorUtils
@@ -22,12 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var vm: MainActivityViewModel
     lateinit var navController: NavController
-    lateinit var mFirebaseAnalytics: FirebaseAnalytics
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
         vm = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
