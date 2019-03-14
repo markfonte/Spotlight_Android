@@ -10,13 +10,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebug
-import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebugSnapshot
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebugTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logError
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorSnapshot
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.resetCrashlyticsUserIdentifier
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.setCrashlyticsUserIdentifier
+import com.spotlightapp.spotlight_android.util.UserState
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -238,6 +238,28 @@ class FirebaseService {
         return result
     }
 
+    fun validateUser(): MutableLiveData<UserState> {
+        val result: MutableLiveData<UserState> = MutableLiveData()
+        var state: UserState
+        if (mAuth?.currentUser == null) {
+            state = UserState.LoggedOut
+            result.value = state
+        } else if (!mAuth?.currentUser?.isEmailVerified!!) {
+            state = UserState.EmailNotVerified
+            result.value = state
+        } else {
+            fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+                if (e != null || snapshot == null || !snapshot.exists()) {
+                    state = UserState.LoggedOut
+                    result.value = state
+                    return@EventListener
+                }
+                result.value = if (snapshot.data?.get("are_values_set") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
+            })
+        }
+        return result
+    }
+
     fun areValuesSet(): LiveData<Boolean> {
         val result: MutableLiveData<Boolean> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
@@ -290,12 +312,15 @@ class FirebaseService {
                 result.value = hashMapOf()
                 return@EventListener
             }
-            logDebugSnapshot(snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved document snapshot for schedule.")
+            //logDebugSnapshot(snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved document snapshot for schedule.")
             val userDocument = snapshot.data
             if (userDocument?.get("current_schedule") != null) {
+                val z = 0
                 result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
+                return@EventListener
             } else {
                 result.value = hashMapOf()
+                return@EventListener
             }
         })
         return result

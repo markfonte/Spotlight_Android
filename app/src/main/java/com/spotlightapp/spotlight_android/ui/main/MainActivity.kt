@@ -3,6 +3,8 @@ package com.spotlightapp.spotlight_android.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -13,6 +15,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.ActivityMainBinding
 import com.spotlightapp.spotlight_android.util.InjectorUtils
+import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,22 +51,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun validateUser(): Boolean {
-        if (vm.currentUser.value == null || !vm.currentUser.value?.isEmailVerified!!) {
-            with(vm) {
-                setBottomNavVisibility(false)
-                setAppBarVisibility(false)
+    fun validateUser(): MutableLiveData<UserState> {
+        val result: MutableLiveData<UserState> = MutableLiveData()
+        vm.validateUser().observe(this, Observer { userState ->
+            // They are not logged in, should be booted to start page
+            if (userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString())) {
+                vm.setBottomNavVisibility(false)
+                vm.setAppBarVisibility(false)
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.landingFragment, true).build()
+                navController.navigate(R.id.landingFragment, null, navOptions)
+                result.value = userState
+                return@Observer
             }
-            val navOptions = NavOptions.Builder().setPopUpTo(R.id.landingFragment, true).build()
-            navController.navigate(R.id.landingFragment, null, navOptions)
-            return false
-        } else {
-            with(vm) {
-                setBottomNavVisibility(true)
-                setAppBarVisibility(true)
-            }
-        }
-        return true
+            // They are logged in, transfer control to fragments
+            result.value = userState
+        })
+        return result
     }
 
     override fun onBackPressed() {

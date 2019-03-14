@@ -19,6 +19,7 @@ import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentSettingsBinding
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.SystemUtils
+import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.dialog_enter_confirm_password.*
 import kotlinx.android.synthetic.main.dialog_enter_name.*
 import kotlinx.android.synthetic.main.dialog_enter_password.*
@@ -70,7 +71,6 @@ class SettingsFragment : Fragment() {
                     .setPositiveButton("Change", null)
                     .setNegativeButton("Cancel", null)
                     .create()
-            alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 SystemUtils.showKeyboard(activity)
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
@@ -183,18 +183,20 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if ((activity as MainActivity).validateUser()) { //they are logged in
-            vm.areValuesSet().observe(this, Observer {
-                if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_onboardingFragment, null)
-                    vm.setBottomNavVisibility(false)
-                    vm.setAppBarVisibility(false)
-                } else {
-                    vm.setBottomNavVisibility(true)
-                    vm.setAppBarVisibility(true)
-                }
-            })
-        }
+        (activity as MainActivity).validateUser().observe(this, Observer { userState ->
+            if (userState == enumValueOf<UserState>(UserState.ValuesNotSet.toString())) {
+                (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_onboardingFragment, null)
+                vm.setBottomNavVisibility(false)
+                vm.setAppBarVisibility(false)
+                return@Observer
+            }
+            if (userState == enumValueOf<UserState>(UserState.LoggedIn.toString())) {
+                vm.setBottomNavVisibility(true)
+                vm.setAppBarVisibility(true)
+                return@Observer
+            }
+            assert(userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString()))
+        })
     }
 
     companion object {

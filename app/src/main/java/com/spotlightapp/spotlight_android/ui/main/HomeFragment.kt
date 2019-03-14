@@ -11,17 +11,18 @@ import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.SchedulePagerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentHomeBinding
 import com.spotlightapp.spotlight_android.util.InjectorUtils
+import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : androidx.fragment.app.Fragment() {
 
-    private lateinit var homeFragmentViewModel: HomeViewModel
+    private lateinit var vm: HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: HomeViewModelFactory = InjectorUtils.provideHomeViewModelFactory()
-        homeFragmentViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+        vm = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
         val binding: FragmentHomeBinding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false).apply {
-            viewModel = homeFragmentViewModel
+            viewModel = vm
             lifecycleOwner = this@HomeFragment
         }
         return binding.root
@@ -29,15 +30,15 @@ class HomeFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeFragmentViewModel.staticHouseData.observe(this, Observer {
+        vm.staticHouseData.observe(this, Observer {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
-                homeFragmentViewModel.getScheduleData().observe(this, Observer { result ->
-                    homeFragmentViewModel.scheduleViewPager = schedule_view_pager
-                    homeFragmentViewModel.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
-                    homeFragmentViewModel.scheduleViewPager?.currentItem = result.first?.toInt()!!
-                    homeFragmentViewModel.scheduleViewPager?.offscreenPageLimit = 4
-                    tab_layout.setupWithViewPager(homeFragmentViewModel.scheduleViewPager, true)
+                vm.getScheduleData().observe(this, Observer { result ->
+                    vm.scheduleViewPager = schedule_view_pager
+                    vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
+                    vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
+                    vm.scheduleViewPager?.offscreenPageLimit = 4
+                    tab_layout.setupWithViewPager(vm.scheduleViewPager, true)
                 })
             }
         })
@@ -45,17 +46,19 @@ class HomeFragment : androidx.fragment.app.Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if ((activity as MainActivity).validateUser()) { //they are logged in
-            homeFragmentViewModel.areValuesSet().observe(this, Observer {
-                if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_homeFragment_to_onboardingFragment, null)
-                    homeFragmentViewModel.setBottomNavVisibility(false)
-                    homeFragmentViewModel.setAppBarVisibility(false)
-                } else {
-                    homeFragmentViewModel.setBottomNavVisibility(true)
-                    homeFragmentViewModel.setAppBarVisibility(true)
-                }
-            })
-        }
+        (activity as MainActivity).validateUser().observe(this, Observer { userState ->
+            if (userState == enumValueOf<UserState>(UserState.ValuesNotSet.toString())) {
+                (activity as MainActivity).navController.navigate(R.id.action_homeFragment_to_onboardingFragment, null)
+                vm.setBottomNavVisibility(false)
+                vm.setAppBarVisibility(false)
+                return@Observer
+            }
+            if (userState == enumValueOf<UserState>(UserState.LoggedIn.toString())) {
+                vm.setBottomNavVisibility(true)
+                vm.setAppBarVisibility(true)
+                return@Observer
+            }
+            assert(userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString()))
+        })
     }
 }

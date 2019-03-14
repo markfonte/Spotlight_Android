@@ -16,6 +16,7 @@ import com.spotlightapp.spotlight_android.adapter.RankingRecyclerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentRankingBinding
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.RankingDatum
+import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.fragment_ranking.*
 
 class RankingFragment : Fragment() {
@@ -39,18 +40,20 @@ class RankingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if ((activity as MainActivity).validateUser()) { //they are logged in
-            vm.areValuesSet().observe(this, Observer {
-                if (it == false) {
-                    (activity as MainActivity).navController.navigate(R.id.action_rankingFragment_to_onboardingFragment, null)
-                    vm.setBottomNavVisibility(false)
-                    vm.setAppBarVisibility(false)
-                } else {
-                    vm.setBottomNavVisibility(true)
-                    vm.setAppBarVisibility(true)
-                }
-            })
-        }
+        (activity as MainActivity).validateUser().observe(this, Observer { userState ->
+            if (userState == enumValueOf<UserState>(UserState.ValuesNotSet.toString())) {
+                (activity as MainActivity).navController.navigate(R.id.action_rankingFragment_to_onboardingFragment, null)
+                vm.setBottomNavVisibility(false)
+                vm.setAppBarVisibility(false)
+                return@Observer
+            }
+            if (userState == enumValueOf<UserState>(UserState.LoggedIn.toString())) {
+                vm.setBottomNavVisibility(true)
+                vm.setAppBarVisibility(true)
+                return@Observer
+            }
+            assert(userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString()))
+        })
     }
 
     override fun onPause() {

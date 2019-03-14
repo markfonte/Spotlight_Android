@@ -2,8 +2,8 @@ package com.spotlightapp.spotlight_android.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.StorageReference
+import com.spotlightapp.spotlight_android.util.UserState
 
 class MainRepository {
     private var firebaseService: FirebaseService = FirebaseService.getInstance()
@@ -22,8 +22,8 @@ class MainRepository {
         return firebaseService.attemptLogin(email, password)
     }
 
-    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
-        return firebaseService.mCurrentUser
+    fun validateUser(): MutableLiveData<UserState> {
+        return firebaseService.validateUser()
     }
 
     fun accountsLogout(): MutableLiveData<String> {
