@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/ten_percent_vertical_guide"
                 android:layout_width="wrap_content"
@@ -104,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:checked="@{safeUnbox(viewModel.isValueOneChecked()) ? true : false}"
                 android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
@@ -111,7 +111,6 @@
                 android:text="@{viewModel.valueOne}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
-                android:checked="@{safeUnbox(viewModel.isValueOneChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_my_values_title" />
@@ -122,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:checked="@{safeUnbox(viewModel.isValueTwoChecked()) ? true : false}"
                 android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
@@ -129,7 +129,6 @@
                 android:text="@{viewModel.valueTwo}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
-                android:checked="@{safeUnbox(viewModel.isValueTwoChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_value_one" />
@@ -140,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:buttonTint="@color/colorPrimary"
+                android:checked="@{safeUnbox(viewModel.isValueThreeChecked()) ? true : false}"
                 android:enabled="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="center_vertical|start"
                 android:paddingStart="@dimen/padding_small"
@@ -147,7 +147,6 @@
                 android:text="@{viewModel.valueThree}"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="@dimen/medium_font_size"
-                android:checked="@{safeUnbox(viewModel.isValueThreeChecked()) ? true : false}"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_value_two" />
@@ -164,10 +163,10 @@
                 android:text="@string/comments"
                 android:textSize="@dimen/medium_font_size"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/notes_enter_comments"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
-                app:layout_constraintTop_toBottomOf="@+id/notes_value_three"
-                app:layout_constraintBottom_toTopOf="@id/notes_enter_comments"/>
+                app:layout_constraintTop_toBottomOf="@+id/notes_value_three" />
 
             <EditText
                 android:id="@+id/notes_enter_comments"
@@ -175,7 +174,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_large"
                 android:background="@drawable/background_notes_comments"
+                android:clickable="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
+                android:cursorVisible="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:focusable="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
+                android:focusableInTouchMode="@{safeUnbox(viewModel.isNoteLocked()) ? false : true}"
                 android:gravity="top|start"
                 android:hint="@string/notes_enter_comments_hint"
                 android:inputType="textMultiLine"
@@ -184,10 +186,10 @@
                 android:padding="@dimen/padding_standard"
                 android:singleLine="false"
                 android:text="@{viewModel.comments}"
+                app:layout_constraintBottom_toTopOf="@id/notes_submit_button"
                 app:layout_constraintEnd_toStartOf="@+id/ninety_percent_vertical_guide"
                 app:layout_constraintStart_toStartOf="@+id/ten_percent_vertical_guide"
                 app:layout_constraintTop_toBottomOf="@+id/notes_comment_prompt"
-                app:layout_constraintBottom_toTopOf="@id/notes_submit_button"
                 tools:ignore="Autofill" />
 
             <Button
