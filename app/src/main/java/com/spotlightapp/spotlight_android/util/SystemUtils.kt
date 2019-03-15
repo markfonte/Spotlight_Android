@@ -20,7 +20,12 @@ object SystemUtils {
     fun hideKeyboard(context: Context?, view: View) {
         val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
-        //imm?.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    fun hideKeyboardForced(context: Context?, view: View) {
+        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.hideSoftInputFromWindow(view.windowToken, InputMethodManager.RESULT_HIDDEN)
+        imm?.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     fun setSnackbarDefaultOptions(snackbar: Snackbar?) {

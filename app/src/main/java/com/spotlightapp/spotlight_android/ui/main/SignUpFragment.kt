@@ -92,7 +92,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun attemptSignUp(view: View) {
-        SystemUtils.hideKeyboard(context, view)
+        SystemUtils.hideKeyboardForced(context, view)
         toggleCreateAccountProgressBar(true)
         val currentDisplayName: String? = sign_up_enter_display_name.text.toString().trim()
         val currentEmail: String? = sign_up_enter_email.text.toString().trim()
@@ -101,6 +101,7 @@ class SignUpFragment : Fragment() {
         if (isValidInput(currentDisplayName, currentEmail, currentPassword, currentConfirmPassword)) {
             vm.attemptCreateAccount(currentEmail!!, currentPassword!!, currentDisplayName!!).observe(this, Observer { error ->
                 run {
+                    SystemUtils.hideKeyboardForced(context, view)
                     if (error == "") {
                         sendEmailVerification(currentEmail, view)
                     } else {

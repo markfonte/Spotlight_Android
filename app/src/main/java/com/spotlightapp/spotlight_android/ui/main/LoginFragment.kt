@@ -107,19 +107,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun attemptLogin(view: View) {
-        SystemUtils.hideKeyboard(context, view)
+        SystemUtils.hideKeyboardForced(context, view)
         val currentEmail: String? = login_enter_email.text.toString().trim()
         val currentPassword: String? = login_enter_password.text.toString()
         if (isValidInput(currentEmail, currentPassword)) {
             toggleLoginProgressBar(true)
             vm.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
                 run {
-                    SystemUtils.hideKeyboard(context, view)
+                    SystemUtils.hideKeyboardForced(context, view)
                     when (authResultError) {
                         "" -> {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
                             Navigation.findNavController(view).navigate(R.id.action_login_to_homeFragment, null, navOptions)
-
                         }
                         "email not verified" -> {
                             Log.i(LOG_TAG, "Email not verified")
