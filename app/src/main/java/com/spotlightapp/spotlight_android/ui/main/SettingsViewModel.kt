@@ -41,10 +41,6 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
         return mainRepository.updatePassword(newPassword)
     }
 
-    fun areValuesSet(): LiveData<Boolean> {
-        return mainRepository.areValuesSet()
-    }
-
     fun setAppBarVisibility(makeVisible: Boolean) {
         mainRepository.isAppBarVisible.value = makeVisible
     }
@@ -52,7 +48,6 @@ class SettingsViewModel(private val mainRepository: MainRepository) : ViewModel(
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
-
 
     /*
         Helper functions to synchronize progress bar with loading of data

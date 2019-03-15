@@ -193,6 +193,28 @@ class FirebaseService {
      * Firestore functions
      */
 
+    fun validateUser(): MutableLiveData<UserState> {
+        val result: MutableLiveData<UserState> = MutableLiveData()
+        var state: UserState
+        if (mAuth?.currentUser == null) {
+            state = UserState.LoggedOut
+            result.value = state
+        } else if (!mAuth?.currentUser?.isEmailVerified!!) {
+            state = UserState.EmailNotVerified
+            result.value = state
+        } else {
+            fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+                if (e != null || snapshot == null || !snapshot.exists()) {
+                    state = UserState.LoggedOut
+                    result.value = state
+                    return@EventListener
+                }
+                result.value = if (snapshot.data?.get("are_values_set") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
+            })
+        }
+        return result
+    }
+
     fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
@@ -238,41 +260,6 @@ class FirebaseService {
         return result
     }
 
-    fun validateUser(): MutableLiveData<UserState> {
-        val result: MutableLiveData<UserState> = MutableLiveData()
-        var state: UserState
-        if (mAuth?.currentUser == null) {
-            state = UserState.LoggedOut
-            result.value = state
-        } else if (!mAuth?.currentUser?.isEmailVerified!!) {
-            state = UserState.EmailNotVerified
-            result.value = state
-        } else {
-            fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
-                if (e != null || snapshot == null || !snapshot.exists()) {
-                    state = UserState.LoggedOut
-                    result.value = state
-                    return@EventListener
-                }
-                result.value = if (snapshot.data?.get("are_values_set") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
-            })
-        }
-        return result
-    }
-
-    fun areValuesSet(): LiveData<Boolean> {
-        val result: MutableLiveData<Boolean> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "areValuesSet()", message = "successfully retrieved user document for user values.")
-                result.value = task.result?.data?.get("are_values_set") != false
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "areValuesSet()", message = "error retrieving user document for user values.")
-            }
-        }
-        return result
-    }
-
     fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         val result: MutableLiveData<Triple<Long?, Boolean, String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
@@ -312,7 +299,6 @@ class FirebaseService {
                 result.value = hashMapOf()
                 return@EventListener
             }
-            //logDebugSnapshot(snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved document snapshot for schedule.")
             val userDocument = snapshot.data
             if (userDocument?.get("current_schedule") != null) {
                 val z = 0
@@ -418,15 +404,15 @@ class FirebaseService {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
+    fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getNote()", message = "successfully retrieved note $houseId")
+                logDebugTask(task, logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved note $houseId")
                 val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
                 result.value = notes?.get(houseId)
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getNote()", message = "error retrieving note at $houseId")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getNotes()", message = "error retrieving note at $houseId")
                 result.value = null
             }
         }

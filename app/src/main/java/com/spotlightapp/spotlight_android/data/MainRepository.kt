@@ -40,10 +40,6 @@ class MainRepository {
         return firebaseService.sendEmailVerification()
     }
 
-    fun areValuesSet(): LiveData<Boolean> {
-        return firebaseService.areValuesSet()
-    }
-
     fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         return firebaseService.overwriteUserInformation(values)
     }
@@ -105,7 +101,7 @@ class MainRepository {
     }
 
     fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
-        return firebaseService.getNote(houseId)
+        return firebaseService.getNotes(houseId)
     }
 
     fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {

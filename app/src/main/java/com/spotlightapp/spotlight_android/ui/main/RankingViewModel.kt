@@ -16,11 +16,6 @@ class RankingViewModel(private val mainRepository: MainRepository) : ViewModel()
         isDataLoading.value = true
         isRankingToDisplay.value = false
     }
-
-    fun areValuesSet(): LiveData<Boolean> {
-        return mainRepository.areValuesSet()
-    }
-
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }

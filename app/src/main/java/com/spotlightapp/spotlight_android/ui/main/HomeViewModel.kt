@@ -10,10 +10,6 @@ class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
     var scheduleViewPager: ViewPager? = null
 
-    fun areValuesSet(): LiveData<Boolean> {
-        return mainRepository.areValuesSet()
-    }
-
     fun setAppBarVisibility(makeVisible: Boolean) {
         mainRepository.isAppBarVisible.value = makeVisible
     }
