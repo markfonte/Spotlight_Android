@@ -246,17 +246,13 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getUserValues()", message = "successfully retrieved user document for user values.")
-                result.value = task.result?.data?.get("values") as? ArrayList<String?>
-
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getUserValues()", message = "error retrieving user document for user values.")
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+            if (e != null || snapshot == null || !snapshot.exists()) {
                 result.value = arrayListOf()
+                return@EventListener
             }
-
-        }
+            result.value = snapshot.data?.get("values") as? ArrayList<String?>
+        })
         return result
     }
 
@@ -301,7 +297,6 @@ class FirebaseService {
             }
             val userDocument = snapshot.data
             if (userDocument?.get("current_schedule") != null) {
-                val z = 0
                 result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
                 return@EventListener
             } else {

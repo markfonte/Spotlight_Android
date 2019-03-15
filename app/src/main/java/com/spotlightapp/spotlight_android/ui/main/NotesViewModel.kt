@@ -29,10 +29,6 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
         return mainRepository.getUserValues()
     }
 
-    fun setBottomNavVisibility(makeVisible: Boolean) {
-        mainRepository.isBottomNavVisible.value = makeVisible
-    }
-
     fun getStaticHouseImageReference(fileName: String): StorageReference {
         return mainRepository.getStaticHouseImageReference(fileName)
     }
