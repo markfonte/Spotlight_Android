@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -66,31 +69,41 @@ class LoginFragment : Fragment() {
             }
         })
         forgot_password_button.setOnClickListener {
-            val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
-                    .setTitle("Send Password Reset Email")
-                    .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_email, null))
-                    .setPositiveButton("Send", null)
-                    .setNegativeButton("Cancel", null)
-                    .create()
-            alertDialog.setOnShowListener {
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    vm.sendPasswordResetEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
-                    val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, "Check your email for password reset information!", Snackbar.LENGTH_INDEFINITE)
-                    SystemUtils.setSnackbarDefaultOptions(s)
-                    s?.setAction("OK") {
-                        s.dismiss()
-                    }
-                    s?.show()
-                    login_enter_password.text?.clear()
-                    alertDialog.dismiss()
-                }
-                alertDialog.enter_email_dialog_enter_email.requestFocus()
-                alertDialog.enter_email_dialog_enter_email.text = login_enter_email.text
-                login_enter_email.text?.length?.let { length -> alertDialog.enter_email_dialog_enter_email.setSelection(length) }
-            }
-            alertDialog.show()
+            showForgotPasswordDialog()
         }
+    }
 
+    @SuppressLint("InflateParams")
+    private fun showForgotPasswordDialog() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Send Password Reset Email")
+                .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_email, null))
+                .setPositiveButton("Send", null)
+                .setNegativeButton("Cancel", null)
+                .create()
+        alertDialog.setOnDismissListener {
+            view?.let { currentView -> SystemUtils.hideKeyboard(context, currentView) }
+            activity?.currentFocus?.let { currentFocus -> SystemUtils.hideKeyboard(context, currentFocus) }
+            activity?.window?.currentFocus?.let { currentWindowFocus -> SystemUtils.hideKeyboard(context, currentWindowFocus) }
+        }
+        alertDialog.setOnShowListener {
+            SystemUtils.showKeyboard(activity)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                vm.sendPasswordResetEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
+                val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.login_fragment_container)!!, "Check your email for password reset information!", Snackbar.LENGTH_INDEFINITE)
+                SystemUtils.setSnackbarDefaultOptions(s)
+                s?.setAction("OK") {
+                    s.dismiss()
+                }
+                s?.show()
+                login_enter_password.text?.clear()
+                alertDialog.dismiss()
+            }
+            alertDialog.enter_email_dialog_enter_email.requestFocus()
+            alertDialog.enter_email_dialog_enter_email.text = login_enter_email.text
+            login_enter_email.text?.length?.let { length -> alertDialog.enter_email_dialog_enter_email.setSelection(length) }
+        }
+        alertDialog.show()
     }
 
     private fun attemptLogin(view: View) {
