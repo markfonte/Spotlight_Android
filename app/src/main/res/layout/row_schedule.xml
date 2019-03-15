@@ -42,7 +42,7 @@
         android:id="@+id/schedule_button_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_recycler_row"
+        android:background="@drawable/background_recycler_row_tinted"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
