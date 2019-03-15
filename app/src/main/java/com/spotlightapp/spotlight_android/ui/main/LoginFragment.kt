@@ -72,7 +72,6 @@ class LoginFragment : Fragment() {
                     .setPositiveButton("Send", null)
                     .setNegativeButton("Cancel", null)
                     .create()
-            alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             alertDialog.setOnShowListener {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     vm.sendPasswordResetEmail(alertDialog.enter_email_dialog_enter_email.text.toString().trim())
@@ -102,10 +101,12 @@ class LoginFragment : Fragment() {
             toggleLoginProgressBar(true)
             vm.attemptLogin(currentEmail!!, currentPassword!!).observe(this, Observer { authResultError ->
                 run {
+                    SystemUtils.hideKeyboard(context, view)
                     when (authResultError) {
                         "" -> {
                             val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
                             Navigation.findNavController(view).navigate(R.id.action_login_to_homeFragment, null, navOptions)
+
                         }
                         "email not verified" -> {
                             Log.i(LOG_TAG, "Email not verified")

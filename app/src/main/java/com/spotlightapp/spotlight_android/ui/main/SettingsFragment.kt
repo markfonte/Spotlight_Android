@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -65,45 +64,54 @@ class SettingsFragment : Fragment() {
             }
         })
         display_user_data_display_name.setOnClickListener {
-            val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
-                    .setTitle("Change Your Name")
-                    .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_name, null))
-                    .setPositiveButton("Change", null)
-                    .setNegativeButton("Cancel", null)
-                    .create()
-            alertDialog.setOnShowListener {
-                SystemUtils.showKeyboard(activity)
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    vm.tempDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
-                    if (isValidDisplayName(vm.tempDisplayName)) {
-                        vm.changeDisplayName(vm.tempDisplayName).observe(this, Observer { error ->
-                            if (error == "") {
-                                vm.displayName.value = vm.tempDisplayName
-                                val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Name changed to ${vm.displayName.value}", Snackbar.LENGTH_LONG)
-                                SystemUtils.setSnackbarDefaultOptions(s)
-                                s?.show()
-                            } else {
-                                val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Your name change request encountered an error. Please check your connection and try again.", Snackbar.LENGTH_INDEFINITE)
-                                SystemUtils.setSnackbarDefaultOptions(s)
-                                s?.setAction("OK") {
-                                    s.dismiss()
-                                }
-                                s?.show()
-                            }
-                        })
-                        SystemUtils.hideKeyboard(activity, it)
-                        alertDialog.dismiss()
-                    }
-                }
-                alertDialog.enter_name_dialog_enter_name.requestFocus()
-                alertDialog.enter_name_dialog_enter_name.setText(vm.displayName.value)
-                vm.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
-            }
-            alertDialog.show()
+            showUpdateDisplayNameDialog()
         }
         display_user_data_password.setOnClickListener {
             updatePassword()
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showUpdateDisplayNameDialog() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert)
+                .setTitle("Change Your Name")
+                .setView(activity?.layoutInflater?.inflate(R.layout.dialog_enter_name, null))
+                .setPositiveButton("Change", null)
+                .setNegativeButton("Cancel", null)
+                .create()
+        alertDialog.setOnDismissListener {
+            view?.let { currentView -> SystemUtils.hideKeyboard(context, currentView) }
+            activity?.currentFocus?.let { currentFocus -> SystemUtils.hideKeyboard(context, currentFocus) }
+            activity?.window?.currentFocus?.let { currentWindowFocus -> SystemUtils.hideKeyboard(context, currentWindowFocus) }
+        }
+        alertDialog.setOnShowListener {
+            alertDialog.enter_name_dialog_enter_name.requestFocus()
+            alertDialog.enter_name_dialog_enter_name.setText(vm.displayName.value)
+            vm.displayName.value?.length?.let { length -> alertDialog.enter_name_dialog_enter_name.setSelection(length) }
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                vm.tempDisplayName = alertDialog.enter_name_dialog_enter_name.text.toString().trim()
+                if (isValidDisplayName(vm.tempDisplayName)) {
+                    vm.changeDisplayName(vm.tempDisplayName).observe(this, Observer { error ->
+                        if (error == "") {
+                            vm.displayName.value = vm.tempDisplayName
+                            val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Success! Name changed to ${vm.displayName.value}", Snackbar.LENGTH_LONG)
+                            SystemUtils.setSnackbarDefaultOptions(s)
+                            s?.show()
+                        } else {
+                            val s: Snackbar? = Snackbar.make(activity?.findViewById(R.id.settings_fragment_container)!!, "Your name change request encountered an error. Please check your connection and try again.", Snackbar.LENGTH_INDEFINITE)
+                            SystemUtils.setSnackbarDefaultOptions(s)
+                            s?.setAction("OK") {
+                                s.dismiss()
+                            }
+                            s?.show()
+                        }
+                    })
+                    alertDialog.dismiss()
+                }
+            }
+            SystemUtils.showKeyboard(activity)
+        }
+        alertDialog.show()
     }
 
     @SuppressLint("InflateParams")
@@ -114,8 +122,13 @@ class SettingsFragment : Fragment() {
                 .setPositiveButton("Go", null)
                 .setNegativeButton("Cancel", null)
                 .create()
-        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        alertDialog.setOnDismissListener {
+            view?.let { currentView -> SystemUtils.hideKeyboard(context, currentView) }
+            activity?.currentFocus?.let { currentFocus -> SystemUtils.hideKeyboard(context, currentFocus) }
+            activity?.window?.currentFocus?.let { currentWindowFocus -> SystemUtils.hideKeyboard(context, currentWindowFocus) }
+        }
         alertDialog.setOnShowListener {
+            SystemUtils.showKeyboard(activity)
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (isValidPassword(alertDialog.enter_password_dialog_enter_password.text.toString())) {
                     vm.reauthenticateUser(alertDialog.enter_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->
@@ -143,8 +156,13 @@ class SettingsFragment : Fragment() {
                 .setPositiveButton("Go", null)
                 .setNegativeButton("Cancel", null)
                 .create()
-        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        alertDialog.setOnDismissListener {
+            view?.let { currentView -> SystemUtils.hideKeyboard(context, currentView) }
+            activity?.currentFocus?.let { currentFocus -> SystemUtils.hideKeyboard(context, currentFocus) }
+            activity?.window?.currentFocus?.let { currentWindowFocus -> SystemUtils.hideKeyboard(context, currentWindowFocus) }
+        }
         alertDialog.setOnShowListener {
+            SystemUtils.showKeyboard(activity)
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (areValidPasswordCombo(alertDialog.enter_confirm_password_dialog_enter_password.text.toString(), alertDialog.enter_confirm_password_dialog_enter_confirm_password.text.toString())) {
                     vm.updatePassword(alertDialog.enter_confirm_password_dialog_enter_password.text.toString()).observe(this, Observer { error ->

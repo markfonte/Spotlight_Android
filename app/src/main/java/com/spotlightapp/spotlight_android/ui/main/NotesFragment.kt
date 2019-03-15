@@ -109,7 +109,6 @@ class NotesFragment : Fragment() {
                 .setPositiveButton("Yes", null)
                 .setNegativeButton("No", null)
                 .create()
-        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (!vm.isNoteLocked.value!!) { // Sanity check at worst
