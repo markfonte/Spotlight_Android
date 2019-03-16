@@ -12,11 +12,11 @@ class CrashlyticsHelper {
             Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message")
         }
 
-        fun logDebugTask(task: Task<*>, logTag: String = "", functionName: String = "", message: String = "") {
-            Crashlytics.log(Log.DEBUG, logTag, "$functionName: Task result - Message: $message Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
-        }
+//        fun logVerboseTask(task: Task<*>, logTag: String = "", functionName: String = "", message: String = "") {
+//            Crashlytics.log(Log.DEBUG, logTag, "$functionName: Task result - Message: $message Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
+//        }
 
-//        fun logDebugSnapshotVerbose(snapshot: DocumentSnapshot?, logTag: String = "", functionName: String = "", message: String = "") {
+//        fun logVerboseSnapshot(snapshot: DocumentSnapshot?, logTag: String = "", functionName: String = "", message: String = "") {
 //            if (snapshot != null && snapshot.exists()) {
 //                Crashlytics.log(Log.DEBUG, logTag, "$functionName: Snapshot - Message: $message Result: ${snapshot.data.toString()}")
 //            }

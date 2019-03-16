@@ -2,7 +2,10 @@ package com.spotlightapp.spotlight_android.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.*
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FieldValue
@@ -10,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebug
-import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logDebugTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logError
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorSnapshot
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorTask
@@ -52,12 +54,12 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "login credentials valid with $email.")
+                logDebug(logTag = LOG_TAG, functionName = "attemptLogin()", message = "login credentials valid with $email.")
                 if (!mAuth?.currentUser?.isEmailVerified!!) {
-                    logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email not verified .")
+                    logDebug(logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email not verified .")
                     result.value = "email not verified"
                 } else {
-                    logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email verified, login successful.")
+                    logDebug(logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email verified, login successful.")
                     if (mAuth?.currentUser != null) {
                         setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
                     }
@@ -75,7 +77,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
             if (task.isSuccessful) { //do not sign them in yet
-                logDebugTask(task, logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "successfully created user account with $email. setup required.")
+                logDebug(logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "successfully created user account with $email. setup required.")
                 setupNewAccount(displayName)
                 result.value = ""
             } else {
@@ -109,7 +111,7 @@ class FirebaseService {
                 .build()
         mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "successfully changed user display name to $name.")
+                logDebug(logTag = LOG_TAG, functionName = "changeDisplayName()", message = "successfully changed user display name to $name.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing user display name to $name.")
@@ -123,7 +125,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "successfully sent verification email.")
+                logDebug(logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "successfully sent verification email.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "sendEmailVerification()", message = "error sending email verification.")
@@ -145,7 +147,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "successfully sent password reset email to $email.")
+                logDebug(logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "successfully sent password reset email to $email.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "sendPasswordResetEmail()", message = "error sending password reset email to $email.")
@@ -160,7 +162,7 @@ class FirebaseService {
         val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
         mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "successfully re-authenticated user.")
+                logDebug(logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "successfully re-authenticated user.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "error re-authenticating user.")
@@ -174,7 +176,7 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "successfully updated password.")
+                logDebug(logTag = LOG_TAG, functionName = "updatePassword()", message = "successfully updated password.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "error updating user password")
@@ -255,7 +257,7 @@ class FirebaseService {
         val result: MutableLiveData<Triple<Long?, Boolean, String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getScheduleData()", message = "successfully retrieved user document for user schedule.")
+                logDebug(logTag = LOG_TAG, functionName = "getScheduleData()", message = "successfully retrieved user document for user schedule.")
                 val userData = task.result?.data
                 result.value = Triple(userData?.get("current_round") as? Long?, userData?.get("current_schedule") != null, userData?.get("bid_house") as? String?)
             } else {
@@ -271,7 +273,7 @@ class FirebaseService {
         val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
         fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getPanhelValues()", message = "successfully retrieved document for panhel values.")
+                logDebug(logTag = LOG_TAG, functionName = "getPanhelValues()", message = "successfully retrieved document for panhel values.")
                 result.value = task.result?.data?.get("values") as? ArrayList<*>
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getPanhelValues()", message = "error retrieving document for panhel values.")
@@ -307,7 +309,7 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("panhel_data").document("house_information").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getStaticHouseData()", message = "successfully retrieved document for static house data.")
+                logDebug(logTag = LOG_TAG, functionName = "getStaticHouseData()", message = "successfully retrieved document for static house data.")
                 val document: DocumentSnapshot = task.result!!
                 if (document.exists()) {
                     result.value = document.data as? HashMap<String, HashMap<String, String>>
@@ -331,7 +333,7 @@ class FirebaseService {
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note for house $houseId in user notes.")
+                logDebug(logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note for house $houseId in user notes.")
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "submitNote()", message = "error updating note for house $houseId in user notes.")
             }
@@ -348,17 +350,17 @@ class FirebaseService {
         val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task1 ->
             if (task1.isSuccessful) {
-                logDebugTask(task1, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully saved notes for house $houseId to user notes.")
+                logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully saved notes for house $houseId to user notes.")
                 val rankingUpdatesMap = HashMap<String, Any>()
                 rankingUpdatesMap["current_ranking.$houseId"] = -1
                 userDoc.update(rankingUpdatesMap).addOnCompleteListener { task2 ->
                     if (task2.isSuccessful) {
-                        logDebugTask(task2, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully added house $houseId to user ranking.")
+                        logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully added house $houseId to user ranking.")
                         val removeIndexUpdatesMap = HashMap<String, Any>()
                         removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
                         userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { task3 ->
                             if (task3.isSuccessful) {
-                                logDebugTask(task3, logTag = LOG_TAG, functionName = "submitNote()", message = "successfully removed house $houseId from user schedule.")
+                                logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully removed house $houseId from user schedule.")
                                 result.value = ""
                             } else {
                                 logErrorTask(task3, logTag = LOG_TAG, functionName = "submitNote()", message = "error removing house $houseId from user schedule.")
@@ -383,7 +385,7 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
+                logDebug(logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
                 result.value = task.result?.data?.get("current_ranking") as? HashMap<String, Int>
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document for current ranking.")
@@ -398,7 +400,7 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved note $houseId")
+                logDebug(logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved note $houseId")
                 val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
                 result.value = notes?.get(houseId)
             } else {
@@ -417,7 +419,7 @@ class FirebaseService {
         }
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebugTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated user ranking with $updatedRanking.")
+                logDebug(logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated user ranking with $updatedRanking.")
                 result.value = ""
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "error updating user ranking with $updatedRanking.")
