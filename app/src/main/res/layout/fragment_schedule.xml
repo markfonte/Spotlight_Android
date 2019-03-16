@@ -25,7 +25,7 @@
             android:gravity="center"
             android:text="@{viewModel.noScheduleMessage}"
             android:textSize="@dimen/medium_font_size"
-            android:visibility="@{safeUnbox(!viewModel.isScheduleToDisplay()) &amp;&amp; safeUnbox(!viewModel.isDataLoading()) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{!safeUnbox(viewModel.isScheduleToDisplay()) &amp;&amp; !safeUnbox(viewModel.isDataLoading()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

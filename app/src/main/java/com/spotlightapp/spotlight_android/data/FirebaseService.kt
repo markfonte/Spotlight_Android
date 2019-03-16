@@ -291,7 +291,7 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
-                logErrorSnapshot(e, snapshot, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving document snapshot for schedule.")
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving document snapshot for schedule.")
                 result.value = hashMapOf()
                 return@EventListener
             }
