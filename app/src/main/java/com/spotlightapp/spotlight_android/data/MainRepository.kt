@@ -14,10 +14,6 @@ class MainRepository {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = firebaseService.getStaticHouseData()
     var panhelValues: LiveData<ArrayList<*>> = firebaseService.getPanhelValues()
 
-    fun refreshStaticHouseData() {
-        staticHouseData.value = firebaseService.getStaticHouseData().value
-    }
-
     fun attemptLogin(email: String, password: String): LiveData<String> {
         return firebaseService.attemptLogin(email, password)
     }
@@ -38,10 +34,6 @@ class MainRepository {
 
     fun attemptEmailVerification(): LiveData<String> {
         return firebaseService.sendEmailVerification()
-    }
-
-    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
-        return firebaseService.overwriteUserInformation(values)
     }
 
     fun updateUserInformation(values: MutableMap<String, Any>): LiveData<String> {

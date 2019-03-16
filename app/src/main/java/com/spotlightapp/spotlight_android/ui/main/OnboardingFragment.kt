@@ -50,7 +50,7 @@ class OnboardingFragment : Fragment() {
             }
             buildRadioButtons()
         })
-        onboarding_submit_button.setOnClickListener { _ ->
+        onboarding_submit_button.setOnClickListener {
             var count = 0
             var i = 0
             vm.submittedCheckboxes = ArrayList()

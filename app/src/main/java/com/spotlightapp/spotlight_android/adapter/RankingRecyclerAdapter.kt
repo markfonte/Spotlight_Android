@@ -13,10 +13,9 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.spotlightapp.spotlight_android.R
-import com.spotlightapp.spotlight_android.ui.main.RankingViewModel
 import com.spotlightapp.spotlight_android.util.RankingDatum
 
-class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private val vm: RankingViewModel, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
+class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
     class ViewHolder(v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
         val displayName: TextView = v.findViewById(R.id.ranking_row_display_name)
         val greekLetters: TextView = v.findViewById(R.id.ranking_row_greek_letters)

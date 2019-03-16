@@ -26,7 +26,7 @@ object InjectorUtils {
 
     fun provideLandingViewModelFactory(): LandingViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
-        return LandingViewModelFactory(repository)
+        return LandingViewModelFactory()
     }
 
     fun provideMainActivityViewModelFactory(): MainActivityViewModelFactory {

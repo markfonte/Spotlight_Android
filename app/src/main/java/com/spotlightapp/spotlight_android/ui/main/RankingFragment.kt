@@ -94,7 +94,7 @@ class RankingFragment : Fragment() {
                         ++i
                     }
                     rankingData.sortBy { rankingDatum -> rankingDatum.CurrentRank }
-                    vm.rankingAdapter = RankingRecyclerAdapter(rankingData, vm, context!!)
+                    vm.rankingAdapter = RankingRecyclerAdapter(rankingData, context!!)
                     vm.rankingAdapter?.let { rankingAdapter ->
                         ranking_recycler_view.adapter = vm.rankingAdapter
                         // For drag animation
@@ -125,9 +125,5 @@ class RankingFragment : Fragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-    }
-
-    companion object {
-        private val LOG_TAG: String = RankingFragment::class.java.name
     }
 }

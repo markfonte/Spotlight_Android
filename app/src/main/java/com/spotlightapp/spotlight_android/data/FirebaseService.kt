@@ -25,10 +25,7 @@ class FirebaseService {
     private var fsDb: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var storage = FirebaseStorage.getInstance()
 
-    var mCurrentUser: MutableLiveData<FirebaseUser> = MutableLiveData()
-
     init {
-        mCurrentUser.value = mAuth?.currentUser
         if (mAuth?.currentUser != null) {
             setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
         } else {
@@ -61,7 +58,6 @@ class FirebaseService {
                     result.value = "email not verified"
                 } else {
                     logDebugTask(task, logTag = LOG_TAG, functionName = "attemptLogin()", message = "email $email verified, login successful.")
-                    mCurrentUser.value = mAuth?.currentUser
                     if (mAuth?.currentUser != null) {
                         setCrashlyticsUserIdentifier(mAuth?.currentUser?.uid)
                     }
@@ -139,7 +135,6 @@ class FirebaseService {
 
     fun firebaseLogout(): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        mCurrentUser.value = null
         mAuth?.signOut()
         resetCrashlyticsUserIdentifier()
         result.value = ""
@@ -215,7 +210,7 @@ class FirebaseService {
         return result
     }
 
-    fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+    private fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
                 .addOnSuccessListener {

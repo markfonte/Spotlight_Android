@@ -89,8 +89,4 @@ class ScheduleFragment : Fragment() {
             }
         }
     }
-
-    companion object {
-        private val LOG_TAG: String = ScheduleFragment::class.java.name
-    }
 }

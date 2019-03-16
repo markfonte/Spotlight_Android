@@ -2,7 +2,6 @@ package com.spotlightapp.spotlight_android.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseUser
 import com.spotlightapp.spotlight_android.data.MainRepository
 import com.spotlightapp.spotlight_android.util.UserState
 

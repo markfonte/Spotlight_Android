@@ -36,8 +36,4 @@ class LandingFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_landingFragment_to_signUpFragment, null)
         }
     }
-
-    companion object {
-        private val LOG_TAG: String = LandingFragment::class.java.name
-    }
 }

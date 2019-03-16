@@ -1,6 +1,5 @@
 package com.spotlightapp.spotlight_android.ui.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.spotlightapp.spotlight_android.adapter.RankingRecyclerAdapter
@@ -16,6 +15,7 @@ class RankingViewModel(private val mainRepository: MainRepository) : ViewModel()
         isDataLoading.value = true
         isRankingToDisplay.value = false
     }
+
     fun setBottomNavVisibility(makeVisible: Boolean) {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
