@@ -88,33 +88,55 @@ class FirebaseService {
         return result
     }
 
-    /**
-     *  createAccountWithEmailAndPassword automatically logs user in. While this is not the end
-     *  functionality we want, we can leverage this to do the first-time login work - such as
-     *  creating the user-specific document in the database and setting "are_values_set" to false
-     *  so we know to start the on-boarding process when they first log in. Then this function logs
-     *  them out and we continue with our expected functionality.
-     */
-    private fun setupNewAccount(displayName: String) {
-        val newUserMap: MutableMap<String, Any> = HashMap()
-        newUserMap["are_values_set"] = false
-        newUserMap["bid_house"] = ""
-        newUserMap["current_round"] = 0
-        overwriteUserInformation(newUserMap)
-        changeDisplayName(displayName)
+    fun attemptFirebaseLogout(): MutableLiveData<String> {
+        logDebug(logTag = LOG_TAG, functionName = "attemptFirebaseLogout()", message = "logging out user.")
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.signOut()
+        resetCrashlyticsUserIdentifier()
+        result.value = ""
+        return result
     }
 
-    fun changeDisplayName(name: String): MutableLiveData<String> {
+    fun reauthenticateUser(password: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
+        mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebug(logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "successfully re-authenticated user.")
+                result.value = ""
+            } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "error re-authenticating user.")
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun updateDisplayName(name: String): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val profileUpdates = UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build()
         mAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "changeDisplayName()", message = "successfully changed user display name to $name.")
+                logDebug(logTag = LOG_TAG, functionName = "updateDisplayName()", message = "successfully changed user display name to $name.")
                 result.value = ""
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "changeDisplayName()", message = "error changing user display name to $name.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updateDisplayName()", message = "error changing user display name to $name.")
+                result.value = task.exception.toString()
+            }
+        }
+        return result
+    }
+
+    fun updatePassword(newPassword: String): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebug(logTag = LOG_TAG, functionName = "updatePassword()", message = "successfully updated password.")
+                result.value = ""
+            } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "error updating user password")
                 result.value = task.exception.toString()
             }
         }
@@ -135,15 +157,6 @@ class FirebaseService {
         return result
     }
 
-    fun firebaseLogout(): MutableLiveData<String> {
-        logDebug(logTag = LOG_TAG, functionName = "firebaseLogout()", message = "logging out user.")
-        val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.signOut()
-        resetCrashlyticsUserIdentifier()
-        result.value = ""
-        return result
-    }
-
     fun sendPasswordResetEmail(email: String): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.sendPasswordResetEmail(email)?.addOnCompleteListener { task ->
@@ -158,33 +171,16 @@ class FirebaseService {
         return result
     }
 
-    fun reauthenticateUser(password: String): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        val credential: AuthCredential = EmailAuthProvider.getCredential(mAuth?.currentUser?.email!!, password)
-        mAuth?.currentUser?.reauthenticate(credential)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "successfully re-authenticated user.")
-                result.value = ""
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "reauthenticateUser()", message = "error re-authenticating user.")
-                result.value = task.exception.toString()
-            }
-        }
-        return result
-    }
-
-    fun updatePassword(newPassword: String): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        mAuth?.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "updatePassword()", message = "successfully updated password.")
-                result.value = ""
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "updatePassword()", message = "error updating user password")
-                result.value = task.exception.toString()
-            }
-        }
-        return result
+    /**
+     *  createAccountWithEmailAndPassword() automatically logs user in. While this is not the end functionality we want, we can leverage this to do account setup work.
+     */
+    private fun setupNewAccount(displayName: String) {
+        val newUserMap: MutableMap<String, Any> = HashMap()
+        newUserMap["are_values_set"] = false
+        newUserMap["bid_house"] = ""
+        newUserMap["current_round"] = 0
+        overwriteUserInformation(newUserMap)
+        updateDisplayName(displayName)
     }
 
     /**

@@ -25,7 +25,7 @@ class MainRepository {
     fun accountsLogout(): MutableLiveData<String> {
         isBottomNavVisible.value = false
         isAppBarVisible.value = false
-        return firebaseService.firebaseLogout()
+        return firebaseService.attemptFirebaseLogout()
     }
 
     fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
@@ -61,7 +61,7 @@ class MainRepository {
     }
 
     fun changeDisplayName(name: String): MutableLiveData<String> {
-        return firebaseService.changeDisplayName(name)
+        return firebaseService.updateDisplayName(name)
     }
 
     fun reauthenticateUser(password: String): MutableLiveData<String> {
