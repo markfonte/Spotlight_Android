@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
+    fun logout() = vm.logoutWithError()
+
     override fun onBackPressed() {
         val currentDestination = NavHostFragment.findNavController(main_nav_host_fragment).currentDestination
         when (currentDestination?.id) {

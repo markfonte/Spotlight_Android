@@ -136,6 +136,7 @@ class FirebaseService {
     }
 
     fun firebaseLogout(): MutableLiveData<String> {
+        logDebug(logTag = LOG_TAG, functionName = "firebaseLogout()", message = "logging out user.")
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.signOut()
         resetCrashlyticsUserIdentifier()
@@ -212,20 +213,6 @@ class FirebaseService {
         return result
     }
 
-    private fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
-                .addOnSuccessListener {
-                    logDebug(logTag = LOG_TAG, functionName = "overwriteUserInformation()", message = "successfully overwrote user document with $values.")
-                    result.value = ""
-                }
-                .addOnFailureListener { exception ->
-                    logError(exception = exception, logTag = LOG_TAG, functionName = "overwriteUserInformation()", message = "error overwriting user document with $values.")
-                    result.value = exception.toString()
-                }
-        return result
-    }
-
     fun updateUserInformation(values: MutableMap<String, Any>): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(values)
@@ -264,7 +251,6 @@ class FirebaseService {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getScheduleData()", message = "error retrieving user document for user schedule.")
                 result.value = Triple(-1, false, "")
             }
-
         }
         return result
     }
@@ -426,6 +412,20 @@ class FirebaseService {
                 result.value = task.exception.toString()
             }
         }
+        return result
+    }
+
+    private fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
+                .addOnSuccessListener {
+                    logDebug(logTag = LOG_TAG, functionName = "overwriteUserInformation()", message = "successfully overwrote user document with $values.")
+                    result.value = ""
+                }
+                .addOnFailureListener { exception ->
+                    logError(exception = exception, logTag = LOG_TAG, functionName = "overwriteUserInformation()", message = "error overwriting user document with $values.")
+                    result.value = exception.toString()
+                }
         return result
     }
 

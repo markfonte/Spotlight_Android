@@ -8,16 +8,16 @@ import com.spotlightapp.spotlight_android.ui.main.ScheduleFragment
 import com.spotlightapp.spotlight_android.util.RoundTitles
 import com.spotlightapp.spotlight_android.util.ScheduleDisplayMode
 
-class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long?, private val scheduleExists: Boolean, private val bidHouse: String?) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long, private val scheduleExists: Boolean, private val bidHouse: String) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = ScheduleFragment()
         val displayMode: Int = if (bidHouse != "" && position == 3) {
             ScheduleDisplayMode().DISPLAY_BID
         } else if (!scheduleExists && bidHouse == "") { //displays the behind text if bid is present and are currently behind position 3
             ScheduleDisplayMode().DISPLAY_NO_SCHEDULES
-        } else if (currentRound?.toInt() == position) {
+        } else if (currentRound.toInt() == position) {
             ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
-        } else if (currentRound?.toInt()!! < position) {
+        } else if (currentRound.toInt() < position) {
             ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE
         } else {
             ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE

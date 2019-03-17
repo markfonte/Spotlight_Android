@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.SchedulePagerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentHomeBinding
+import com.spotlightapp.spotlight_android.util.CrashlyticsHelper
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -34,11 +35,16 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
                 vm.getScheduleData().observe(this, Observer { result ->
-                    vm.scheduleViewPager = schedule_view_pager
-                    vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first, result.second, result.third)
-                    vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
-                    vm.scheduleViewPager?.offscreenPageLimit = 4
-                    tab_layout.setupWithViewPager(vm.scheduleViewPager, true)
+                    if (result.first == null || result.third == null) {
+                        CrashlyticsHelper.logError(exception = null, logTag = LOG_TAG, functionName = "onViewCreated()", message = "error in getScheduleData() task. logging out user.")
+                        (activity as MainActivity).logout()
+                    } else {
+                        vm.scheduleViewPager = schedule_view_pager
+                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first!!, result.second, result.third!!)
+                        vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
+                        vm.scheduleViewPager?.offscreenPageLimit = 4
+                        tab_layout.setupWithViewPager(vm.scheduleViewPager, true)
+                    }
                 })
             }
         })
@@ -60,5 +66,9 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             }
             assert(userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString()))
         })
+    }
+
+    companion object {
+        private val LOG_TAG: String = HomeFragment::class.java.name
     }
 }
