@@ -17,7 +17,7 @@ class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
         mainRepository.isBottomNavVisible.value = makeVisible
     }
 
-    fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
-        return mainRepository.getScheduleData()
+    fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+        return mainRepository.getScheduleMetaData()
     }
 }

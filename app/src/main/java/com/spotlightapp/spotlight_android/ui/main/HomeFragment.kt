@@ -34,9 +34,9 @@ class HomeFragment : androidx.fragment.app.Fragment() {
         vm.staticHouseData.observe(this, Observer {
             //Schedule pages not inflated until static house data is acquired
             if (it != null) {
-                vm.getScheduleData().observe(this, Observer { result ->
+                vm.getScheduleMetaData().observe(this, Observer { result ->
                     if (result.first == null || result.third == null) {
-                        CrashlyticsHelper.logError(exception = null, logTag = LOG_TAG, functionName = "onViewCreated()", message = "error in getScheduleData() task. logging out user.")
+                        CrashlyticsHelper.logError(exception = null, logTag = LOG_TAG, functionName = "onViewCreated()", message = "error in getScheduleMetaData() task. logging out user.")
                         (activity as MainActivity).logout()
                     } else {
                         vm.scheduleViewPager = schedule_view_pager

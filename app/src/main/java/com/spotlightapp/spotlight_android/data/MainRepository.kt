@@ -76,8 +76,8 @@ class MainRepository {
         return firebaseService.getStaticHouseImageReference(fileName)
     }
 
-    fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
-        return firebaseService.getScheduleData()
+    fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+        return firebaseService.getScheduleMetaData()
     }
 
     fun updateNoteInfo(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {

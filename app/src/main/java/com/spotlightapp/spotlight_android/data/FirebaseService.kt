@@ -240,15 +240,15 @@ class FirebaseService {
         return result
     }
 
-    fun getScheduleData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+    fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         val result: MutableLiveData<Triple<Long?, Boolean, String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "getScheduleData()", message = "successfully retrieved user document for user schedule.")
+                logDebug(logTag = LOG_TAG, functionName = "getScheduleMetaData()", message = "successfully retrieved user document for user schedule.")
                 val userData = task.result?.data
                 result.value = Triple(userData?.get("current_round") as? Long?, userData?.get("current_schedule") != null, userData?.get("bid_house") as? String?)
             } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getScheduleData()", message = "error retrieving user document for user schedule.")
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getScheduleMetaData()", message = "error retrieving user document for user schedule.")
                 result.value = Triple(-1, false, "")
             }
         }
