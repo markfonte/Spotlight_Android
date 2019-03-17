@@ -199,10 +199,12 @@ class FirebaseService {
         } else {
             fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
                 if (e != null || snapshot == null || !snapshot.exists()) {
+                    logErrorSnapshot(e, logTag = LOG_TAG, functionName = "validateUser()", message = "error retrieving user document snapshot for user values.")
                     state = UserState.LoggedOut
                     result.value = state
                     return@EventListener
                 }
+                logDebug(logTag = LOG_TAG, functionName = "validateUser()", message = "successfully retrieved user document snapshot for user validation.")
                 result.value = if (snapshot.data?.get("are_values_set") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
             })
         }
@@ -214,9 +216,11 @@ class FirebaseService {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getUserValues()", message = "error retrieving user document snapshot for user values.")
                 result.value = arrayListOf()
                 return@EventListener
             }
+            logDebug(logTag = LOG_TAG, functionName = "getUserValues()", message = "successfully retrieved user document snapshot for user values.")
             result.value = snapshot.data?.get("values") as? ArrayList<String?>
         })
         return result
@@ -242,18 +246,14 @@ class FirebaseService {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
         fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
-                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving document snapshot for schedule.")
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving user document snapshot for schedule.")
                 result.value = hashMapOf()
                 return@EventListener
             }
-            val userDocument = snapshot.data
-            if (userDocument?.get("current_schedule") != null) {
-                result.value = userDocument["current_schedule"] as? HashMap<String, HashMap<String, String>>
-                return@EventListener
-            } else {
-                result.value = hashMapOf()
-                return@EventListener
-            }
+            logDebug(logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved user document snapshot for schedule.")
+
+            result.value = snapshot.data?.get("current_schedule") as? HashMap<String, HashMap<String, String>>
+                    ?: hashMapOf()
         })
         return result
     }
