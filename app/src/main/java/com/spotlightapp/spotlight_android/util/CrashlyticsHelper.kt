@@ -9,16 +9,16 @@ class CrashlyticsHelper {
     companion object {
 
         fun logDebug(logTag: String = "", functionName: String = "", message: String = "") {
-            Crashlytics.log(Log.ERROR, logTag, "$functionName: Error in task - Message: $message")
+            Crashlytics.log(Log.DEBUG, logTag, "$functionName - Message: $message")
         }
 
 //        fun logVerboseTask(task: Task<*>, logTag: String = "", functionName: String = "", message: String = "") {
-//            Crashlytics.log(Log.DEBUG, logTag, "$functionName: Task result - Message: $message Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
+//            Crashlytics.log(Log.VERBOSE, logTag, "$functionName: Task result - Message: $message Result: ${task.result.toString()}; Exception(if any): ${task.exception.toString()}.")
 //        }
 
 //        fun logVerboseSnapshot(snapshot: DocumentSnapshot?, logTag: String = "", functionName: String = "", message: String = "") {
 //            if (snapshot != null && snapshot.exists()) {
-//                Crashlytics.log(Log.DEBUG, logTag, "$functionName: Snapshot - Message: $message Result: ${snapshot.data.toString()}")
+//                Crashlytics.log(Log.VERBOSE, logTag, "$functionName: Snapshot - Message: $message Result: ${snapshot.data.toString()}")
 //            }
 //        }
 
