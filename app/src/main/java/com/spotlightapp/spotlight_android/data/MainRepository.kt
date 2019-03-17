@@ -12,7 +12,7 @@ class MainRepository {
 
     // Static data
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = firebaseService.getStaticHouseData()
-    var panhelValues: LiveData<ArrayList<*>> = firebaseService.getPanhelValues()
+    var staticPanhelValues: MutableLiveData<ArrayList<*>> = firebaseService.getStaticPanhelValues()
 
     fun attemptLogin(email: String, password: String): LiveData<String> {
         return firebaseService.attemptLogin(email, password)

@@ -255,20 +255,6 @@ class FirebaseService {
         return result
     }
 
-    fun getPanhelValues(): LiveData<ArrayList<*>> {
-        val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
-        fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "getPanhelValues()", message = "successfully retrieved document for panhel values.")
-                result.value = task.result?.data?.get("values") as? ArrayList<*>
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getPanhelValues()", message = "error retrieving document for panhel values.")
-                result.value = arrayListOf<String>()
-            }
-        }
-        return result
-    }
-
     @Suppress("UNCHECKED_CAST")
     fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
@@ -290,6 +276,26 @@ class FirebaseService {
         return result
     }
 
+    /*
+        This is intentionally not a snapshot listener in order to reduce the number of server connections
+     */
+    fun getStaticPanhelValues(): MutableLiveData<ArrayList<*>> {
+        val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
+        fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebug(logTag = LOG_TAG, functionName = "getStaticPanhelValues()", message = "successfully retrieved document for panhel values.")
+                result.value = task.result?.data?.get("values") as? ArrayList<*>
+            } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "getStaticPanhelValues()", message = "error retrieving document for panhel values.")
+                result.value = arrayListOf<String>()
+            }
+        }
+        return result
+    }
+
+    /*
+        This is intentionally not a snapshot listener in order to reduce the number of server connections
+     */
     @Suppress("UNCHECKED_CAST")
     fun getStaticHouseData(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
@@ -366,6 +372,7 @@ class FirebaseService {
         return result
     }
 
+    // TODO: make snapshot listener
     @Suppress("UNCHECKED_CAST")
     fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
         val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
@@ -381,6 +388,7 @@ class FirebaseService {
         return result
     }
 
+    // TODO: make snapshot listener
     @Suppress("UNCHECKED_CAST")
     fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()

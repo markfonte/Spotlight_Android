@@ -41,7 +41,7 @@ class OnboardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.panhelValues.observe(this, Observer { result ->
+        vm.staticPanhelValues.observe(this, Observer { result ->
             vm.currentlyCheckedBoxes = HashMap()
             var i = 0
             while (i < result.size) {
@@ -54,7 +54,7 @@ class OnboardingFragment : Fragment() {
             var count = 0
             var i = 0
             vm.submittedCheckboxes = ArrayList()
-            while (i < vm.panhelValues.value!!.size) {
+            while (i < vm.staticPanhelValues.value!!.size) {
                 vm.currentlyCheckedBoxes?.let { checked ->
                     if (checked[i] != "") {
                         ++count
@@ -119,7 +119,7 @@ class OnboardingFragment : Fragment() {
     private fun buildRadioButtons() {
         val checkboxHolder = LinearLayout(context)
         checkboxHolder.orientation = LinearLayout.VERTICAL
-        for ((counter, i) in vm.panhelValues.value!!.withIndex()) {
+        for ((counter, i) in vm.staticPanhelValues.value!!.withIndex()) {
             val newCheckbox = AppCompatCheckBox(context)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
