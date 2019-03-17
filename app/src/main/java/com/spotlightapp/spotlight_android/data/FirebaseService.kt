@@ -213,20 +213,6 @@ class FirebaseService {
         return result
     }
 
-    fun updateUserInformation(values: MutableMap<String, Any>): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(values)
-                .addOnSuccessListener {
-                    logDebug(logTag = LOG_TAG, functionName = "updateUserInformation()", message = "successfully updated user document with $values.")
-                    result.value = ""
-                }
-                .addOnFailureListener { exception ->
-                    logError(logTag = LOG_TAG, functionName = "updateUserInformation()", message = "error updating user document with $values.")
-                    result.value = exception.toString()
-                }
-        return result
-    }
-
     @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
@@ -276,6 +262,39 @@ class FirebaseService {
         return result
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
+        val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+            if (e != null || snapshot == null || !snapshot.exists()) {
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document snapshot for current ranking.")
+                result.value = null
+                return@EventListener
+            }
+            logDebug(logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
+            result.value = snapshot.data?.get("current_ranking") as? HashMap<String, Int>
+            return@EventListener
+        })
+        return result
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
+        val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+            if (e != null || snapshot == null || !snapshot.exists()) {
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getNotes()", message = "error retrieving notes snapshot at $houseId.")
+                result.value = null
+                return@EventListener
+            }
+            logDebug(logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved notes snapshot at $houseId.")
+            val notes = snapshot.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
+            result.value = notes?.get(houseId)
+            return@EventListener
+        })
+        return result
+    }
+
     /*
         This is intentionally not a snapshot listener in order to reduce the number of server connections
      */
@@ -311,6 +330,38 @@ class FirebaseService {
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getStaticHouseData()", message = "error retrieving document for static house data.")
                 result.value = null
+            }
+        }
+        return result
+    }
+
+    fun updateUserInformation(values: MutableMap<String, Any>): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(values)
+                .addOnSuccessListener {
+                    logDebug(logTag = LOG_TAG, functionName = "updateUserInformation()", message = "successfully updated user document with $values.")
+                    result.value = ""
+                }
+                .addOnFailureListener { exception ->
+                    logError(logTag = LOG_TAG, functionName = "updateUserInformation()", message = "error updating user document with $values.")
+                    result.value = exception.toString()
+                }
+        return result
+    }
+
+    fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
+        val result: MutableLiveData<String> = MutableLiveData()
+        val rankingUpdatesMap = HashMap<String, Any>()
+        for ((rankingKey, rankingValue) in updatedRanking) {
+            rankingUpdatesMap["current_ranking.$rankingKey"] = rankingValue
+        }
+        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logDebug(logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated user ranking with $updatedRanking.")
+                result.value = ""
+            } else {
+                logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "error updating user ranking with $updatedRanking.")
+                result.value = task.exception.toString()
             }
         }
         return result
@@ -367,57 +418,6 @@ class FirebaseService {
             } else {
                 logErrorTask(task1, logTag = LOG_TAG, functionName = "submitNote()", message = "error saving notes for house $houseId to user notes.")
                 result.value = task1.exception.toString()
-            }
-        }
-        return result
-    }
-
-    // TODO: make snapshot listener
-    @Suppress("UNCHECKED_CAST")
-    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
-        val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
-                result.value = task.result?.data?.get("current_ranking") as? HashMap<String, Int>
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document for current ranking.")
-                result.value = null
-            }
-        }
-        return result
-    }
-
-    // TODO: make snapshot listener
-    @Suppress("UNCHECKED_CAST")
-    fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
-        val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved note $houseId")
-                val notes = task.result?.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
-                result.value = notes?.get(houseId)
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "getNotes()", message = "error retrieving note at $houseId")
-                result.value = null
-            }
-        }
-        return result
-    }
-
-    fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
-        val result: MutableLiveData<String> = MutableLiveData()
-        val rankingUpdatesMap = HashMap<String, Any>()
-        for ((rankingKey, rankingValue) in updatedRanking) {
-            rankingUpdatesMap["current_ranking.$rankingKey"] = rankingValue
-        }
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                logDebug(logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated user ranking with $updatedRanking.")
-                result.value = ""
-            } else {
-                logErrorTask(task, logTag = LOG_TAG, functionName = "updateRanking()", message = "error updating user ranking with $updatedRanking.")
-                result.value = task.exception.toString()
             }
         }
         return result
