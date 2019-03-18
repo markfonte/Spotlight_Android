@@ -23,7 +23,6 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
         val houseId: TextView = v.findViewById(R.id.ranking_row_house_id)
         val houseIndex: TextView = v.findViewById(R.id.ranking_row_house_index)
         val currentRanking: TextView = v.findViewById(R.id.ranking_row_current_ranking)
-        val streetAddress: TextView = v.findViewById(R.id.ranking_row_street_address)
         val rowContainer: ConstraintLayout = v.findViewById(R.id.ranking_row_container)
         val buttonContainer: LinearLayout = v.findViewById(R.id.ranking_button_container)
     }
@@ -40,7 +39,6 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
         viewHolder.greekLetters.text = rankingData[position].GreekLetters
         viewHolder.houseId.text = rankingData[position].HouseId
         viewHolder.houseIndex.text = rankingData[position].HouseIndex
-        viewHolder.streetAddress.text = rankingData[position].StreetAddress
         viewHolder.currentRanking.text = rankingData[position].CurrentRank.toString()
         if (rankingData[position].CurrentRank!! < 0) {
             viewHolder.currentRanking.visibility = View.INVISIBLE
@@ -50,13 +48,10 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
             viewHolder.buttonContainer.background = ContextCompat.getDrawable(context, R.drawable.background_recycler_row)
         }
         viewHolder.rowContainer.setOnClickListener {
-            val displayName: String = it.findViewById<TextView>(R.id.ranking_row_display_name).text.toString()
-            val greekLetters: String = it.findViewById<TextView>(R.id.ranking_row_greek_letters).text.toString()
-            val streetAddress: String = it.findViewById<TextView>(R.id.ranking_row_street_address).text.toString()
             val houseId: String = it.findViewById<TextView>(R.id.ranking_row_house_id).text.toString()
             val houseIndex: String = it.findViewById<TextView>(R.id.ranking_row_house_index).text.toString()
             val isNoteLocked = true
-            val bundle: Bundle = bundleOf("${BA.DisplayName}" to displayName, "${BA.GreekLetters}" to greekLetters, "${BA.StreetAddress}" to streetAddress, "${BA.HouseId}" to houseId, "${BA.HouseIndex}" to houseIndex, "${BA.IsNoteLocked}" to isNoteLocked)
+            val bundle: Bundle = bundleOf("${BA.HouseId}" to houseId, "${BA.HouseIndex}" to houseIndex, "${BA.IsNoteLocked}" to isNoteLocked)
             val navOptions = NavOptions.Builder()
             navOptions.setEnterAnim(android.R.anim.fade_in)
             navOptions.setExitAnim(android.R.anim.fade_out)

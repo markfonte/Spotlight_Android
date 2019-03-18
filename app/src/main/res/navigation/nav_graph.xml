@@ -68,15 +68,6 @@
         android:label="Comment"
         tools:layout="@layout/fragment_notes">
         <argument
-            android:name="DisplayName"
-            app:argType="string" />
-        <argument
-            android:name="GreekLetters"
-            app:argType="string" />
-        <argument
-            android:name="StreetAddress"
-            app:argType="string" />
-        <argument
             android:name="HouseId"
             app:argType="string" />
         <argument

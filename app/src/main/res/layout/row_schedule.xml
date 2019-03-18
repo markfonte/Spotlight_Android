@@ -89,14 +89,6 @@
         app:layout_constraintGuide_percent=".9" />
 
     <TextView
-        android:id="@+id/schedule_row_street_address"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/schedule_row_house_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
