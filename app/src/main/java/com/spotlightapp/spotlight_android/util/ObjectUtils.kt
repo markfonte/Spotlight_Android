@@ -73,14 +73,14 @@ enum class DC {
     Bundle args - keys for bundle arguments
  */
 enum class BA {
-    SchedulePagePosition,
-    ScheduleDisplayMode,
     ScheduleBidHouse,
+    ScheduleDisplayMode,
+    SchedulePagePosition,
 
-    GreekLetters,
-    StreetAddress,
     DisplayName,
+    GreekLetters,
     HouseId,
     HouseIndex,
     IsNoteLocked,
+    StreetAddress,
 }
