@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.spotlightapp.spotlight_android.R
+import com.spotlightapp.spotlight_android.util.BA
 import com.spotlightapp.spotlight_android.util.RankingDatum
 
 class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RankingRecyclerAdapter.ViewHolder>() {
@@ -55,7 +56,7 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
             val houseId: String = it.findViewById<TextView>(R.id.ranking_row_house_id).text.toString()
             val houseIndex: String = it.findViewById<TextView>(R.id.ranking_row_house_index).text.toString()
             val isNoteLocked = true
-            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex, "is_note_locked" to isNoteLocked)
+            val bundle: Bundle = bundleOf("${BA.DisplayName}" to displayName, "${BA.GreekLetters}" to greekLetters, "${BA.StreetAddress}" to streetAddress, "${BA.HouseId}" to houseId, "${BA.HouseIndex}" to houseIndex, "${BA.IsNoteLocked}" to isNoteLocked)
             val navOptions = NavOptions.Builder()
             navOptions.setEnterAnim(android.R.anim.fade_in)
             navOptions.setExitAnim(android.R.anim.fade_out)
@@ -79,6 +80,9 @@ class RankingRecyclerAdapter(val rankingData: ArrayList<RankingDatum>, private v
         notifyItemMoved(fromPosition, toPosition)
     }
 
+    /*
+        If there is only one house it should be set as ranked #1 immediately.
+     */
     private fun initializeRanking() {
         if (rankingData.size == 1) {
             rankingData[0].CurrentRank = 1

@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.ScheduleRecyclerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentScheduleBinding
-import com.spotlightapp.spotlight_android.util.InjectorUtils
-import com.spotlightapp.spotlight_android.util.ScheduleDisplayMode
-import com.spotlightapp.spotlight_android.util.TimeSlot
+import com.spotlightapp.spotlight_android.util.*
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
 
@@ -29,10 +27,10 @@ class ScheduleFragment : Fragment() {
             viewModel = vm
             lifecycleOwner = this@ScheduleFragment
         }
-        arguments?.takeIf { it.containsKey(activity?.getString(R.string.SCHEDULE_PAGE_POSITION)) }?.apply {
-            vm.position = getInt(getString(R.string.SCHEDULE_PAGE_POSITION))
-            vm.displayMode = getInt(getString(R.string.SCHEDULE_DISPLAY_MODE))
-            vm.bidHouse = getString(getString(R.string.SCHEDULE_BID_HOUSE))
+        arguments?.takeIf { it.containsKey("${BA.SchedulePagePosition}") }?.apply {
+            vm.position = getInt("${BA.SchedulePagePosition}")
+            vm.displayMode = getInt("${BA.ScheduleDisplayMode}")
+            vm.bidHouse = getString("${BA.ScheduleBidHouse}")
         }
         return binding.root
     }
@@ -52,14 +50,14 @@ class ScheduleFragment : Fragment() {
                     val staticHouseData = vm.staticHouseData.value as HashMap<String, HashMap<String, String>>
 
                     for ((houseKey, houseValue) in houses) {
-                        val currentStaticHouseDatum = staticHouseData[houseValue["house_id"]]
+                        val currentStaticHouseDatum = staticHouseData[houseValue["${DC.house_id}"]]
                         val currentTimeSlot = TimeSlot("", "", "", "", "", "", "")
-                        currentTimeSlot.Time = houseValue["time"]
-                        currentTimeSlot.Date = houseValue["date"]
-                        currentTimeSlot.DisplayName = currentStaticHouseDatum?.get("display_name")
-                        currentTimeSlot.GreekLetters = currentStaticHouseDatum?.get("greek_letters")
-                        currentTimeSlot.StreetAddress = currentStaticHouseDatum?.get("street_address")
-                        currentTimeSlot.HouseId = houseValue["house_id"]
+                        currentTimeSlot.Time = houseValue["${DC.time}"]
+                        currentTimeSlot.Date = houseValue["${DC.date}"]
+                        currentTimeSlot.DisplayName = currentStaticHouseDatum?.get("${DC.display_name}")
+                        currentTimeSlot.GreekLetters = currentStaticHouseDatum?.get("${DC.greek_letters}")
+                        currentTimeSlot.StreetAddress = currentStaticHouseDatum?.get("${DC.street_address}")
+                        currentTimeSlot.HouseId = houseValue["${DC.house_id}"]
                         currentTimeSlot.HouseIndex = houseKey
                         timeSlots.add(currentTimeSlot)
                         scheduleExists = true
@@ -78,7 +76,7 @@ class ScheduleFragment : Fragment() {
                     vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {
-                    vm.noScheduleMessage.value = "Congratulations! You got a bid from $vm.bidHouse!"
+                    vm.noScheduleMessage.value = "Congratulations! You got a bid from $vm.${DC.bid_house}!"
                     vm.isDataLoading.value = false
                 }
                 else -> {

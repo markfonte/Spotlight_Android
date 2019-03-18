@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.spotlightapp.spotlight_android.R
+import com.spotlightapp.spotlight_android.util.BA
 import com.spotlightapp.spotlight_android.util.TimeSlot
 
 class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : androidx.recyclerview.widget.RecyclerView.Adapter<ScheduleRecyclerAdapter.ViewHolder>() {
@@ -46,7 +47,7 @@ class ScheduleRecyclerAdapter(private val timeSlots: ArrayList<TimeSlot>) : andr
             val houseId: String = it.findViewById<TextView>(R.id.schedule_row_house_id).text.toString()
             val houseIndex: String = it.findViewById<TextView>(R.id.schedule_row_house_index).text.toString()
             val isNoteLocked = false
-            val bundle: Bundle = bundleOf("display_name" to displayName, "greek_letters" to greekLetters, "street_address" to streetAddress, "house_id" to houseId, "house_index" to houseIndex, "is_note_locked" to isNoteLocked)
+            val bundle: Bundle = bundleOf("${BA.DisplayName}" to displayName, "${BA.GreekLetters}" to greekLetters, "${BA.StreetAddress}" to streetAddress, "${BA.HouseId}" to houseId, "${BA.HouseIndex}" to houseIndex, "${BA.IsNoteLocked}" to isNoteLocked)
             val navOptions = NavOptions.Builder()
             navOptions.setEnterAnim(android.R.anim.fade_in)
             navOptions.setExitAnim(android.R.anim.fade_out)

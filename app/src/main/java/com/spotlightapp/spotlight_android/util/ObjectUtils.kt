@@ -51,14 +51,36 @@ enum class DC {
     current_schedule,
     current_ranking,
     current_round,
+    date,
+    display_name,
+    greek_letters,
+    house_id,
     house_images,
     house_information,
     notes,
     panhel_data,
     panhel_values,
+    street_address,
+    time,
     users,
     value1,
     value2,
     value3,
     values
+}
+
+/*
+    Bundle args - keys for bundle arguments
+ */
+enum class BA {
+    SchedulePagePosition,
+    ScheduleDisplayMode,
+    ScheduleBidHouse,
+
+    GreekLetters,
+    StreetAddress,
+    DisplayName,
+    HouseId,
+    HouseIndex,
+    IsNoteLocked,
 }

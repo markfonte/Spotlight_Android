@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentNotesBinding
+import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.GlideApp
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.SystemUtils
@@ -92,10 +93,10 @@ class NotesFragment : Fragment() {
             vm.getNote(vm.houseId.value!!).observe(this, Observer { taskResult ->
                 if (taskResult != null) {
                     with(vm) {
-                        comments.value = taskResult["comments"] as? String
-                        isValueOneChecked.value = taskResult["value1"] as? Boolean
-                        isValueTwoChecked.value = taskResult["value2"] as? Boolean
-                        isValueThreeChecked.value = taskResult["value3"] as? Boolean
+                        comments.value = taskResult["${DC.comments}"] as? String
+                        isValueOneChecked.value = taskResult["${DC.value1}"] as? Boolean
+                        isValueTwoChecked.value = taskResult["${DC.value2}"] as? Boolean
+                        isValueThreeChecked.value = taskResult["${DC.value3}"] as? Boolean
                     }
                 }
             })

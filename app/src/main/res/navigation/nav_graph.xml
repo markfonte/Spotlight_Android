@@ -68,22 +68,22 @@
         android:label="Comment"
         tools:layout="@layout/fragment_notes">
         <argument
-            android:name="display_name"
+            android:name="DisplayName"
             app:argType="string" />
         <argument
-            android:name="greek_letters"
+            android:name="GreekLetters"
             app:argType="string" />
         <argument
-            android:name="street_address"
+            android:name="StreetAddress"
             app:argType="string" />
         <argument
-            android:name="house_id"
+            android:name="HouseId"
             app:argType="string" />
         <argument
-            android:name="house_index"
+            android:name="HouseIndex"
             app:argType="string" />
         <argument
-            android:name="is_note_locked"
+            android:name="IsNoteLocked"
             app:argType="boolean" />
         <action
             android:id="@+id/action_notesFragment_to_rankingFragment"

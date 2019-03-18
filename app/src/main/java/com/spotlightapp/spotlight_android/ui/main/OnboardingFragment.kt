@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentOnboardingBinding
+import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_onboarding.*
 import java.util.*
@@ -45,7 +46,7 @@ class OnboardingFragment : Fragment() {
             vm.currentlyCheckedBoxes = HashMap()
             var i = 0
             while (i < result.size) {
-                vm.currentlyCheckedBoxes?.let{it[i] = ""}
+                vm.currentlyCheckedBoxes?.let { it[i] = "" }
                 ++i
             }
             buildRadioButtons()
@@ -96,10 +97,8 @@ class OnboardingFragment : Fragment() {
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 val newValuesMap: MutableMap<String, Any> = HashMap()
-                newValuesMap["are_values_set"] = true
-                newValuesMap["bid_house"] = ""
-                newValuesMap["current_round"] = 0
-                newValuesMap["values"] = Arrays.asList(vm.submittedCheckboxes?.get(0), vm.submittedCheckboxes?.get(1), vm.submittedCheckboxes?.get(2))
+                newValuesMap["${DC.are_values_set}"] = true
+                newValuesMap["${DC.values}"] = Arrays.asList(vm.submittedCheckboxes?.get(0), vm.submittedCheckboxes?.get(1), vm.submittedCheckboxes?.get(2))
                 vm.submitChosenValues(newValuesMap).observe(this, Observer { error ->
                     run {
                         if (error == "") {
@@ -138,11 +137,11 @@ class OnboardingFragment : Fragment() {
 
             newCheckbox.id = counter
             newCheckbox.text = i.toString()
-            newCheckbox.setOnClickListener {view ->
+            newCheckbox.setOnClickListener { view ->
                 if ((view as CheckBox).isChecked) {
-                    vm.currentlyCheckedBoxes?.let{it[view.id] = view.text.toString().trim()}
+                    vm.currentlyCheckedBoxes?.let { it[view.id] = view.text.toString().trim() }
                 } else {
-                    vm.currentlyCheckedBoxes?.let{it[view.id] = ""}
+                    vm.currentlyCheckedBoxes?.let { it[view.id] = "" }
                 }
             }
             checkboxHolder.addView(newCheckbox)

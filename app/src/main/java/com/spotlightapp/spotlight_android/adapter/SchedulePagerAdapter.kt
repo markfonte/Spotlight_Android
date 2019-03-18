@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.spotlightapp.spotlight_android.ui.main.ScheduleFragment
+import com.spotlightapp.spotlight_android.util.BA
 import com.spotlightapp.spotlight_android.util.RoundTitles
 import com.spotlightapp.spotlight_android.util.ScheduleDisplayMode
 
@@ -23,9 +24,9 @@ class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long,
             ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE
         }
         fragment.arguments = Bundle().apply {
-            putInt("SCHEDULE_PAGE_POSITION", position)
-            putInt("SCHEDULE_DISPLAY_MODE", displayMode)
-            putString("SCHEDULE_BID_HOUSE", bidHouse)
+            putInt("${BA.SchedulePagePosition}", position)
+            putInt("${BA.ScheduleDisplayMode}", displayMode)
+            putString("${BA.ScheduleBidHouse}", bidHouse)
         }
         return fragment
     }
