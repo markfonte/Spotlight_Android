@@ -7,6 +7,7 @@ import com.spotlightapp.spotlight_android.data.MainRepository
 import java.util.*
 
 class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
+    val isDataLoading: MutableLiveData<Boolean> = MutableLiveData()
     val displayName: MutableLiveData<String> = MutableLiveData()
     val greekLetters: MutableLiveData<String> = MutableLiveData()
     val streetAddress: MutableLiveData<String> = MutableLiveData()
@@ -23,6 +24,7 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
 
     init {
+        isDataLoading.value = true
         isNoteLocked.value = true
     }
 

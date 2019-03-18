@@ -115,6 +115,7 @@ class NotesFragment : Fragment() {
                         vm.streetAddress.value = staticHouseData?.get(houseId)?.get("${DC.street_address}")
                         vm.displayName.value = staticHouseData?.get(houseId)?.get("${DC.display_name}")
                         vm.greekLetters.value = staticHouseData?.get(houseId)?.get("${DC.greek_letters}")
+                        vm.isDataLoading.value = false
                     }
                 })
             })
