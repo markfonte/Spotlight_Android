@@ -76,6 +76,7 @@ enum class BA {
     ScheduleBidHouse,
     ScheduleDisplayMode,
     SchedulePagePosition,
+    ScheduleCurrentRound,
 
     DisplayName,
     GreekLetters,

@@ -40,7 +40,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                         (activity as MainActivity).logout()
                     } else {
                         vm.scheduleViewPager = schedule_view_pager
-                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, result.first!!, result.second, result.third!!)
+                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second, bidHouse = result.third!!)
                         vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
                         vm.scheduleViewPager?.offscreenPageLimit = 4
                         tab_layout.setupWithViewPager(vm.scheduleViewPager, true)

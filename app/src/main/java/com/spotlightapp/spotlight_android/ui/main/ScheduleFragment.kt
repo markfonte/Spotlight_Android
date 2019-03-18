@@ -31,6 +31,12 @@ class ScheduleFragment : Fragment() {
             vm.position = getInt("${BA.SchedulePagePosition}")
             vm.displayMode = getInt("${BA.ScheduleDisplayMode}")
             vm.bidHouse = getString("${BA.ScheduleBidHouse}")
+            vm.currentRoundName = when (getLong("${BA.ScheduleCurrentRound}").toInt()) {
+                0 -> RoundTitles().FIRST_ROUND_DISPLAY_TITLE
+                1 -> RoundTitles().SECOND_ROUND_DISPLAY_TITLE
+                2 -> RoundTitles().THIRD_ROUND_DISPLAY_TITLE
+                else -> RoundTitles().FOURTH_ROUND_DISPLAY_TITLE
+            }
         }
         return binding.root
     }
@@ -68,11 +74,11 @@ class ScheduleFragment : Fragment() {
                     vm.isDataLoading.value = false
                 })
                 ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
-                    vm.noScheduleMessage.value = getString(R.string.no_schedule_message_ahead)
+                    vm.noScheduleMessage.value = "Whoops! We’re not quite there yet, take a look at the ${vm.currentRoundName} screen for updates on your current schedule!"
                     vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
-                    vm.noScheduleMessage.value = getString(R.string.no_schedule_message_behind)
+                    vm.noScheduleMessage.value = "PHEW! This round is over! See the ${vm.currentRoundName} round screen for updates on your next schedule!"
                     vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {

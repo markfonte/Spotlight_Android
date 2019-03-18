@@ -16,6 +16,7 @@ class ScheduleViewModel(private val mainRepository: MainRepository) : ViewModel(
     var position: Int = -1
     var displayMode: Int = -1
     var bidHouse: String? = ""
+    var currentRoundName: String? = ""
 
     init {
         isScheduleToDisplay.value = false

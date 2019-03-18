@@ -27,6 +27,7 @@ class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long,
             putInt("${BA.SchedulePagePosition}", position)
             putInt("${BA.ScheduleDisplayMode}", displayMode)
             putString("${BA.ScheduleBidHouse}", bidHouse)
+            putLong("${BA.ScheduleCurrentRound}", currentRound)
         }
         return fragment
     }

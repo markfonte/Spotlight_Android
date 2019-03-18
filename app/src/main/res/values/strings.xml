@@ -38,7 +38,7 @@
     <string name="recycler_row_greek_letters_text_default">Greek Letters</string>
     <string name="no_schedule_message_ahead">You are currently on a previous round. This round\'s schedule will appear after you complete all previous rounds!</string>
     <string name="no_schedule_message_behind">You have already completed this round! Swipe to advance to the current round.</string>
-    <string name="no_schedule_message_no_schedules">You currently have no schedules for any rounds. Please check that you have the correct email address and check back later - your schedule will be imported automatically!</string>
+    <string name="no_schedule_message_no_schedules">You currently have no schedules for any rounds. Please be patient and check back later - your schedule will be imported automatically when it’s ready!</string>
     <string name="display_values_title_default_text">My Values</string>
     <string name="display_user_data_title_default_text">My Info</string>
     <string name="display_user_data_display_name_prompt_default_text">Name</string>
@@ -56,8 +56,8 @@
     <string name="comments">Comments</string>
     <string name="notes_enter_comments_hint">Enter Comments…</string>
     <string name="notes_submit_button_text">Save</string>
-    <string name="sign_up_info_message">Welcome to Spotlight!\n\n- Please sign up using your school email address\n- Your password must be at least 6 characters\n- You will be able to change your name and password at any time\n\nQuestions? Contact tlansey@umich.edu!</string>
+    <string name="sign_up_info_message">Welcome to Spotlight!\n\n- Please sign up using the same email address you used to register for recruitment\n- Your password must be at least 6 characters\n- You will be able to change your name and password at any time\n\nQuestions? Contact contact@spotlight-app.com!</string>
     <string name="content_desc_landing_spotlight_logo">Landing Fragment Spotlight Logo</string>
     <string name="ranking_title_text">Current Ranking</string>
-    <string name="ranking_no_data_prompt_text">You currently do not have any houses submitted to be ranked. Your ranked houses will appear here.</string>
+    <string name="ranking_no_data_prompt_text">You currently do not have any houses saved to be ranked. Your houses will appear here once you have saved your comments on the schedule screen.</string>
 </resources>
