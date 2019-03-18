@@ -93,7 +93,7 @@ class MainRepository {
     }
 
     fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
-        return firebaseService.getNotes(houseId)
+        return firebaseService.getNote(houseId)
     }
 
     fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {

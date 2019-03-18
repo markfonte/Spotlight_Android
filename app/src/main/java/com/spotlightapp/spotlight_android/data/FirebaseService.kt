@@ -21,6 +21,7 @@ import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.setCr
 import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.UserState
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class FirebaseService {
@@ -275,17 +276,16 @@ class FirebaseService {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
+    fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
         fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
-                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getNotes()", message = "error retrieving notes snapshot at $houseId.")
+                logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getNote()", message = "error retrieving notes snapshot at $houseId.")
                 result.value = null
                 return@EventListener
             }
-            logDebug(logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved notes snapshot at $houseId.")
-            val notes = snapshot.data?.get("${DC.notes}") as? HashMap<String, HashMap<String, Any>>
-            result.value = notes?.get(houseId)
+            logDebug(logTag = LOG_TAG, functionName = "getNote()", message = "successfully retrieved notes snapshot at $houseId.")
+            result.value = snapshot.data as? HashMap<String, Any>
             return@EventListener
         })
         return result
