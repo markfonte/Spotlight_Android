@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentNotesBinding
+import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.GlideApp
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.SystemUtils
@@ -84,13 +85,13 @@ class NotesFragment : Fragment() {
             vm.getNote(vm.houseId.value!!).observe(this, Observer { taskResult ->
                 if (taskResult != null) {
                     with(vm) {
-                        valueOne.value = (taskResult["values"] as? ArrayList<*>)?.get(0) as? String
-                        valueTwo.value = (taskResult["values"] as? ArrayList<*>)?.get(1) as? String
-                        valueThree.value = (taskResult["values"] as? ArrayList<*>)?.get(2) as? String
-                        comments.value = (taskResult["notes"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("comments") as? String
-                        isValueOneChecked.value = (taskResult["notes"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("value1") as? Boolean
-                        isValueTwoChecked.value = (taskResult["notes"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("value2") as? Boolean
-                        isValueThreeChecked.value = (taskResult["notes"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("value3") as? Boolean
+                        valueOne.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(0) as? String
+                        valueTwo.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(1) as? String
+                        valueThree.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(2) as? String
+                        comments.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.comments}") as? String
+                        isValueOneChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value1}") as? Boolean
+                        isValueTwoChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value2}") as? Boolean
+                        isValueThreeChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value3}") as? Boolean
                     }
                 }
             })
