@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.RankingRecyclerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentRankingBinding
+import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.RankingDatum
 import com.spotlightapp.spotlight_android.util.UserState
@@ -86,9 +87,9 @@ class RankingFragment : Fragment() {
                         val currentRankingDatum = RankingDatum("", "", "", "", -2, "")
                         currentRankingDatum.HouseId = rankingKey
                         currentRankingDatum.CurrentRank = rankingValue
-                        currentRankingDatum.DisplayName = currentStaticHouseDatum?.get("display_name")
-                        currentRankingDatum.GreekLetters = currentStaticHouseDatum?.get("greek_letters")
-                        currentRankingDatum.StreetAddress = currentStaticHouseDatum?.get("street_address")
+                        currentRankingDatum.DisplayName = currentStaticHouseDatum?.get("${DC.display_name}")
+                        currentRankingDatum.GreekLetters = currentStaticHouseDatum?.get("${DC.greek_letters}")
+                        currentRankingDatum.StreetAddress = currentStaticHouseDatum?.get("${DC.street_address}")
                         currentRankingDatum.HouseIndex = i.toString() //Probably will want to delete this
                         rankingData.add(currentRankingDatum)
                         ++i
