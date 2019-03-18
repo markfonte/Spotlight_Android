@@ -87,11 +87,8 @@ class NotesFragment : Fragment() {
     private fun getArgumentsFromBundle() {
         with(vm) {
             arguments?.let {
-                displayName.value = NotesFragmentArgs.fromBundle(it).displayName
-                greekLetters.value = NotesFragmentArgs.fromBundle(it).greekLetters
-                streetAddress.value = NotesFragmentArgs.fromBundle(it).streetAddress
-                houseIndex.value = NotesFragmentArgs.fromBundle(it).houseIndex
                 houseId.value = NotesFragmentArgs.fromBundle(it).houseId
+                houseIndex.value = NotesFragmentArgs.fromBundle(it).houseIndex
                 isNoteLocked.value = NotesFragmentArgs.fromBundle(it).isNoteLocked
             }
             if (houseId.value == null || houseIndex.value == null || isNoteLocked.value == null) {
@@ -104,19 +101,22 @@ class NotesFragment : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun getNoteInfo() {
-        vm.houseId.value?.let { hId ->
-            vm.getNote(hId).observe(this, Observer { taskResult ->
-                if (taskResult != null) {
-                    with(vm) {
-                        valueOne.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(0) as? String
-                        valueTwo.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(1) as? String
-                        valueThree.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(2) as? String
-                        comments.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.comments}") as? String
-                        isValueOneChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value1}") as? Boolean
-                        isValueTwoChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value2}") as? Boolean
-                        isValueThreeChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value3}") as? Boolean
+        vm.houseId.value?.let { houseId ->
+            vm.staticHouseData.observe(this, Observer { staticHouseData ->
+                vm.getNote(houseId).observe(this, Observer { taskResult ->
+                    taskResult?.let {
+                        vm.valueOne.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(0) as? String
+                        vm.valueTwo.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(1) as? String
+                        vm.valueThree.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(2) as? String
+                        vm.comments.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId)?.get("${DC.comments}") as? String
+                        vm.isValueOneChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId)?.get("${DC.value1}") as? Boolean
+                        vm.isValueTwoChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId)?.get("${DC.value2}") as? Boolean
+                        vm.isValueThreeChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId)?.get("${DC.value3}") as? Boolean
+                        vm.streetAddress.value = staticHouseData?.get(houseId)?.get("${DC.street_address}")
+                        vm.displayName.value = staticHouseData?.get(houseId)?.get("${DC.display_name}")
+                        vm.greekLetters.value = staticHouseData?.get(houseId)?.get("${DC.greek_letters}")
                     }
-                }
+                })
             })
         }
     }
