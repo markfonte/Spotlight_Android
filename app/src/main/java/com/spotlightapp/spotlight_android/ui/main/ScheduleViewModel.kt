@@ -11,6 +11,7 @@ class ScheduleViewModel(private val mainRepository: MainRepository) : ViewModel(
 
     var isScheduleToDisplay: MutableLiveData<Boolean> = MutableLiveData()
     var isDataLoading: MutableLiveData<Boolean> = MutableLiveData()
+    var isHouseImageVisible: MutableLiveData<Boolean> = MutableLiveData()
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
     var noScheduleMessage: MutableLiveData<String> = MutableLiveData()
     var position: Int = -1
@@ -21,6 +22,7 @@ class ScheduleViewModel(private val mainRepository: MainRepository) : ViewModel(
     init {
         isScheduleToDisplay.value = false
         isDataLoading.value = true
+        isHouseImageVisible.value = false
         noScheduleMessage.value = "No schedule to display right now. Please check back later!"
     }
 }

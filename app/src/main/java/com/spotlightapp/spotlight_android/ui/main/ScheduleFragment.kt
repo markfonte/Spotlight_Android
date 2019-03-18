@@ -75,10 +75,12 @@ class ScheduleFragment : Fragment() {
                 })
                 ScheduleDisplayMode().DISPLAY_AHEAD_OF_SCHEDULE -> {
                     vm.noScheduleMessage.value = "Whoops! We’re not quite there yet, take a look at the ${vm.currentRoundName} screen for updates on your current schedule!"
+                    vm.isHouseImageVisible.value = true
                     vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BEHIND_SCHEDULE -> {
                     vm.noScheduleMessage.value = "PHEW! This round is over! See the ${vm.currentRoundName} round screen for updates on your next schedule!"
+                    vm.isHouseImageVisible.value = true
                     vm.isDataLoading.value = false
                 }
                 ScheduleDisplayMode().DISPLAY_BID -> {
@@ -87,6 +89,7 @@ class ScheduleFragment : Fragment() {
                 }
                 else -> {
                     assert(vm.displayMode == ScheduleDisplayMode().DISPLAY_NO_SCHEDULES)
+                    vm.isHouseImageVisible.value = true
                     vm.noScheduleMessage.value = getString(R.string.no_schedule_message_no_schedules)
                     vm.isDataLoading.value = false
                 }
