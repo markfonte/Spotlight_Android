@@ -89,6 +89,10 @@
             android:id="@+id/action_notesFragment_to_rankingFragment"
             app:destination="@id/rankingFragment"
             app:popUpTo="@+id/rankingFragment" />
+        <action
+            android:id="@+id/action_notesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/homeFragment" />
 
     </fragment>
     <fragment

@@ -20,13 +20,10 @@ class NotesViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val isValueOneChecked: MutableLiveData<Boolean> = MutableLiveData()
     val isValueTwoChecked: MutableLiveData<Boolean> = MutableLiveData()
     val isValueThreeChecked: MutableLiveData<Boolean> = MutableLiveData()
+    var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
 
     init {
         isNoteLocked.value = true
-    }
-
-    fun getUserValues(): MutableLiveData<ArrayList<String?>> {
-        return mainRepository.getUserValues()
     }
 
     fun getStaticHouseImageReference(fileName: String): StorageReference {

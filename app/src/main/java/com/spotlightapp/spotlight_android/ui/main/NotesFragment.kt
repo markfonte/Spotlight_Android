@@ -15,10 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.databinding.FragmentNotesBinding
-import com.spotlightapp.spotlight_android.util.DC
-import com.spotlightapp.spotlight_android.util.GlideApp
-import com.spotlightapp.spotlight_android.util.InjectorUtils
-import com.spotlightapp.spotlight_android.util.SystemUtils
+import com.spotlightapp.spotlight_android.util.*
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 
@@ -38,60 +35,86 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(vm) {
-            displayName.value = NotesFragmentArgs.fromBundle(arguments!!).displayName
-            greekLetters.value = NotesFragmentArgs.fromBundle(arguments!!).greekLetters
-            streetAddress.value = NotesFragmentArgs.fromBundle(arguments!!).streetAddress
-            houseIndex.value = NotesFragmentArgs.fromBundle(arguments!!).houseIndex
-            houseId.value = NotesFragmentArgs.fromBundle(arguments!!).houseId
-            isNoteLocked.value = NotesFragmentArgs.fromBundle(arguments!!).isNoteLocked
-            GlideApp.with(context!!)
-                    .load(getStaticHouseImageReference(houseId.value!!))
-                    .into(notes_house_image)
-        }
+
+        getArgumentsFromBundle()
+        loadHouseImage()
+        getNoteInfo()
+
         notes_street_address.setOnClickListener {
-            //documentation: https://developers.google.com/maps/documentation/urls/android-intents
-            if (!vm.streetAddress.value.isNullOrEmpty()) {
-                val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(vm.streetAddress.value))
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                mapIntent.setPackage("com.google.android.apps.maps")
-                if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
-                    (activity as MainActivity).startActivity(mapIntent)
+            launchGoogleMapsActivity()
+        }
+        vm.isNoteLocked.value?.let { isNoteLocked ->
+            if (!isNoteLocked) {
+                notes_submit_button.setOnClickListener {
+                    showConfirmPopup()
                 }
             }
         }
-        getNoteInfo()
-        if (vm.isNoteLocked.value!!) {
-
-        } else {
-            notes_submit_button.setOnClickListener {
-                showConfirmPopup()
-            }
-        }
-
     }
 
     // So their progress is saved if they accidentally navigate away
     override fun onPause() {
         super.onPause()
-        if (!vm.isNoteLocked.value!!) {
-            vm.updateNoteInfo(vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked)
+        vm.isNoteLocked.value?.let { isNoteLocked ->
+            if (!isNoteLocked) {
+                vm.houseId.value?.let { houseId ->
+                    vm.updateNoteInfo(houseId, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked)
+                }
+            }
+        }
+    }
+
+    private fun loadHouseImage() {
+        vm.houseId.value?.let { houseId ->
+            GlideApp.with(context!!)
+                    .load(vm.getStaticHouseImageReference(houseId))
+                    .into(notes_house_image)
+        }
+    }
+
+    private fun launchGoogleMapsActivity() {
+        //documentation: https://developers.google.com/maps/documentation/urls/android-intents
+        if (!vm.streetAddress.value.isNullOrEmpty()) {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(vm.streetAddress.value))
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
+                (activity as MainActivity).startActivity(mapIntent)
+            }
+        }
+    }
+
+    private fun getArgumentsFromBundle() {
+        with(vm) {
+            arguments?.let {
+                displayName.value = NotesFragmentArgs.fromBundle(it).displayName
+                greekLetters.value = NotesFragmentArgs.fromBundle(it).greekLetters
+                streetAddress.value = NotesFragmentArgs.fromBundle(it).streetAddress
+                houseIndex.value = NotesFragmentArgs.fromBundle(it).houseIndex
+                houseId.value = NotesFragmentArgs.fromBundle(it).houseId
+                isNoteLocked.value = NotesFragmentArgs.fromBundle(it).isNoteLocked
+            }
+            if (houseId.value == null || houseIndex.value == null || isNoteLocked.value == null) {
+                CrashlyticsHelper.logError(null, logTag = LOG_TAG, functionName = "getArgumentsFromBundle()", message = "error retrieving arguments from bundle. exiting notes fragment.")
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
+                (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_homeFragment, null, navOptions)
+            }
         }
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun getNoteInfo() {
-        if (vm.houseId.value != null) {
-            vm.getNote(vm.houseId.value!!).observe(this, Observer { taskResult ->
+        vm.houseId.value?.let { hId ->
+            vm.getNote(hId).observe(this, Observer { taskResult ->
                 if (taskResult != null) {
                     with(vm) {
                         valueOne.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(0) as? String
                         valueTwo.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(1) as? String
                         valueThree.value = (taskResult["${DC.values}"] as? ArrayList<*>)?.get(2) as? String
-                        comments.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.comments}") as? String
-                        isValueOneChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value1}") as? Boolean
-                        isValueTwoChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value2}") as? Boolean
-                        isValueThreeChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(houseId.value)?.get("${DC.value3}") as? Boolean
+                        comments.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.comments}") as? String
+                        isValueOneChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value1}") as? Boolean
+                        isValueTwoChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value2}") as? Boolean
+                        isValueThreeChecked.value = (taskResult["${DC.notes}"] as? HashMap<String, HashMap<String, Any>>)?.get(hId)?.get("${DC.value3}") as? Boolean
                     }
                 }
             })
