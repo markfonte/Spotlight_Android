@@ -40,3 +40,25 @@ enum class UserState {
     ValuesNotSet,
     LoggedOut
 }
+
+/*
+    Database constants - for indexing into firebase database
+ */
+enum class DC {
+    are_values_set,
+    bid_house,
+    comments,
+    current_schedule,
+    current_ranking,
+    current_round,
+    house_images,
+    house_information,
+    notes,
+    panhel_data,
+    panhel_values,
+    users,
+    value1,
+    value2,
+    value3,
+    values
+}

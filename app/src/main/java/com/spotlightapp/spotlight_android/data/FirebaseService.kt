@@ -18,6 +18,7 @@ import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logEr
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.logErrorTask
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.resetCrashlyticsUserIdentifier
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper.Companion.setCrashlyticsUserIdentifier
+import com.spotlightapp.spotlight_android.util.DC
 import com.spotlightapp.spotlight_android.util.UserState
 import java.util.*
 import kotlin.collections.HashMap
@@ -76,7 +77,7 @@ class FirebaseService {
     fun attemptCreateAccount(email: String, password: String, displayName: String): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) { //do not sign them in yet
+            if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "attemptCreateAccount()", message = "successfully created user account with $email. setup required.")
                 setupNewAccount(displayName)
                 result.value = ""
@@ -176,9 +177,9 @@ class FirebaseService {
      */
     private fun setupNewAccount(displayName: String) {
         val newUserMap: MutableMap<String, Any> = HashMap()
-        newUserMap["are_values_set"] = false
-        newUserMap["bid_house"] = ""
-        newUserMap["current_round"] = 0
+        newUserMap["${DC.are_values_set}"] = false
+        newUserMap["${DC.bid_house}"] = ""
+        newUserMap["${DC.current_round}"] = 0
         overwriteUserInformation(newUserMap)
         updateDisplayName(displayName)
     }
@@ -197,7 +198,7 @@ class FirebaseService {
             state = UserState.EmailNotVerified
             result.value = state
         } else {
-            fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+            fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
                 if (e != null || snapshot == null || !snapshot.exists()) {
                     logErrorSnapshot(e, logTag = LOG_TAG, functionName = "validateUser()", message = "error retrieving user document snapshot for user values.")
                     state = UserState.LoggedOut
@@ -205,7 +206,7 @@ class FirebaseService {
                     return@EventListener
                 }
                 logDebug(logTag = LOG_TAG, functionName = "validateUser()", message = "successfully retrieved user document snapshot for user validation.")
-                result.value = if (snapshot.data?.get("are_values_set") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
+                result.value = if (snapshot.data?.get("${DC.are_values_set}") as Boolean) UserState.LoggedIn else UserState.ValuesNotSet
             })
         }
         return result
@@ -214,25 +215,25 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getUserValues(): MutableLiveData<ArrayList<String?>> {
         val result: MutableLiveData<ArrayList<String?>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
                 logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getUserValues()", message = "error retrieving user document snapshot for user values.")
                 result.value = arrayListOf()
                 return@EventListener
             }
             logDebug(logTag = LOG_TAG, functionName = "getUserValues()", message = "successfully retrieved user document snapshot for user values.")
-            result.value = snapshot.data?.get("values") as? ArrayList<String?>
+            result.value = snapshot.data?.get("${DC.values}") as? ArrayList<String?>
         })
         return result
     }
 
     fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         val result: MutableLiveData<Triple<Long?, Boolean, String?>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "getScheduleMetaData()", message = "successfully retrieved user document for user schedule.")
                 val userData = task.result?.data
-                result.value = Triple(userData?.get("current_round") as? Long?, userData?.get("current_schedule") != null, userData?.get("bid_house") as? String?)
+                result.value = Triple(userData?.get("${DC.current_round}") as? Long?, userData?.get("${DC.current_schedule}") != null, userData?.get("${DC.bid_house}") as? String?)
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getScheduleMetaData()", message = "error retrieving user document for user schedule.")
                 result.value = Triple(-1, false, "")
@@ -244,15 +245,14 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
                 logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getSchedule()", message = "error retrieving user document snapshot for schedule.")
                 result.value = hashMapOf()
                 return@EventListener
             }
             logDebug(logTag = LOG_TAG, functionName = "getSchedule()", message = "successfully retrieved user document snapshot for schedule.")
-
-            result.value = snapshot.data?.get("current_schedule") as? HashMap<String, HashMap<String, String>>
+            result.value = snapshot.data?.get("${DC.current_schedule}") as? HashMap<String, HashMap<String, String>>
                     ?: hashMapOf()
         })
         return result
@@ -261,14 +261,14 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
         val result: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
                 logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "error retrieving user document snapshot for current ranking.")
                 result.value = null
                 return@EventListener
             }
             logDebug(logTag = LOG_TAG, functionName = "getCurrentRanking()", message = "successfully retrieved user document for current ranking.")
-            result.value = snapshot.data?.get("current_ranking") as? HashMap<String, Int>
+            result.value = snapshot.data?.get("${DC.current_ranking}") as? HashMap<String, Int>
             return@EventListener
         })
         return result
@@ -277,14 +277,14 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getNotes(houseId: String): MutableLiveData<HashMap<String, Any>> {
         val result: MutableLiveData<HashMap<String, Any>> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null || snapshot == null || !snapshot.exists()) {
                 logErrorSnapshot(e, logTag = LOG_TAG, functionName = "getNotes()", message = "error retrieving notes snapshot at $houseId.")
                 result.value = null
                 return@EventListener
             }
             logDebug(logTag = LOG_TAG, functionName = "getNotes()", message = "successfully retrieved notes snapshot at $houseId.")
-            val notes = snapshot.data?.get("notes") as? HashMap<String, HashMap<String, Any>>
+            val notes = snapshot.data?.get("${DC.notes}") as? HashMap<String, HashMap<String, Any>>
             result.value = notes?.get(houseId)
             return@EventListener
         })
@@ -296,10 +296,10 @@ class FirebaseService {
      */
     fun getStaticPanhelValues(): MutableLiveData<ArrayList<*>> {
         val result: MutableLiveData<ArrayList<*>> = MutableLiveData()
-        fsDb.collection("panhel_data").document("panhel_values").get().addOnCompleteListener { task ->
+        fsDb.collection("${DC.panhel_data}").document("${DC.panhel_values}").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "getStaticPanhelValues()", message = "successfully retrieved document for panhel values.")
-                result.value = task.result?.data?.get("values") as? ArrayList<*>
+                result.value = task.result?.data?.get("${DC.values}") as? ArrayList<*>
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getStaticPanhelValues()", message = "error retrieving document for panhel values.")
                 result.value = arrayListOf<String>()
@@ -314,15 +314,10 @@ class FirebaseService {
     @Suppress("UNCHECKED_CAST")
     fun getStaticHouseData(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
         val result: MutableLiveData<HashMap<String, HashMap<String, String>>> = MutableLiveData()
-        fsDb.collection("panhel_data").document("house_information").get().addOnCompleteListener { task ->
+        fsDb.collection("${DC.panhel_data}").document("${DC.house_information}").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "getStaticHouseData()", message = "successfully retrieved document for static house data.")
-                val document: DocumentSnapshot = task.result!!
-                if (document.exists()) {
-                    result.value = document.data as? HashMap<String, HashMap<String, String>>
-                } else {
-                    result.value = null
-                }
+                result.value = task.result?.data as? HashMap<String, HashMap<String, String>>
             } else {
                 logErrorTask(task, logTag = LOG_TAG, functionName = "getStaticHouseData()", message = "error retrieving document for static house data.")
                 result.value = null
@@ -333,7 +328,7 @@ class FirebaseService {
 
     fun updateUserInformation(values: MutableMap<String, Any>): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(values)
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).update(values)
                 .addOnSuccessListener {
                     logDebug(logTag = LOG_TAG, functionName = "updateUserInformation()", message = "successfully updated user document with $values.")
                     result.value = ""
@@ -349,9 +344,9 @@ class FirebaseService {
         val result: MutableLiveData<String> = MutableLiveData()
         val rankingUpdatesMap = HashMap<String, Any>()
         for ((rankingKey, rankingValue) in updatedRanking) {
-            rankingUpdatesMap["current_ranking.$rankingKey"] = rankingValue
+            rankingUpdatesMap["${DC.current_ranking}.$rankingKey"] = rankingValue
         }
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).update(rankingUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "updateRanking()", message = "successfully updated user ranking with $updatedRanking.")
                 result.value = ""
@@ -365,11 +360,11 @@ class FirebaseService {
 
     fun updateNote(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
         val saveNoteUpdatesMap = HashMap<String, Any>()
-        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
-        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
-        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
-        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
-        val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.comments}"] = comments
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value1}"] = valueOne
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value2}"] = valueTwo
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value3}"] = valueThree
+        val userDoc = fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "updateNote()", message = "successfully updated note for house $houseId in user notes.")
@@ -382,21 +377,21 @@ class FirebaseService {
     fun submitNote(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
         val saveNoteUpdatesMap = HashMap<String, Any>()
-        saveNoteUpdatesMap["notes.$houseId.comments"] = comments
-        saveNoteUpdatesMap["notes.$houseId.value1"] = valueOne
-        saveNoteUpdatesMap["notes.$houseId.value2"] = valueTwo
-        saveNoteUpdatesMap["notes.$houseId.value3"] = valueThree
-        val userDoc = fsDb.collection("users").document(mAuth?.currentUser?.uid!!)
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.comments}"] = comments
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value1}"] = valueOne
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value2}"] = valueTwo
+        saveNoteUpdatesMap["${DC.notes}.$houseId.${DC.value3}"] = valueThree
+        val userDoc = fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!)
         userDoc.update(saveNoteUpdatesMap).addOnCompleteListener { task1 ->
             if (task1.isSuccessful) {
                 logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully saved notes for house $houseId to user notes.")
                 val rankingUpdatesMap = HashMap<String, Any>()
-                rankingUpdatesMap["current_ranking.$houseId"] = -1
+                rankingUpdatesMap["${DC.current_ranking}.$houseId"] = -1
                 userDoc.update(rankingUpdatesMap).addOnCompleteListener { task2 ->
                     if (task2.isSuccessful) {
                         logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully added house $houseId to user ranking.")
                         val removeIndexUpdatesMap = HashMap<String, Any>()
-                        removeIndexUpdatesMap["current_schedule.$houseIndex"] = FieldValue.delete()
+                        removeIndexUpdatesMap["${DC.current_schedule}.$houseIndex"] = FieldValue.delete()
                         userDoc.update(removeIndexUpdatesMap).addOnCompleteListener { task3 ->
                             if (task3.isSuccessful) {
                                 logDebug(logTag = LOG_TAG, functionName = "submitNote()", message = "successfully removed house $houseId from user schedule.")
@@ -421,7 +416,7 @@ class FirebaseService {
 
     private fun overwriteUserInformation(values: MutableMap<String, Any>): LiveData<String> {
         val result: MutableLiveData<String> = MutableLiveData()
-        fsDb.collection("users").document(mAuth?.currentUser?.uid!!).set(values)
+        fsDb.collection("${DC.users}").document(mAuth?.currentUser?.uid!!).set(values)
                 .addOnSuccessListener {
                     logDebug(logTag = LOG_TAG, functionName = "overwriteUserInformation()", message = "successfully overwrote user document with $values.")
                     result.value = ""
@@ -438,7 +433,7 @@ class FirebaseService {
      */
 
     fun getStaticHouseImageReference(fileName: String): StorageReference {
-        return storage.reference.child("house_images").child("$fileName.jpg")
+        return storage.reference.child("${DC.house_images}").child("$fileName.jpg")
     }
 
     companion object {
