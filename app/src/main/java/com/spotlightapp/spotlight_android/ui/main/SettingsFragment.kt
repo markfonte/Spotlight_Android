@@ -201,7 +201,7 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).validateUser().observe(this, Observer { userState ->
+        (activity as? MainActivity)?.validateUser()?.observe(this, Observer { userState ->
             if (userState == enumValueOf<UserState>(UserState.ValuesNotSet.toString())) {
                 (activity as MainActivity).navController.navigate(R.id.action_settingsFragment_to_onboardingFragment, null)
                 vm.setBottomNavVisibility(false)
