@@ -30,7 +30,6 @@ class ScheduleFragment : Fragment() {
         arguments?.takeIf { it.containsKey("${BA.SchedulePagePosition}") }?.apply {
             vm.position = getInt("${BA.SchedulePagePosition}")
             vm.displayMode = getInt("${BA.ScheduleDisplayMode}")
-            vm.bidHouse = getString("${BA.ScheduleBidHouse}")
             vm.currentRoundName = when (getLong("${BA.ScheduleCurrentRound}").toInt()) {
                 0 -> RoundTitles().FIRST_ROUND_DISPLAY_TITLE
                 1 -> RoundTitles().SECOND_ROUND_DISPLAY_TITLE

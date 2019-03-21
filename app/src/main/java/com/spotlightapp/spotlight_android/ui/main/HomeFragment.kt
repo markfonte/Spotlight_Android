@@ -39,8 +39,11 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                         CrashlyticsHelper.logError(exception = null, logTag = LOG_TAG, functionName = "onViewCreated()", message = "error in getScheduleMetaData() task. logging out user.")
                         (activity as MainActivity).logout()
                     } else {
+                        if (result.third!! != "") { //bid has been given out
+                            //Do not populate screen with schedules
+                        }
                         vm.scheduleViewPager = schedule_view_pager
-                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second, bidHouse = result.third!!)
+                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second)
                         vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
                         vm.scheduleViewPager?.offscreenPageLimit = 4
                         tab_layout.setupWithViewPager(vm.scheduleViewPager, true)

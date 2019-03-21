@@ -9,12 +9,10 @@ import com.spotlightapp.spotlight_android.util.BA
 import com.spotlightapp.spotlight_android.util.RoundTitles
 import com.spotlightapp.spotlight_android.util.ScheduleDisplayMode
 
-class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long, private val scheduleExists: Boolean, private val bidHouse: String) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long, private val scheduleExists: Boolean) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = ScheduleFragment()
-        val displayMode: Int = if (bidHouse != "" && position == 3) {
-            ScheduleDisplayMode().DISPLAY_BID
-        } else if (!scheduleExists && bidHouse == "") { //displays the behind text if bid is present and are currently behind position 3
+        val displayMode: Int = if (!scheduleExists) {
             ScheduleDisplayMode().DISPLAY_NO_SCHEDULES
         } else if (currentRound.toInt() == position) {
             ScheduleDisplayMode().DISPLAY_CURRENT_SCHEDULE
@@ -26,7 +24,6 @@ class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long,
         fragment.arguments = Bundle().apply {
             putInt("${BA.SchedulePagePosition}", position)
             putInt("${BA.ScheduleDisplayMode}", displayMode)
-            putString("${BA.ScheduleBidHouse}", bidHouse)
             putLong("${BA.ScheduleCurrentRound}", currentRound)
         }
         return fragment
