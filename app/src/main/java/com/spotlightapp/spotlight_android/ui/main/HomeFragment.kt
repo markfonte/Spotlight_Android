@@ -11,6 +11,7 @@ import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.SchedulePagerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentHomeBinding
 import com.spotlightapp.spotlight_android.util.CrashlyticsHelper
+import com.spotlightapp.spotlight_android.util.GlideApp
 import com.spotlightapp.spotlight_android.util.InjectorUtils
 import com.spotlightapp.spotlight_android.util.UserState
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -79,10 +80,17 @@ class HomeFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun displayBidScreen(houseId: String) {
-        vm.bidHouse.value = houseId
-        bidScreen = true
-        vm.setAppBarVisibility(false)
-        vm.setBottomNavVisibility(true)
+        vm.staticHouseData.observe(this, Observer { staticHouseData ->
+            vm.houseDisplayName.value = staticHouseData[houseId]?.get("display_name")
+            vm.houseGreekLetters.value = staticHouseData[houseId]?.get("greek_letters")
+            GlideApp.with(context!!)
+                    .load(vm.getStaticHouseImageReference(houseId))
+                    .into(bid_screen_house_image)
+            vm.bidHouse.value = houseId
+            bidScreen = true
+            vm.setAppBarVisibility(false)
+            vm.setBottomNavVisibility(true)
+        })
     }
 
     companion object {
