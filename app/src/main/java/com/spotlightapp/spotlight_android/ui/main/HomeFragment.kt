@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var vm: HomeViewModel
+    private var bidScreen = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory: HomeViewModelFactory = InjectorUtils.provideHomeViewModelFactory()
@@ -40,8 +41,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                         (activity as MainActivity).logout()
                     } else {
                         if (result.third!! != "") { //bid has been given out
-                            vm.bidHouse = result.third
-                            vm.setAppBarVisibility(false)
+                            displayBidScreen(result.third!!)
                         } else {
                             vm.scheduleViewPager = schedule_view_pager
                             vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second)
@@ -65,12 +65,24 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                 return@Observer
             }
             if (userState == enumValueOf<UserState>(UserState.LoggedIn.toString())) {
+                if (bidScreen) {
+                    vm.setBottomNavVisibility(true)
+                    vm.setAppBarVisibility(false)
+                    return@Observer
+                }
                 vm.setBottomNavVisibility(true)
                 vm.setAppBarVisibility(true)
                 return@Observer
             }
             assert(userState == enumValueOf<UserState>(UserState.LoggedOut.toString()) || userState == enumValueOf<UserState>(UserState.EmailNotVerified.toString()))
         })
+    }
+
+    private fun displayBidScreen(houseId: String) {
+        vm.bidHouse.value = houseId
+        bidScreen = true
+        vm.setAppBarVisibility(false)
+        vm.setBottomNavVisibility(true)
     }
 
     companion object {
