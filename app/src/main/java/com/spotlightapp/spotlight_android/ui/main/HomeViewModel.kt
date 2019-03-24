@@ -8,6 +8,7 @@ import com.spotlightapp.spotlight_android.data.MainRepository
 class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     var staticHouseData: MutableLiveData<HashMap<String, HashMap<String, String>>> = mainRepository.staticHouseData
     var scheduleViewPager: ViewPager? = null
+    var bidHouse: String? = null
 
     fun setAppBarVisibility(makeVisible: Boolean) {
         mainRepository.isAppBarVisible.value = makeVisible

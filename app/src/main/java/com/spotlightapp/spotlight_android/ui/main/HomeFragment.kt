@@ -40,13 +40,14 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                         (activity as MainActivity).logout()
                     } else {
                         if (result.third!! != "") { //bid has been given out
-                            //Do not populate screen with schedules
+                            vm.bidHouse = result.third
+                        } else {
+                            vm.scheduleViewPager = schedule_view_pager
+                            vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second)
+                            vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
+                            vm.scheduleViewPager?.offscreenPageLimit = 4
+                            tab_layout.setupWithViewPager(vm.scheduleViewPager, true)
                         }
-                        vm.scheduleViewPager = schedule_view_pager
-                        vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second)
-                        vm.scheduleViewPager?.currentItem = result.first?.toInt()!!
-                        vm.scheduleViewPager?.offscreenPageLimit = 4
-                        tab_layout.setupWithViewPager(vm.scheduleViewPager, true)
                     }
                 })
             }

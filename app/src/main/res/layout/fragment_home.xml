@@ -11,40 +11,109 @@
             type="com.spotlightapp.spotlight_android.ui.main.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tabMode="scrollable"
-            app:tabTextAppearance="@style/NoTextAllCaps"
-            app:tabTextColor="@color/colorTextDefault">
+            android:layout_height="wrap_content">
 
-        </com.google.android.material.tabs.TabLayout>
+            <!-- Bid Screen Elements -->
+            <TextView
+                android:id="@+id/bid_screen_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Congratulations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/schedule_view_pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+            <TextView
+                android:id="@+id/bid_screen_display_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="House Display Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_screen_title" />
 
-        </androidx.viewpager.widget.ViewPager>
+            <TextView
+                android:id="@+id/bid_screen_greek_letters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="House Greek Letters"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_screen_display_name" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bid_screen_house_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:adjustViewBounds="true"
+                android:foregroundGravity="center"
+                android:maxHeight="200dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="H, 16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_screen_greek_letters" />
+
+            <TextView
+                android:id="@+id/bid_screen_message_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Congrats on your bid!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_screen_house_image" />
+
+            <TextView
+                android:id="@+id/bid_screen_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please be at the house by 1:00PM for bid day and wear blue jeans and a cute bralette!"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_screen_message_title" />
+
+            <!-- End Bid Screen Elements -->
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabMode="scrollable"
+                app:tabTextAppearance="@style/NoTextAllCaps"
+                app:tabTextColor="@color/colorTextDefault">
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/schedule_view_pager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+            </androidx.viewpager.widget.ViewPager>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>
