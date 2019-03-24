@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.spotlightapp.spotlight_android.ui.main.HomeViewModel" />
@@ -21,11 +23,13 @@
             android:layout_height="wrap_content">
 
             <!-- Bid Screen Elements -->
+
             <TextView
                 android:id="@+id/bid_screen_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Congratulations"
+                android:text="@string/bid_screen_title_text"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +38,8 @@
                 android:id="@+id/bid_screen_display_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="House Display Name"
+                android:text="@string/bid_screen_display_name_text_default"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bid_screen_title" />
@@ -43,7 +48,8 @@
                 android:id="@+id/bid_screen_greek_letters"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="House Greek Letters"
+                android:text="@string/bid_screen_greek_letters_text_default"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bid_screen_display_name" />
@@ -57,6 +63,7 @@
                 android:foregroundGravity="center"
                 android:maxHeight="200dp"
                 android:scaleType="fitCenter"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintDimensionRatio="H, 16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +73,8 @@
                 android:id="@+id/bid_screen_message_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Congrats on your bid!"
+                android:text="@string/bid_screen_message_title_text"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bid_screen_house_image" />
@@ -75,7 +83,8 @@
                 android:id="@+id/bid_screen_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Please be at the house by 1:00PM for bid day and wear blue jeans and a cute bralette!"
+                android:text="@string/bid_screen_message_text"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +99,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="@{viewModel.bidHouse == null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -106,6 +116,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:visibility="@{viewModel.bidHouse == null ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +125,7 @@
             </androidx.viewpager.widget.ViewPager>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
 </layout>

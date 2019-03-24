@@ -60,4 +60,9 @@
     <string name="content_desc_landing_spotlight_logo">Landing Fragment Spotlight Logo</string>
     <string name="ranking_title_text">Current Ranking</string>
     <string name="ranking_no_data_prompt_text">You currently do not have any houses saved to be ranked. Your houses will appear here once you have saved your comments on the schedule screen.</string>
+    <string name="bid_screen_title_text">Congratulations</string>
+    <string name="bid_screen_display_name_text_default">House Display Name</string>
+    <string name="bid_screen_greek_letters_text_default">House Greek Letters</string>
+    <string name="bid_screen_message_title_text">Congrats on your bid!</string>
+    <string name="bid_screen_message_text">Please be at the house by 1:00PM for bid day and wear blue jeans and a cute bralette!</string>
 </resources>

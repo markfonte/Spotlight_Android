@@ -41,6 +41,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                     } else {
                         if (result.third!! != "") { //bid has been given out
                             vm.bidHouse = result.third
+                            vm.setAppBarVisibility(false)
                         } else {
                             vm.scheduleViewPager = schedule_view_pager
                             vm.scheduleViewPager?.adapter = SchedulePagerAdapter(childFragmentManager, currentRound = result.first!!, scheduleExists = result.second)
