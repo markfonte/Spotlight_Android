@@ -29,4 +29,8 @@ class HomeViewModel(private val mainRepository: MainRepository) : ViewModel() {
     fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
         return mainRepository.getScheduleMetaData()
     }
+
+    fun logout(): MutableLiveData<String> {
+        return mainRepository.accountsLogout()
+    }
 }

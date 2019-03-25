@@ -1,12 +1,14 @@
 package com.spotlightapp.spotlight_android.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import com.spotlightapp.spotlight_android.R
 import com.spotlightapp.spotlight_android.adapter.SchedulePagerAdapter
 import com.spotlightapp.spotlight_android.databinding.FragmentHomeBinding
@@ -67,7 +69,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             }
             if (userState == enumValueOf<UserState>(UserState.LoggedIn.toString())) {
                 if (bidScreen) {
-                    vm.setBottomNavVisibility(true)
+                    vm.setBottomNavVisibility(false)
                     vm.setAppBarVisibility(false)
                     return@Observer
                 }
@@ -88,8 +90,21 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                     .into(bid_screen_house_image)
             vm.bidHouse.value = houseId
             bidScreen = true
+            bid_screen_log_out_button.setOnClickListener {
+                vm.logout().observe(this, Observer { logoutResult ->
+                    run {
+                        if (logoutResult == "") {
+                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
+                            (activity as? MainActivity)?.navController?.navigate(R.id.action_homeFragment_to_landingFragment, null, navOptions)
+                        } else {
+                            Log.e(LOG_TAG, "This should never happen. Fix IMMEDIATELY if this error occurs.")
+                            activity?.finish()
+                        }
+                    }
+                })
+            }
             vm.setAppBarVisibility(false)
-            vm.setBottomNavVisibility(true)
+            vm.setBottomNavVisibility(false)
         })
     }
 

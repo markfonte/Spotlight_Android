@@ -65,4 +65,5 @@
     <string name="bid_screen_greek_letters_text_default">House Greek Letters</string>
     <string name="bid_screen_message_title_text">Congrats on your bid!</string>
     <string name="bid_screen_message_text">Please be at the house by 1:00PM for bid day and wear blue jeans and a cute bralette!</string>
+    <string name="content_desc_bid_screen_log_out_button">Logout button for bid house screen</string>
 </resources>

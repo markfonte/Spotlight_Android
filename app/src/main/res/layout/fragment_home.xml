@@ -45,9 +45,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
-                android:paddingTop="@dimen/dimen_padding_large"
                 android:fontFamily="@font/savoye_let_plain"
                 android:gravity="center"
+                android:paddingTop="@dimen/dimen_padding_large"
                 android:text="@{viewModel.houseDisplayName}"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textSize="64sp"
@@ -115,6 +115,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bid_screen_message_title" />
+
+            <ImageButton
+                android:id="@+id/bid_screen_log_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_desc_bid_screen_log_out_button"
+                android:src="@drawable/ic_exit_to_app_purple_24dp"
+                android:visibility="@{viewModel.bidHouse != null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- End Bid Screen Elements -->
 

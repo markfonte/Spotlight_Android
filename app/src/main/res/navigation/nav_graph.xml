@@ -52,6 +52,9 @@
             app:exitAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_out_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
