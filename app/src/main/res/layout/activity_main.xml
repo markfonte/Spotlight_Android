@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_main_toolbar_image_content_description"
+                    android:contentDescription="@string/content_desc_app_main_toolbar_image"
                     android:src="@drawable/spotlight_logo_white" />
 
             </androidx.appcompat.widget.Toolbar>

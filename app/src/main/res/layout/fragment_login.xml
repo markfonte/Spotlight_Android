@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_standard"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/login_main_title_content_description"
+                android:contentDescription="@string/content_desc_login_main_title"
                 android:gravity="center"
                 android:src="@drawable/spotlight_logo_purple"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
