@@ -48,6 +48,10 @@ class NotesFragment : Fragment() {
                 notes_submit_button.setOnClickListener {
                     showConfirmPopup()
                 }
+            } else {
+                notes_ok_button.setOnClickListener {
+                    exitToRankingFragment()
+                }
             }
         }
     }
@@ -133,9 +137,8 @@ class NotesFragment : Fragment() {
                 if (!vm.isNoteLocked.value!!) { // Sanity check at worst
                     vm.performDatabaseChangesForNoteSubmission(vm.houseIndex.value!!, vm.houseId.value!!, notes_enter_comments.text.toString(), notes_value_one.isChecked, notes_value_two.isChecked, notes_value_three.isChecked).observe(this, Observer { error ->
                         if (error == "") {
-                            val navOptions = NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
-                            (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions)
                             SystemUtils.hideKeyboardForced(context, it)
+                            exitToRankingFragment()
                             alertDialog.dismiss()
                         } else {
                             Log.e(LOG_TAG, "Error performing database changes for note submission. Fix immediately: $error")
@@ -145,6 +148,14 @@ class NotesFragment : Fragment() {
             }
         }
         alertDialog.show()
+    }
+
+    private fun exitToRankingFragment() {
+        val navOptions = NavOptions.Builder()
+        navOptions.setPopUpTo(R.id.homeFragment, false)
+        navOptions.setEnterAnim(android.R.anim.fade_in)
+        navOptions.setExitAnim(android.R.anim.fade_out)
+        (activity as MainActivity).navController.navigate(R.id.action_notesFragment_to_rankingFragment, null, navOptions.build())
     }
 
     companion object {

@@ -4,15 +4,25 @@
     android:id="@+id/ranking_row_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_extra_large"
+    android:layout_marginBottom="12dp"
     android:clickable="true"
     android:focusable="true">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layerType="software"
+        android:src="@drawable/dotted_line"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/ranking_button_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:background="@drawable/background_recycler_row"
         android:gravity="center"
         android:orientation="vertical"
