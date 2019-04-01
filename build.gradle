@@ -7,7 +7,7 @@ buildscript {
         firebaseAuthVersion = '16.2.0'
         firebaseCoreVersion = '16.0.8'
         firebaseCrashlyticsVersion = '2.9.9'
-        firebaseFirestoreVersion = '18.1.0'
+        firebaseFirestoreVersion = '18.2.0'
         firebasePerformanceVersion = '16.2.4'
         firebasePluginsVersion = '1.1.5'
         firebaseUIVersion = '4.1.0'
