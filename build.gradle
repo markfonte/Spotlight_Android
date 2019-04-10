@@ -2,13 +2,13 @@ buildscript {
 
     ext {
         androidXSupportLibraryVersion = '1.0.2'
-        constraintLayoutVersion = '2.0.0-alpha3'
+        constraintLayoutVersion = '2.0.0-alpha4'
         fabricVersion = '1.26.1'
-        firebaseAuthVersion = '16.2.0'
+        firebaseAuthVersion = '16.2.1'
         firebaseCoreVersion = '16.0.8'
         firebaseCrashlyticsVersion = '2.9.9'
         firebaseFirestoreVersion = '18.2.0'
-        firebasePerformanceVersion = '16.2.4'
+        firebasePerformanceVersion = '16.2.5'
         firebasePluginsVersion = '1.1.5'
         firebaseUIVersion = '4.1.0'
         glideVersion = '4.8.0'
@@ -22,7 +22,7 @@ buildscript {
         playServicesAuthVersion = '16.0.1'
         roomVersion = '2.0.0'
         supportLibraryVersion = '1.0.0'
-        workVersion = '1.0.0'
+        workVersion = '1.0.1'
     }
 
     repositories {
