@@ -3,7 +3,7 @@ buildscript {
     ext {
         androidXSupportLibraryVersion = '1.0.2'
         constraintLayoutVersion = '2.0.0-beta1'
-        fabricVersion = '1.26.1'
+        fabricVersion = '1.29.0'
         firebaseAuthVersion = '17.0.0'
         firebaseCoreVersion = '16.0.9'
         firebaseCrashlyticsVersion = '2.10.1'

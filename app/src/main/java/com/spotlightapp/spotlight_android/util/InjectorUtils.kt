@@ -24,10 +24,7 @@ object InjectorUtils {
         return SignUpViewModelFactory(repository)
     }
 
-    fun provideLandingViewModelFactory(): LandingViewModelFactory {
-        val repository: MainRepository = getMainRepositorySingleton()
-        return LandingViewModelFactory()
-    }
+    fun provideLandingViewModelFactory(): LandingViewModelFactory = LandingViewModelFactory()
 
     fun provideMainActivityViewModelFactory(): MainActivityViewModelFactory {
         val repository: MainRepository = getMainRepositorySingleton()
