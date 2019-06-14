@@ -40,10 +40,6 @@ class MainRepository {
         return firebaseService.updateUserInformation(values)
     }
 
-    fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
-        return firebaseService.getSchedule()
-    }
-
     fun getDisplayName(): MutableLiveData<String> {
         return firebaseService.getDisplayName()
     }
@@ -76,29 +72,52 @@ class MainRepository {
         return firebaseService.getStaticHouseImageReference(fileName)
     }
 
-    fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
-        return firebaseService.getScheduleMetaData()
-    }
 
-    fun updateNoteInfo(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
-        return firebaseService.updateNote(houseId, comments, valueOne, valueTwo, valueThree)
-    }
+    /**
+     * CHOPPING BLOCK
+     */
 
-    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
-        return firebaseService.submitNote(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
-    }
-
-    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
-        return firebaseService.getCurrentRanking()
-    }
-
+    // Notes
     fun getNote(houseId: String): MutableLiveData<HashMap<String, Any>> {
         return firebaseService.getNote(houseId)
     }
 
+    // Notes
+    fun updateNoteInfo(houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean) {
+        return firebaseService.updateNote(houseId, comments, valueOne, valueTwo, valueThree)
+    }
+
+    // Schedule
+    fun getScheduleMetaData(): MutableLiveData<Triple<Long?, Boolean, String?>> {
+        return firebaseService.getScheduleMetaData()
+    }
+
+    // Schedule
+    fun getSchedule(): MutableLiveData<HashMap<String, HashMap<String, String>>> {
+        return firebaseService.getSchedule()
+    }
+
+    // TODO: Also add set schedule method
+
+    // Ranking
+    fun getCurrentRanking(): MutableLiveData<HashMap<String, Int>> {
+        return firebaseService.getCurrentRanking()
+    }
+
+    // Ranking
     fun updateRanking(updatedRanking: HashMap<String, Int>): MutableLiveData<String> {
         return firebaseService.updateRanking(updatedRanking)
     }
+
+    // Multiple
+    fun performDatabaseChangesForNoteSubmission(houseIndex: String, houseId: String, comments: String, valueOne: Boolean, valueTwo: Boolean, valueThree: Boolean): MutableLiveData<String> {
+        return firebaseService.submitNote(houseIndex, houseId, comments, valueOne, valueTwo, valueThree)
+    }
+
+    /**
+     * END CHOPPING BLOCK
+     */
+
 
     companion object {
 
