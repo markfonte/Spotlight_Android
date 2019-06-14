@@ -6,7 +6,7 @@ import androidx.room.InvalidationTracker
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 
-@Database(entities = [Notes::class], version = 1, exportSchema = false)
+@Database(entities = [Notes::class, Schedule::class], version = 1, exportSchema = false)
 class AppDatabase : RoomDatabase() {
     override fun createOpenHelper(config: DatabaseConfiguration?): SupportSQLiteOpenHelper {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
