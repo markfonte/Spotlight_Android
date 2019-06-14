@@ -1,5 +1,7 @@
 package com.spotlightapp.spotlight_android.util
 
+const val DATABASE_NAME = "spotlight-db"
+
 data class RankingDatum(
         var DisplayName: String?,
         var GreekLetters: String?,

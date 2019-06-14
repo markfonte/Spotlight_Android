@@ -22,7 +22,7 @@ buildscript {
         playServicesAuthVersion = '16.0.1'
         roomVersion = '2.0.0'
         supportLibraryVersion = '1.0.0'
-        workVersion = '1.0.1'
+        workVersion = '2.0.1'
     }
 
     repositories {

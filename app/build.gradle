@@ -43,7 +43,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-auth:$rootProject.playServicesAuthVersion"
     implementation "android.arch.navigation:navigation-fragment:$rootProject.navigationVersion"
     implementation "android.arch.navigation:navigation-ui:$rootProject.navigationVersion"
-    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.androidXSupportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"

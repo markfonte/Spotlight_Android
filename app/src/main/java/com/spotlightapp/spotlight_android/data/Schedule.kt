@@ -2,6 +2,7 @@ package com.spotlightapp.spotlight_android.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 /**
@@ -26,10 +27,12 @@ import androidx.room.PrimaryKey
  *      }
  * }
  */
-@Entity(tableName = "notes")
+@Entity(tableName = "schedule")
 data class Schedule(
         @PrimaryKey @ColumnInfo(name = "id") val index: Int,
-        val schedule: HashMap<String, String>
-) {
-    override fun toString() = schedule.toString()
+        val date: String,
+        val houseId: String,
+        val time: String
+        ) {
+    override fun toString() = "$houseId : $date : $time"
 }
