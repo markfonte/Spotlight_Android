@@ -20,7 +20,7 @@ buildscript {
         lifecycleVersion = '2.0.0'
         navigationVersion = '1.0.0'
         playServicesAuthVersion = '16.0.1'
-        roomVersion = '2.0.0'
+        roomVersion = '2.1.0'
         supportLibraryVersion = '1.0.0'
         workVersion = '2.0.1'
     }
