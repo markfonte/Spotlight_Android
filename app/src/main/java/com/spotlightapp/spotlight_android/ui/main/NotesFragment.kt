@@ -37,7 +37,7 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getArgumentsFromBundle()
-        loadHouseImage()
+        // loadHouseImage()
         getNoteInfo()
 
         notes_street_address.setOnClickListener {
@@ -68,13 +68,13 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private fun loadHouseImage() {
-        vm.houseId.value?.let { houseId ->
-            GlideApp.with(context!!)
-                    .load(vm.getStaticHouseImageReference(houseId))
-                    .into(notes_house_image)
-        }
-    }
+//    private fun loadHouseImage() {
+////        vm.houseId.value?.let { houseId ->
+////            GlideApp.with(context!!)
+////                    .load(vm.getStaticHouseImageReference(houseId))
+////                    .into(notes_house_image)
+////        }
+////    }
 
     private fun launchGoogleMapsActivity() {
         //documentation: https://developers.google.com/maps/documentation/urls/android-intents
