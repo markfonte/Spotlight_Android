@@ -9,7 +9,7 @@ import com.spotlightapp.spotlight_android.util.BA
 import com.spotlightapp.spotlight_android.util.RoundTitles
 import com.spotlightapp.spotlight_android.util.ScheduleDisplayMode
 
-class SchedulePagerAdapter(fm: FragmentManager?, private val currentRound: Long, private val scheduleExists: Boolean) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager, private val currentRound: Long, private val scheduleExists: Boolean) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment = ScheduleFragment()
         val displayMode: Int = if (!scheduleExists) {
